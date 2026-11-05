@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}Suivi des frais scolaires{% endblock %}
+{% block page_title %}Suivi des frais scolaires{% endblock %}
+{% block topbar_actions %}
+<a href="{% url 'attendance_payments:paiement_create' %}" class="btn btn-primary btn-sm"><i class="bi bi-cash me-1"></i>Enregistrer un paiement</a>
+{% endblock %}
+
+{% block content %}
+<div class="table-card mb-3 p-3">
+  <form method="get" class="d-flex gap-2 align-items-center">
+    <label class="form-label mb-0 small fw-semibold">Année :</label>
+    <select name="annee" class="form-select form-select-sm" style="width:auto;" onchange="this.form.submit()">
+      <option value="">Toutes</option>
+      {% for a in annees %}<option value="{{ a.pk }}" {% if annee_active == a.pk|stringformat:"s" %}selected{% endif %}>{{ a.libelle }}</option>{% endfor %}
+    </select>
+    {% if annee_active %}<a href="{% url 'attendance_payments:suivi_paiements' %}" class="btn btn-sm btn-outline-secondary">×</a>{% endif %}
+  </form>
+</div>
+
+<div class="table-card">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead>
+        <tr>
+          <th>Élève</th><th>Classe</th><th>Année</th>
+          <th>Frais totaux</th><th>Payé</th><th>Solde</th><th>Statut</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ins in inscriptions %}
+        <tr>
+          <td>
+            <a href="{% url 'students:eleve_detail' ins.eleve.pk %}" class="fw-semibold text-decoration-none">
+              {{ ins.eleve.nom_complet }}
+            </a>
+          </td>
+          <td>{{ ins.classe.nom }}</td>
+          <td>{{ ins.annee_scolaire.libelle }}</td>
+          <td>{{ ins.frais_scolarite|floatformat:0 }} FCFA</td>
+          <td class="text-success fw-semibold">{{ ins.montant_paye|floatformat:0 }} FCFA</td>
+          <td class="{% if ins.solde_restant <= 0 %}text-success{% else %}text-danger{% endif %} fw-semibold">
+            {{ ins.solde_restant|floatformat:0 }} FCFA
+          </td>
+          <td>
+            {% if ins.est_a_jour %}
+              <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>À jour</span>
+            {% else %}
+              <span class="badge bg-danger"><i class="bi bi-exclamation-circle me-1"></i>En retard</span>
+            {% endif %}
+          </td>
+          <td>
+            <div class="d-flex gap-1">
+              <a href="{% url 'attendance_payments:paiement_create' %}" class="btn btn-sm btn-outline-success" title="Enregistrer paiement">
+                <i class="bi bi-plus-circle"></i>
+              </a>
+              {% if not ins.est_a_jour %}
+              <a href="{% url 'attendance_payments:relance_paiement' ins.pk %}" class="btn btn-sm btn-outline-warning" title="Envoyer relance">
+                <i class="bi bi-envelope-exclamation"></i>
+              </a>
+              {% endif %}
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8" class="text-center text-muted py-4">Aucune inscription active.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+

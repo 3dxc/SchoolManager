@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Affectations{% endblock %}
+{% block page_title %}Affectations enseignants{% endblock %}
+{% block topbar_actions %}
+<a href="{% url 'academics:affectation_create' %}" class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>Nouvelle affectation</a>
+{% endblock %}
+
+{% block content %}
+<div class="table-card mb-3 p-3">
+  <form method="get" class="d-flex gap-2 align-items-center">
+    <label class="form-label mb-0 small fw-semibold">Année :</label>
+    <select name="annee" class="form-select form-select-sm" style="width:auto;" onchange="this.form.submit()">
+      <option value="">Toutes</option>
+      {% for a in annees %}<option value="{{ a.pk }}" {% if annee_active == a.pk|stringformat:"s" %}selected{% endif %}>{{ a.libelle }}</option>{% endfor %}
+    </select>
+    {% if annee_active %}<a href="{% url 'academics:affectation_list' %}" class="btn btn-sm btn-outline-secondary">×</a>{% endif %}
+  </form>
+</div>
+<div class="table-card">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead><tr><th>Enseignant</th><th>Matière</th><th>Classe</th><th>Année scolaire</th><th></th></tr></thead>
+      <tbody>
+        {% for a in affectations %}
+        <tr>
+          <td class="fw-semibold">{{ a.enseignant }}</td>
+          <td><span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25">{{ a.matiere }}</span></td>
+          <td>{{ a.classe }}</td>
+          <td>{{ a.annee_scolaire.libelle }}</td>
+          <td class="text-end">
+            <a href="{% url 'academics:affectation_delete' a.pk %}" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="text-center text-muted py-4">Aucune affectation.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+

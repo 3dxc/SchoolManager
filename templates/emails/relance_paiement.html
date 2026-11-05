@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f6f9; color: #2d3748; margin: 0; padding: 20px; }
+    .card { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
+    .header { background: linear-gradient(135deg, #1a3c5e, #2563a8); color: #ffffff; padding: 24px; text-align: center; }
+    .content { padding: 30px; font-size: 15px; line-height: 1.6; }
+    .box-info { background: #f8fafc; border-left: 4px solid #c0392b; border-radius: 6px; padding: 16px; margin: 20px 0; }
+    .box-info p { margin: 6px 0; }
+    .highlight { color: #c0392b; font-weight: bold; font-size: 1.1em; }
+    .footer { background: #edf2f7; padding: 16px; text-align: center; font-size: 12px; color: #718096; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h2 style="margin: 0; font-size: 22px;">{{ etablissement.nom }}</h2>
+      <p style="margin: 5px 0 0; opacity: 0.85; font-size: 13px;">Direction des Affaires Financières & Intendance</p>
+    </div>
+    <div class="content">
+      <p>Chère Madame, Cher Monsieur <strong>{{ parent.nom }}</strong>,</p>
+
+      <p>Nous vous adressons cet e-mail concernant la scolarité de votre enfant <strong>{{ eleve.nom_complet }}</strong> (Classe de <strong>{{ classe.nom }}</strong>) pour l'année scolaire <strong>{{ annee_scolaire.libelle }}</strong>.</p>
+
+      <div class="box-info">
+        <p><strong>Élève :</strong> {{ eleve.nom_complet }} (Matricule : <code>{{ eleve.matricule }}</code>)</p>
+        <p><strong>Frais de scolarité totaux :</strong> {{ inscription.frais_scolarite|floatformat:0 }} FCFA</p>
+        <p><strong>Montant déjà acquitté :</strong> {{ inscription.montant_paye|floatformat:0 }} FCFA</p>
+        <p><strong>Solde restant dû :</strong> <span class="highlight">{{ inscription.solde_restant|floatformat:0 }} FCFA</span></p>
+        {% if date_echeance %}<p><strong>Date d'échéance :</strong> {{ date_echeance }}</p>{% endif %}
+      </div>
+
+      <p>Nous vous remercions de bien vouloir régulariser cette situation auprès du guichet de l'intendance ou par transfert bancaire/mobile en mentionnant le matricule de l'élève en référence.</p>
+
+      <p>Si votre versement a été effectué très récemment, veuillez ignorer cette notification.</p>
+
+      <p style="margin-top: 25px;">
+        Bien cordialement,<br>
+        <strong>Le Service Financier</strong><br>
+        {{ etablissement.nom }}<br>
+        <small style="color: #718096;">Tél : {{ etablissement.telephone|default:"Non renseigné" }} | Email : {{ etablissement.email|default:"Non renseigné" }}</small>
+      </p>
+    </div>
+    <div class="footer">
+      Message automatique généré par la plateforme SchoolManager &copy; {% now "Y" %}
+    </div>
+  </div>
+</body>
+</html>
+

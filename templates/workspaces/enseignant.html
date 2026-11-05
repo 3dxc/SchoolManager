@@ -1,0 +1,266 @@
+{% extends 'base.html' %}
+{% block title %}Espace Enseignant — SchoolManager{% endblock %}
+{% block page_title %}Espace Pédagogique{% endblock %}
+
+{% block topbar_actions %}
+<div class="d-flex align-items-center gap-2">
+  <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-2">
+    <i class="bi bi-person-workspace me-1"></i>Enseignant : {{ request.user.get_full_name|default:request.user.username }}
+  </span>
+  <a href="{% url 'academics:note_create' %}" class="btn btn-sm btn-primary">
+    <i class="bi bi-pencil me-1"></i>Saisie classique
+  </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<!-- KPI Cards Enseignant -->
+<div class="row g-3 mb-4">
+  <div class="col-sm-6 col-xl-3">
+    <div class="stat-card" style="background:#fff;">
+      <div class="stat-icon" style="background:#e6ffed;color:#17a589;"><i class="bi bi-people-fill"></i></div>
+      <div>
+        <div class="stat-value" style="color:#1a3c5e;">{{ nb_classes_assignees }}</div>
+        <div class="stat-label">Classes prises en charge</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <div class="stat-card" style="background:#fff;">
+      <div class="stat-icon" style="background:#ebf4ff;color:#2563a8;"><i class="bi bi-book-fill"></i></div>
+      <div>
+        <div class="stat-value" style="color:#1a3c5e;">{{ nb_matieres_assignees }}</div>
+        <div class="stat-label">Matières enseignées</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <div class="stat-card" style="background:#fff;">
+      <div class="stat-icon" style="background:#fef3e2;color:#e8b84b;"><i class="bi bi-pencil-square"></i></div>
+      <div>
+        <div class="stat-value" style="color:#1a3c5e;">{{ nb_notes_saisies }}</div>
+        <div class="stat-label">Notes enregistrées</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <div class="stat-card" style="background:#fff;">
+      <div class="stat-icon" style="background:#fce8e8;color:#c0392b;"><i class="bi bi-person-lines-fill"></i></div>
+      <div>
+        <div class="stat-value" style="color:#1a3c5e;">{{ nb_eleves_total }}</div>
+        <div class="stat-label">Élèves sous ma tutelle</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <!-- Section 1 : Mes Classes et Affectations -->
+  <div class="col-lg-6">
+    <div class="table-card h-100">
+      <div class="table-header">
+        <h6 class="fw-semibold mb-0"><i class="bi bi-diagram-3-fill me-2 text-primary"></i>Mes affectations & classes</h6>
+      </div>
+      <div class="p-3">
+        <div class="row g-2">
+          {% for aff in affectations %}
+          <div class="col-sm-6">
+            <div class="p-3 rounded border bg-light h-100 d-flex flex-column justify-content-between">
+              <div>
+                <span class="badge bg-primary mb-1">{{ aff.classe.nom }}</span>
+                <h6 class="fw-bold mb-1 text-dark">{{ aff.matiere.nom }}</h6>
+                <small class="text-muted d-block">Coeff : ×{{ aff.matiere.coefficient }} | {{ aff.classe.nb_eleves }} élèves</small>
+              </div>
+              <div class="mt-3 pt-2 border-top">
+                <a href="{% url 'academics:note_list' %}?inscription=&periode=" class="btn btn-sm btn-outline-primary w-100">
+                  <i class="bi bi-eye me-1"></i>Voir les notes
+                </a>
+              </div>
+            </div>
+          </div>
+          {% empty %}
+          <div class="col-12 text-center py-4 text-muted">
+            <i class="bi bi-info-circle fs-3 d-block mb-2"></i>
+            Aucune affectation de classe n'a été enregistrée pour votre compte.
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2 : Saisie Rapide Express (Propulsée par DRF API) -->
+  <div class="col-lg-6">
+    <div class="table-card h-100">
+      <div class="table-header bg-primary text-white">
+        <h6 class="fw-semibold mb-0 text-white">
+          <i class="bi bi-lightning-charge-fill me-2 text-warning"></i>Saisie express de note (API REST)
+        </h6>
+        <span class="badge bg-white bg-opacity-20 text-white font-monospace" style="font-size:0.7rem;">DRF AJAX</span>
+      </div>
+      <div class="p-3">
+        <!-- Message de statut dynamique -->
+        <div id="quickNoteAlert" class="alert d-none py-2 small mb-3"></div>
+
+        <form id="quickNoteForm">
+          {% csrf_token %}
+          <div class="mb-2">
+            <label class="form-label small fw-semibold text-secondary mb-1">Élève :</label>
+            <select name="inscription_id" id="quickEleveSelect" class="form-select form-select-sm" required>
+              <option value="">Sélectionner un élève...</option>
+              {% for ins in eleves_mes_classes %}
+              <option value="{{ ins.id }}">{{ ins.eleve.nom_complet }} ({{ ins.classe.nom }})</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="row g-2 mb-2">
+            <div class="col-md-7">
+              <label class="form-label small fw-semibold text-secondary mb-1">Matière :</label>
+              <select name="matiere_id" id="quickMatiereSelect" class="form-select form-select-sm" required>
+                {% for aff in affectations %}
+                <option value="{{ aff.matiere.id }}">{{ aff.matiere.nom }} ({{ aff.classe.nom }})</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-5">
+              <label class="form-label small fw-semibold text-secondary mb-1">Période :</label>
+              <select name="periode" id="quickPeriodeSelect" class="form-select form-select-sm" required>
+                <option value="T1">Trimestre 1</option>
+                <option value="T2">Trimestre 2</option>
+                <option value="T3">Trimestre 3</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row g-2 mb-3">
+            <div class="col-md-5">
+              <label class="form-label small fw-semibold text-secondary mb-1">Note (/20) :</label>
+              <input type="number" step="0.25" min="0" max="20" name="valeur" id="quickValeurInput" class="form-control form-control-sm fw-bold" placeholder="15.5" required>
+            </div>
+            <div class="col-md-7">
+              <label class="form-label small fw-semibold text-secondary mb-1">Appréciation :</label>
+              <input type="text" name="commentaire" id="quickCommentaireInput" class="form-control form-control-sm" placeholder="Très bon travail">
+            </div>
+          </div>
+
+          <button type="submit" id="quickNoteSubmitBtn" class="btn btn-sm btn-primary w-100 py-2">
+            <i class="bi bi-check2-circle me-1"></i>Enregistrer instantanément
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Section 3 : Dernières notes saisies -->
+<div class="row g-3 mt-1">
+  <div class="col-12">
+    <div class="table-card">
+      <div class="table-header">
+        <h6 class="fw-semibold mb-0"><i class="bi bi-clock-history me-2 text-primary"></i>Dernières notes enregistrées</h6>
+        <a href="{% url 'academics:note_list' %}" class="btn btn-sm btn-outline-primary">Toutes les notes</a>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0" id="recentNotesTable">
+          <thead>
+            <tr>
+              <th>Élève</th>
+              <th>Classe</th>
+              <th>Matière</th>
+              <th>Période</th>
+              <th>Note</th>
+              <th>Commentaire</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for n in dernieres_notes %}
+            <tr>
+              <td class="fw-semibold">{{ n.inscription.eleve.nom_complet }}</td>
+              <td><span class="badge bg-light text-dark border">{{ n.inscription.classe.nom }}</span></td>
+              <td>{{ n.matiere.nom }}</td>
+              <td>{{ n.get_periode_display }}</td>
+              <td>
+                <span class="fw-bold {% if n.valeur >= 10 %}text-success{% else %}text-danger{% endif %}">
+                  {{ n.valeur }}/20
+                </span>
+              </td>
+              <td class="text-muted small">{{ n.commentaire|default:"—" }}</td>
+              <td>
+                <a href="{% url 'academics:bulletin' n.inscription.pk %}" class="btn btn-sm btn-outline-primary py-0 px-2" style="font-size:0.75rem;">
+                  <i class="bi bi-file-earmark-text me-1"></i>Bulletin
+                </a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="7" class="text-center text-muted py-3">Aucune note enregistrée récemment.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Traitement interactif de la saisie rapide via DRF API
+  const quickForm = document.getElementById('quickNoteForm');
+  const alertBox = document.getElementById('quickNoteAlert');
+  const submitBtn = document.getElementById('quickNoteSubmitBtn');
+
+  if (quickForm) {
+    quickForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Enregistrement...';
+
+      const payload = {
+        inscription_id: parseInt(document.getElementById('quickEleveSelect').value),
+        matiere_id: parseInt(document.getElementById('quickMatiereSelect').value),
+        periode: document.getElementById('quickPeriodeSelect').value,
+        valeur: parseFloat(document.getElementById('quickValeurInput').value),
+        commentaire: document.getElementById('quickCommentaireInput').value
+      };
+
+      try {
+        const response = await fetch('/api/actions/quick-note/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const resData = await response.json();
+
+        if (response.ok) {
+          alertBox.className = 'alert alert-success py-2 small mb-3';
+          alertBox.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>' + resData.message;
+          alertBox.classList.remove('d-none');
+          document.getElementById('quickValeurInput').value = '';
+          document.getElementById('quickCommentaireInput').value = '';
+
+          // Recharger ou rafraîchir la liste après 1.5s
+          setTimeout(() => { location.reload(); }, 1200);
+        } else {
+          alertBox.className = 'alert alert-danger py-2 small mb-3';
+          alertBox.innerHTML = '<i class="bi bi-exclamation-triangle-fill me-2"></i>Erreur : ' + JSON.stringify(resData);
+          alertBox.classList.remove('d-none');
+        }
+      } catch (err) {
+        alertBox.className = 'alert alert-danger py-2 small mb-3';
+        alertBox.innerHTML = '<i class="bi bi-exclamation-triangle-fill me-2"></i>Erreur de communication avec le serveur.';
+        alertBox.classList.remove('d-none');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="bi bi-check2-circle me-1"></i>Enregistrer instantanément';
+      }
+    });
+  }
+</script>
+{% endblock %}
+

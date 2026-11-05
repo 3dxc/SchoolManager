@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f6f9; color: #2d3748; margin: 0; padding: 20px; }
+    .card { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
+    .header { background: linear-gradient(135deg, #1a3c5e, #17a589); color: #ffffff; padding: 24px; text-align: center; }
+    .content { padding: 30px; font-size: 15px; line-height: 1.6; }
+    .box-info { background: #f0fdf4; border-left: 4px solid #17a589; border-radius: 6px; padding: 16px; margin: 20px 0; }
+    .box-info p { margin: 6px 0; }
+    .score { font-size: 1.4em; font-weight: bold; color: #1a3c5e; }
+    .footer { background: #edf2f7; padding: 16px; text-align: center; font-size: 12px; color: #718096; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h2 style="margin: 0; font-size: 22px;">{{ etablissement.nom }}</h2>
+      <p style="margin: 5px 0 0; opacity: 0.85; font-size: 13px;">Publication des résultats scolaires</p>
+    </div>
+    <div class="content">
+      <p>Chers Parents de <strong>{{ eleve.prenom }}</strong>,</p>
+
+      <p>Nous avons l'honneur de vous informer que le bulletin de notes de votre enfant pour la période <strong>{{ periode_libelle }}</strong> (Année scolaire <strong>{{ annee_scolaire.libelle }}</strong>) est désormais disponible.</p>
+
+      <div class="box-info">
+        <p><strong>Élève :</strong> {{ eleve.nom_complet }} (Classe de <strong>{{ classe.nom }}</strong>)</p>
+        <p><strong>Moyenne générale :</strong> <span class="score">{{ moyenne_generale|default:"—" }}/20</span></p>
+        <p><strong>Total des absences enregistrées :</strong> {{ nb_absences }}</p>
+      </div>
+
+      <p>Vous pouvez consulter le détail matière par matière et imprimer le bulletin officiel depuis votre espace en ligne ou en contactant le secrétariat.</p>
+
+      <p style="margin-top: 25px;">
+        Nous vous félicitons pour votre implication constante aux côtés de l'équipe pédagogique.<br><br>
+        Bien cordialement,<br>
+        <strong>Le Secrétariat Général & Direction des Études</strong><br>
+        {{ etablissement.nom }}
+      </p>
+    </div>
+    <div class="footer">
+      Notification automatique — SchoolManager &copy; {% now "Y" %}
+    </div>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Matières{% endblock %}
+{% block page_title %}Matières{% endblock %}
+{% block topbar_actions %}
+<a href="{% url 'school:matiere_create' %}" class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>Nouvelle matière</a>
+{% endblock %}
+
+{% block content %}
+<!-- Recherche -->
+<div class="table-card mb-3 p-3">
+  <form method="get" class="d-flex gap-2">
+    <input type="search" name="q" value="{{ q }}" class="form-control form-control-sm" placeholder="Rechercher une matière...">
+    <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-search"></i></button>
+    {% if q %}<a href="{% url 'school:matiere_list' %}" class="btn btn-sm btn-outline-secondary">×</a>{% endif %}
+  </form>
+</div>
+
+<div class="table-card">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead><tr><th>Matière</th><th>Coefficient</th><th>Description</th><th></th></tr></thead>
+      <tbody>
+        {% for m in matieres %}
+        <tr>
+          <td class="fw-semibold">{{ m.nom }}</td>
+          <td><span class="badge bg-secondary">× {{ m.coefficient }}</span></td>
+          <td class="text-muted small">{{ m.description|default:"—"|truncatechars:60 }}</td>
+          <td class="text-end">
+            <a href="{% url 'school:matiere_edit' m.pk %}" class="btn btn-sm btn-outline-primary me-1"><i class="bi bi-pencil"></i></a>
+            <a href="{% url 'school:matiere_delete' m.pk %}" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4" class="text-center text-muted py-4">Aucune matière.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+

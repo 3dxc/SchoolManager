@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}Paiements{% endblock %}
+{% block page_title %}Paiements{% endblock %}
+{% block topbar_actions %}
+<a href="{% url 'attendance_payments:paiement_create' %}" class="btn btn-primary btn-sm"><i class="bi bi-cash me-1"></i>Nouveau paiement</a>
+<a href="{% url 'attendance_payments:suivi_paiements' %}" class="btn btn-outline-info btn-sm ms-2"><i class="bi bi-graph-up me-1"></i>Suivi des frais</a>
+{% endblock %}
+
+{% block content %}
+<!-- Total -->
+<div class="row g-3 mb-3">
+  <div class="col-md-4">
+    <div class="stat-card" style="background:#fff;">
+      <div class="stat-icon" style="background:#e6ffed;color:#17a589;"><i class="bi bi-cash-coin"></i></div>
+      <div>
+        <div class="stat-value" style="color:#1a3c5e;">{{ total|floatformat:0 }}</div>
+        <div class="stat-label">FCFA total reçu</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="table-card mb-3 p-3">
+  <form method="get" class="row g-2 align-items-center">
+    <div class="col-auto">
+      <select name="annee" class="form-select form-select-sm">
+        <option value="">Toutes les années</option>
+        {% for a in annees %}<option value="{{ a.pk }}" {% if annee_active == a.pk|stringformat:"s" %}selected{% endif %}>{{ a.libelle }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="col">
+      <input type="search" name="q" value="{{ q }}" class="form-control form-control-sm" placeholder="Élève ou référence...">
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-search"></i></button>
+      <a href="{% url 'attendance_payments:paiement_list' %}" class="btn btn-sm btn-outline-secondary">×</a>
+    </div>
+  </form>
+</div>
+
+<div class="table-card">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead><tr><th>Référence</th><th>Élève</th><th>Montant</th><th>Date</th><th>Mode</th><th>Reçu par</th><th></th></tr></thead>
+      <tbody>
+        {% for p in paiements %}
+        <tr>
+          <td><span class="badge bg-light text-dark border font-monospace">{{ p.reference }}</span></td>
+          <td>
+            <a href="{% url 'students:eleve_detail' p.inscription.eleve.pk %}" class="fw-semibold text-decoration-none">
+              {{ p.inscription.eleve.nom_complet }}
+            </a>
+            <div class="text-muted small">{{ p.inscription.annee_scolaire.libelle }}</div>
+          </td>
+          <td class="fw-bold text-success">{{ p.montant|floatformat:0 }} FCFA</td>
+          <td>{{ p.date|date:"d/m/Y" }}</td>
+          <td><span class="badge bg-secondary">{{ p.get_mode_paiement_display }}</span></td>
+          <td class="text-muted small">{{ p.recu_par|default:"—" }}</td>
+          <td class="text-end">
+            <a href="{% url 'attendance_payments:paiement_edit' p.pk %}" class="btn btn-sm btn-outline-primary me-1"><i class="bi bi-pencil"></i></a>
+            <a href="{% url 'attendance_payments:paiement_delete' p.pk %}" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7" class="text-center text-muted py-4">Aucun paiement enregistré.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+

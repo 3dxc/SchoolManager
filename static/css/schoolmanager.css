@@ -1,0 +1,324 @@
+/* SchoolManager — Feuille de style personnalisée */
+
+:root {
+  --primary: #1a3c5e;
+  --primary-light: #2563a8;
+  --secondary: #e8b84b;
+  --accent: #17a589;
+  --danger: #c0392b;
+  --bg-sidebar: #0f2235;
+  --text-sidebar: #cdd9e5;
+  --sidebar-width: 260px;
+}
+
+/* ── Layout ─────────────────────────────────────────────────────────────── */
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background-color: #f4f6f9;
+  color: #2d3748;
+}
+
+/* ── Sidebar ─────────────────────────────────────────────────────────────── */
+#sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: var(--bg-sidebar);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#sidebar .sidebar-brand {
+  display: block;
+  padding: 1.25rem 1.25rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#sidebar .sidebar-brand:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+#sidebar .sidebar-brand:hover h4 {
+  color: var(--secondary) !important;
+}
+
+#sidebar .sidebar-brand h4 {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+#sidebar .sidebar-brand small {
+  color: var(--secondary);
+  font-size: 0.72rem;
+}
+
+/* Zone de défilement de la navigation */
+#sidebar .sidebar-nav-scroll {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+#sidebar .sidebar-nav-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+#sidebar .sidebar-nav-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+#sidebar .sidebar-nav-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+#sidebar .sidebar-nav-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Pied de sidebar fixe */
+#sidebar .sidebar-footer {
+  flex-shrink: 0;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+#sidebar .btn-logout {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+#sidebar .btn-logout:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+#sidebar .nav-section-title {
+  color: rgba(255,255,255,0.4);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 1rem 1.25rem 0.3rem;
+}
+
+#sidebar .nav-link {
+  color: var(--text-sidebar);
+  padding: 0.6rem 1.25rem;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-radius: 0;
+  transition: background 0.2s, color 0.2s;
+  text-decoration: none;
+}
+
+#sidebar .nav-link:hover,
+#sidebar .nav-link.active {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  border-left: 3px solid var(--secondary);
+}
+
+#sidebar .nav-link i {
+  width: 20px;
+  text-align: center;
+  opacity: 0.75;
+}
+
+#sidebar .nav-link.active i {
+  opacity: 1;
+  color: var(--secondary);
+}
+
+/* ── Main content ─────────────────────────────────────────────────────────── */
+#main-content {
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Topbar ───────────────────────────────────────────────────────────────── */
+.topbar {
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.topbar .page-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin: 0;
+}
+
+/* ── Cards statistiques ───────────────────────────────────────────────────── */
+.stat-card {
+  border: none;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  color: inherit;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.stat-card .stat-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.stat-card .stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stat-card .stat-label {
+  font-size: 0.8rem;
+  color: #718096;
+  margin-top: 0.2rem;
+}
+
+/* ── Tableau ──────────────────────────────────────────────────────────────── */
+.table-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+.table-card .table-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #edf2f7;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.table-card .table {
+  margin: 0;
+}
+
+.table-card .table th {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #718096;
+  background: #f7fafc;
+  border-top: none;
+  padding: 0.75rem 1rem;
+}
+
+.table-card .table td {
+  padding: 0.75rem 1rem;
+  vertical-align: middle;
+  font-size: 0.875rem;
+}
+
+/* ── Badges ───────────────────────────────────────────────────────────────── */
+.badge-status {
+  font-size: 0.72rem;
+  padding: 0.3em 0.7em;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+/* ── Forms ────────────────────────────────────────────────────────────────── */
+.form-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 2rem;
+}
+
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+/* ── Bulletin ─────────────────────────────────────────────────────────────── */
+.bulletin-header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: #fff;
+  border-radius: 12px 12px 0 0;
+  padding: 1.5rem 2rem;
+}
+
+.bulletin-moyenne {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--secondary);
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #sidebar {
+    transform: translateX(-100%);
+  }
+  #sidebar.show {
+    transform: translateX(0);
+  }
+  #main-content {
+    margin-left: 0;
+  }
+}
+
+/* ── Utilities ────────────────────────────────────────────────────────────── */
+.btn-primary { background-color: var(--primary); border-color: var(--primary); }
+.btn-primary:hover { background-color: var(--primary-light); border-color: var(--primary-light); }
+.text-primary { color: var(--primary) !important; }
+.bg-primary { background-color: var(--primary) !important; }
+
+.avatar-initiales {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.8rem;
+  display: flex; align-items: center; justify-content: center;
+}
+

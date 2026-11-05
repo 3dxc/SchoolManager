@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% block title %}Espace Direction — SchoolManager{% endblock %}
+{% block page_title %}Espace Direction des Études{% endblock %}
+
+{% block topbar_actions %}
+<div class="d-flex align-items-center gap-2">
+  <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-3 py-2">
+    <i class="bi bi-building me-1"></i>Direction des Études
+  </span>
+  <a href="{% url 'students:inscription_create' %}" class="btn btn-sm btn-primary">
+    <i class="bi bi-clipboard-plus me-1"></i>Nouvelle inscription
+  </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<!-- KPI Cards -->
+<div class="row g-3 mb-4">
+  <div class="col-sm-6 col-xl-3">
+    <div class="stat-card" style="background:#fff;">
+      <div class="stat-icon" style="background:#ebf4ff;color:#2563a8;"><i class="bi bi-person-badge-fill"></i></div>
+      <div>
+        <div class="stat-value" style="color:#1a3c5e;">{{ total_eleves }}</div>
+        <div class="stat-label">Élèves enregistrés</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <div class="stat-card" style="background:#fff;">
+      <div class="stat-icon" style="background:#fef3e2;color:#e8b84b;"><i class="bi bi-people-fill"></i></div>
+      <div>
+        <div class="stat-value" style="color:#1a3c5e;">{{ total_classes }}</div>
+        <div class="stat-label">Classes ouvertes</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <div class="stat-card" style="background:#fff;">
+      <div class="stat-icon" style="background:#e6ffed;color:#17a589;"><i class="bi bi-person-workspace"></i></div>
+      <div>
+        <div class="stat-value" style="color:#1a3c5e;">{{ total_enseignants }}</div>
+        <div class="stat-label">Professeurs actifs</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <div class="stat-card" style="background:#fff;">
+      <div class="stat-icon" style="background:#fce8e8;color:#c0392b;"><i class="bi bi-check2-circle"></i></div>
+      <div>
+        <div class="stat-value" style="color:#1a3c5e;">{{ total_inscriptions_actives }}</div>
+        <div class="stat-label">Inscriptions actives</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <!-- Section 1 : Supervision des Classes et Remplissage -->
+  <div class="col-lg-7">
+    <div class="table-card h-100">
+      <div class="table-header">
+        <h6 class="fw-semibold mb-0"><i class="bi bi-pie-chart-fill me-2 text-primary"></i>Supervision des classes & capacités</h6>
+        <a href="{% url 'school:classe_list' %}" class="btn btn-sm btn-outline-primary">Gérer</a>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Classe</th>
+              <th>Niveau</th>
+              <th>Effectif</th>
+              <th>Capacité</th>
+              <th>Taux d'occupation</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c in classes %}
+            <tr>
+              <td class="fw-semibold">{{ c.nom }}</td>
+              <td><span class="badge bg-light text-dark border">{{ c.get_niveau_display }}</span></td>
+              <td class="fw-bold">{{ c.nb_eleves }}</td>
+              <td class="text-muted">{{ c.capacite_max }}</td>
+              <td style="min-width: 130px;">
+                <div class="progress" style="height: 8px;">
+                  {% with taux=c.nb_eleves|default:0 %}
+                  <div class="progress-bar {% if taux >= c.capacite_max %}bg-danger{% else %}bg-success{% endif %}" 
+                       role="progressbar" 
+                       style="width: {% widthratio c.nb_eleves c.capacite_max 100 %}%;"></div>
+                  {% endwith %}
+                </div>
+                <small class="text-muted" style="font-size: 0.72rem;">{% widthratio c.nb_eleves c.capacite_max 100 %}% occupé</small>
+              </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="text-center text-muted py-3">Aucune classe pour l'année en cours.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2 : Actions Rapides Direction -->
+  <div class="col-lg-5">
+    <div class="table-card mb-3">
+      <div class="table-header">
+        <h6 class="fw-semibold mb-0"><i class="bi bi-lightning-charge-fill me-2 text-warning"></i>Actions Direction</h6>
+      </div>
+      <div class="p-3 d-flex flex-column gap-2">
+        <a href="{% url 'students:inscription_create' %}" class="btn btn-outline-primary btn-sm text-start py-2">
+          <i class="bi bi-person-plus-fill me-2"></i>Inscrire un nouvel élève
+        </a>
+        <a href="{% url 'academics:affectation_create' %}" class="btn btn-outline-success btn-sm text-start py-2">
+          <i class="bi bi-diagram-3-fill me-2"></i>Affecter un professeur à une matière
+        </a>
+        <a href="{% url 'school:classe_create' %}" class="btn btn-outline-secondary btn-sm text-start py-2">
+          <i class="bi bi-plus-square me-2"></i>Ouvrir une nouvelle classe
+        </a>
+        <a href="{% url 'school:annee_list' %}" class="btn btn-outline-info btn-sm text-start py-2">
+          <i class="bi bi-calendar-check me-2"></i>Gérer les années scolaires
+        </a>
+      </div>
+    </div>
+
+    <!-- Établissement & Année active -->
+    <div class="table-card p-3">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <small class="text-muted fw-semibold">ANNÉE EN COURS</small>
+        <span class="badge bg-success">Active</span>
+      </div>
+      <h5 class="fw-bold text-primary mb-1">{{ annee_active.libelle|default:"Non définie" }}</h5>
+      <p class="text-muted small mb-0">{{ annee_active.etablissement.nom|default:"Groupe Scolaire" }}</p>
+    </div>
+  </div>
+</div>
+
+<!-- Section 3 : Dernières inscriptions -->
+<div class="row g-3 mt-1">
+  <div class="col-12">
+    <div class="table-card">
+      <div class="table-header">
+        <h6 class="fw-semibold mb-0"><i class="bi bi-clock-history me-2 text-primary"></i>Inscriptions récentes</h6>
+        <a href="{% url 'students:inscription_list' %}" class="btn btn-sm btn-outline-primary">Voir toutes</a>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Matricule</th>
+              <th>Élève</th>
+              <th>Classe</th>
+              <th>Date d'inscription</th>
+              <th>Statut</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for ins in inscriptions_recentes %}
+            <tr>
+              <td><code>{{ ins.eleve.matricule }}</code></td>
+              <td class="fw-semibold">{{ ins.eleve.nom_complet }}</td>
+              <td>{{ ins.classe.nom }}</td>
+              <td>{{ ins.created_at|date:"d/m/Y H:i" }}</td>
+              <td>
+                {% if ins.statut == 'actif' %}<span class="badge bg-success">Actif</span>
+                {% elif ins.statut == 'transfere' %}<span class="badge bg-warning text-dark">Transféré</span>
+                {% else %}<span class="badge bg-secondary">{{ ins.get_statut_display }}</span>{% endif %}
+              </td>
+              <td>
+                <a href="{% url 'students:eleve_detail' ins.eleve.pk %}" class="btn btn-sm btn-outline-primary py-0 px-2" style="font-size:0.75rem;">
+                  Fiche
+                </a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" class="text-center text-muted py-3">Aucune inscription récente.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

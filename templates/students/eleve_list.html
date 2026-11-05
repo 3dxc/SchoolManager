@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Élèves{% endblock %}
+{% block page_title %}Élèves{% endblock %}
+{% block topbar_actions %}
+<a href="{% url 'students:eleve_create' %}" class="btn btn-primary btn-sm"><i class="bi bi-person-plus-fill me-1"></i>Nouvel élève</a>
+{% endblock %}
+
+{% block content %}
+<div class="table-card mb-3 p-3">
+  <form method="get" class="d-flex gap-2">
+    <input type="search" name="q" value="{{ q }}" class="form-control form-control-sm" placeholder="Rechercher par nom, prénom ou matricule...">
+    <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-search"></i></button>
+    {% if q %}<a href="{% url 'students:eleve_list' %}" class="btn btn-sm btn-outline-secondary">×</a>{% endif %}
+  </form>
+</div>
+
+<div class="table-card">
+  <div class="table-header">
+    <h6 class="fw-semibold mb-0">{{ eleves.count }} élève{{ eleves.count|pluralize }}</h6>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead><tr><th>Matricule</th><th>Nom complet</th><th>Date de naissance</th><th>Sexe</th><th></th></tr></thead>
+      <tbody>
+        {% for e in eleves %}
+        <tr>
+          <td><span class="badge bg-light text-dark border">{{ e.matricule }}</span></td>
+          <td>
+            <div class="d-flex align-items-center gap-2">
+              <div class="avatar-initiales">{{ e.nom|first|upper }}{{ e.prenom|first|upper }}</div>
+              <a href="{% url 'students:eleve_detail' e.pk %}" class="fw-semibold text-decoration-none">{{ e.nom_complet }}</a>
+            </div>
+          </td>
+          <td>{{ e.date_naissance|date:"d/m/Y" }}</td>
+          <td>{{ e.get_sexe_display }}</td>
+          <td class="text-end">
+            <a href="{% url 'students:eleve_detail' e.pk %}" class="btn btn-sm btn-outline-primary me-1"><i class="bi bi-eye"></i></a>
+            <a href="{% url 'students:eleve_edit' e.pk %}" class="btn btn-sm btn-outline-secondary me-1"><i class="bi bi-pencil"></i></a>
+            <a href="{% url 'students:eleve_delete' e.pk %}" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="text-center text-muted py-4">Aucun élève trouvé.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+

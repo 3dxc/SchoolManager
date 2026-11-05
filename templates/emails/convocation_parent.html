@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f6f9; color: #2d3748; margin: 0; padding: 20px; }
+    .card { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
+    .header { background: linear-gradient(135deg, #1a3c5e, #c0392b); color: #ffffff; padding: 24px; text-align: center; }
+    .content { padding: 30px; font-size: 15px; line-height: 1.6; }
+    .box-info { background: #fff5f5; border-left: 4px solid #c0392b; border-radius: 6px; padding: 16px; margin: 20px 0; }
+    .box-info p { margin: 6px 0; }
+    .footer { background: #edf2f7; padding: 16px; text-align: center; font-size: 12px; color: #718096; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h2 style="margin: 0; font-size: 22px;">{{ etablissement.nom }}</h2>
+      <p style="margin: 5px 0 0; opacity: 0.85; font-size: 13px;">Direction des Études & Vie Scolaire</p>
+    </div>
+    <div class="content">
+      <p>Madame, Monsieur <strong>{{ parent.nom }}</strong>,</p>
+
+      <p>L'équipe pédagogique et la direction de <strong>{{ etablissement.nom }}</strong> sollicitent votre présence à un entretien individuel concernant votre enfant <strong>{{ eleve.nom_complet }}</strong> (Classe de <strong>{{ classe.nom }}</strong>).</p>
+
+      <div class="box-info">
+        <p><strong>Motif de l'entretien :</strong> {{ motif|default:"Bilan pédagogique & suivi d'assiduité" }}</p>
+        <p><strong>Date fixée :</strong> <strong>{{ date_rdv }}</strong> à <strong>{{ heure_rdv }}</strong></p>
+        <p><strong>Lieu du rendez-vous :</strong> Bureau de la Direction / Vie scolaire</p>
+        {% if interlocuteurs %}<p><strong>Interlocuteur(s) :</strong> {{ interlocuteurs }}</p>{% endif %}
+      </div>
+
+      <p>Votre présence est essentielle afin de convenir ensemble des mesures d'accompagnement nécessaires pour la réussite scolaire de votre enfant.</p>
+
+      <p>En cas d'empêchement majeur, nous vous remercions de bien vouloir contacter sans délai le secrétariat afin de convenir d'un nouvel horaire.</p>
+
+      <p style="margin-top: 25px;">
+        Veuillez agréer, Madame, Monsieur, l'assurance de notre considération distinguée.<br><br>
+        <strong>La Direction Pédagogique</strong><br>
+        {{ etablissement.nom }}<br>
+        <small style="color: #718096;">Tél : {{ etablissement.telephone|default:"Non renseigné" }}</small>
+      </p>
+    </div>
+    <div class="footer">
+      Convocation administrative — SchoolManager &copy; {% now "Y" %}
+    </div>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Classes{% endblock %}
+{% block page_title %}Classes{% endblock %}
+{% block topbar_actions %}
+<a href="{% url 'school:classe_create' %}" class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>Nouvelle classe</a>
+{% endblock %}
+
+{% block content %}
+<!-- Filtre -->
+<div class="table-card mb-3 p-3">
+  <form method="get" class="d-flex align-items-center gap-2 flex-wrap">
+    <label class="form-label mb-0 fw-semibold small">Année :</label>
+    <select name="annee" class="form-select form-select-sm" style="width:auto;" onchange="this.form.submit()">
+      <option value="">Toutes</option>
+      {% for a in annees %}<option value="{{ a.pk }}" {% if annee_active == a.pk|stringformat:"s" %}selected{% endif %}>{{ a.libelle }}</option>{% endfor %}
+    </select>
+    {% if annee_active %}<a href="{% url 'school:classe_list' %}" class="btn btn-sm btn-outline-secondary">Réinitialiser</a>{% endif %}
+  </form>
+</div>
+
+<div class="table-card">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead><tr><th>Nom</th><th>Niveau</th><th>Année scolaire</th><th>Capacité</th><th>Élèves actifs</th><th></th></tr></thead>
+      <tbody>
+        {% for c in classes %}
+        <tr>
+          <td class="fw-semibold">{{ c.nom }}</td>
+          <td>{{ c.get_niveau_display }}</td>
+          <td>{{ c.annee_scolaire.libelle }}</td>
+          <td>{{ c.capacite_max }}</td>
+          <td><span class="badge bg-primary">{{ c.nb_eleves }}</span></td>
+          <td class="text-end">
+            <a href="{% url 'school:classe_edit' c.pk %}" class="btn btn-sm btn-outline-primary me-1"><i class="bi bi-pencil"></i></a>
+            <a href="{% url 'school:classe_delete' c.pk %}" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6" class="text-center text-muted py-4">Aucune classe.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+

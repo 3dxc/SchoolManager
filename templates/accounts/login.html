@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Connexion — SchoolManager{% endblock %}
+
+{% block content %}
+<div class="login-page d-flex align-items-center justify-content-center py-5" style="min-height: 100vh; background: radial-gradient(circle at 10% 20%, #1a3c5e 0%, #0f2235 90%);">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-5 col-xl-4">
+        
+        <!-- Carte de Connexion -->
+        <div class="card border-0 shadow-lg" style="border-radius: 16px; overflow: hidden; background: #ffffff;">
+          
+          <!-- En-tête de marque -->
+          <div class="p-4 text-center text-white" style="background: linear-gradient(135deg, #1a3c5e, #2563a8);">
+            <div class="d-inline-flex align-items-center justify-content-center bg-white bg-opacity-10 rounded-circle mb-3" style="width: 68px; height: 68px;">
+              <i class="bi bi-mortarboard-fill text-warning fs-1"></i>
+            </div>
+            <h3 class="fw-bold mb-1 tracking-wide">SchoolManager</h3>
+            <p class="small text-white-50 mb-0">Espace numérique de gestion scolaire</p>
+          </div>
+
+          <!-- Corps du Formulaire -->
+          <div class="card-body p-4 p-md-4">
+            
+            <div class="mb-3 text-center">
+              <h5 class="fw-semibold text-dark mb-1">Authentification</h5>
+              <p class="text-muted small">Connectez-vous pour accéder à votre espace</p>
+            </div>
+
+            <!-- Affichage des erreurs globales -->
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger alert-dismissible fade show py-2 small" role="alert">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i>
+              {% for error in form.non_field_errors %}
+                {{ error }}
+              {% endfor %}
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endif %}
+
+            <form method="post" novalidate id="loginForm">
+              {% csrf_token %}
+
+              <!-- Champ Identifiant -->
+              <div class="mb-3">
+                <label for="{{ form.username.id_for_label }}" class="form-label small fw-semibold text-secondary">
+                  <i class="bi bi-person me-1"></i>Identifiant
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0 text-muted">
+                    <i class="bi bi-person-fill"></i>
+                  </span>
+                  <input type="text" 
+                         name="{{ form.username.name }}" 
+                         id="{{ form.username.id_for_label }}" 
+                         value="{{ form.username.value|default:'' }}" 
+                         class="form-control bg-light border-start-0 {% if form.username.errors %}is-invalid{% endif %}" 
+                         placeholder="Ex: admin, prof_maths" 
+                         required 
+                         autofocus>
+                </div>
+                {% if form.username.errors %}
+                <div class="invalid-feedback d-block small mt-1">
+                  {{ form.username.errors.0 }}
+                </div>
+                {% endif %}
+              </div>
+
+              <!-- Champ Mot de passe -->
+              <div class="mb-3">
+                <label for="{{ form.password.id_for_label }}" class="form-label small fw-semibold text-secondary">
+                  <i class="bi bi-shield-lock me-1"></i>Mot de passe
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0 text-muted">
+                    <i class="bi bi-lock-fill"></i>
+                  </span>
+                  <input type="password" 
+                         name="{{ form.password.name }}" 
+                         id="{{ form.password.id_for_label }}" 
+                         class="form-control bg-light border-start-0 border-end-0 {% if form.password.errors %}is-invalid{% endif %}" 
+                         placeholder="••••••••" 
+                         required>
+                  <button class="btn btn-light border border-start-0 text-muted" type="button" id="togglePasswordBtn" title="Afficher/Masquer le mot de passe">
+                    <i class="bi bi-eye" id="togglePasswordIcon"></i>
+                  </button>
+                </div>
+                {% if form.password.errors %}
+                <div class="invalid-feedback d-block small mt-1">
+                  {{ form.password.errors.0 }}
+                </div>
+                {% endif %}
+              </div>
+
+              <!-- Bouton de Soumission -->
+              <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-primary py-2 fw-semibold shadow-sm" style="background: #1a3c5e; border-color: #1a3c5e;">
+                  <i class="bi bi-box-arrow-in-right me-2"></i>Se connecter
+                </button>
+              </div>
+            </form>
+
+            <hr class="my-4 text-muted opacity-25">
+
+            <!-- Section Démo Rapide (1-clic pour tester) -->
+            <div>
+              <p class="text-center text-muted small fw-semibold mb-2">Comptes de test (Mot de passe : <code>admin123</code>)</p>
+              <div class="d-flex flex-wrap gap-2 justify-content-center">
+                <button type="button" class="btn btn-sm btn-outline-primary demo-fill-btn" data-user="admin">
+                  <i class="bi bi-shield-shaded me-1"></i>Admin
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-info demo-fill-btn" data-user="direction">
+                  <i class="bi bi-building me-1"></i>Direction
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-success demo-fill-btn" data-user="prof_maths">
+                  <i class="bi bi-person-workspace me-1"></i>Enseignant
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-warning demo-fill-btn" data-user="comptable">
+                  <i class="bi bi-cash-stack me-1"></i>Comptable
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Pied de carte -->
+          <div class="card-footer bg-light border-0 py-3 text-center">
+            <small class="text-muted">SchoolManager &copy; {% now "Y" %} — Plateforme sécurisée</small>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // 1. Bascule pour afficher/masquer le mot de passe
+  const toggleBtn = document.getElementById('togglePasswordBtn');
+  const passwordInput = document.getElementById('{{ form.password.id_for_label }}');
+  const toggleIcon = document.getElementById('togglePasswordIcon');
+
+  if (toggleBtn && passwordInput && toggleIcon) {
+    toggleBtn.addEventListener('click', function () {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      toggleIcon.classList.toggle('bi-eye');
+      toggleIcon.classList.toggle('bi-eye-slash');
+    });
+  }
+
+  // 2. Boutons de remplissage rapide des comptes de démonstration
+  const usernameInput = document.getElementById('{{ form.username.id_for_label }}');
+  document.querySelectorAll('.demo-fill-btn').forEach(button => {
+    button.addEventListener('click', function () {
+      const targetUser = this.getAttribute('data-user');
+      if (usernameInput && passwordInput) {
+        usernameInput.value = targetUser;
+        passwordInput.value = 'admin123';
+        usernameInput.focus();
+      }
+    });
+  });
+</script>
+{% endblock %}
+

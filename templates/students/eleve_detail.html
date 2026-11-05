@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block title %}{{ eleve.nom_complet }}{% endblock %}
+{% block page_title %}Fiche élève{% endblock %}
+{% block topbar_actions %}
+<a href="{% url 'students:eleve_edit' eleve.pk %}" class="btn btn-outline-primary btn-sm me-2"><i class="bi bi-pencil me-1"></i>Modifier</a>
+<a href="{% url 'students:eleve_list' %}" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left me-1"></i>Retour</a>
+{% endblock %}
+
+{% block content %}
+<div class="row g-3">
+  <!-- Info élève -->
+  <div class="col-lg-4">
+    <div class="table-card p-4 text-center">
+      <div class="avatar-initiales mx-auto mb-3" style="width:72px;height:72px;font-size:1.5rem;">{{ eleve.nom|first|upper }}{{ eleve.prenom|first|upper }}</div>
+      <h4 class="fw-bold mb-1">{{ eleve.nom_complet }}</h4>
+      <p class="text-muted small mb-2">Matricule : <strong>{{ eleve.matricule }}</strong></p>
+      <hr>
+      <div class="text-start">
+        <div class="mb-2"><small class="text-muted">Date de naissance</small><div class="fw-semibold">{{ eleve.date_naissance|date:"d/m/Y" }}</div></div>
+        {% if eleve.lieu_naissance %}<div class="mb-2"><small class="text-muted">Lieu de naissance</small><div>{{ eleve.lieu_naissance }}</div></div>{% endif %}
+        <div class="mb-2"><small class="text-muted">Sexe</small><div>{{ eleve.get_sexe_display }}</div></div>
+        {% if eleve.adresse %}<div class="mb-2"><small class="text-muted">Adresse</small><div>{{ eleve.adresse }}</div></div>{% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-8">
+    <!-- Parents -->
+    <div class="table-card mb-3">
+      <div class="table-header">
+        <h6 class="fw-semibold mb-0"><i class="bi bi-people me-2"></i>Parents / Tuteurs</h6>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead><tr><th>Nom</th><th>Téléphone</th><th>Relation</th><th>Contact principal</th></tr></thead>
+          <tbody>
+            {% for r in responsables %}
+            <tr>
+              <td class="fw-semibold">{{ r.parent }}</td>
+              <td>{{ r.parent.telephone }}</td>
+              <td><span class="badge bg-light text-dark border">{{ r.get_relation_display }}</span></td>
+              <td>{% if r.est_contact_principal %}<i class="bi bi-check-circle-fill text-success"></i>{% else %}—{% endif %}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="text-center text-muted">Aucun responsable.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Inscriptions -->
+    <div class="table-card">
+      <div class="table-header">
+        <h6 class="fw-semibold mb-0"><i class="bi bi-clipboard-check me-2"></i>Historique des inscriptions</h6>
+        <a href="{% url 'students:inscription_create' %}" class="btn btn-sm btn-outline-primary">Nouvelle inscription</a>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead><tr><th>Année</th><th>Classe</th><th>Statut</th><th>Frais</th><th>Payé</th><th></th></tr></thead>
+          <tbody>
+            {% for ins in inscriptions %}
+            <tr>
+              <td>{{ ins.annee_scolaire.libelle }}</td>
+              <td>{{ ins.classe.nom }}</td>
+              <td>
+                {% if ins.statut == 'actif' %}<span class="badge bg-success">Actif</span>
+                {% elif ins.statut == 'transfere' %}<span class="badge bg-warning text-dark">Transféré</span>
+                {% elif ins.statut == 'exclu' %}<span class="badge bg-danger">Exclu</span>
+                {% else %}<span class="badge bg-secondary">{{ ins.get_statut_display }}</span>{% endif %}
+              </td>
+              <td>{{ ins.frais_scolarite|floatformat:0 }} FCFA</td>
+              <td>
+                <span class="{% if ins.est_a_jour %}text-success{% else %}text-danger{% endif %} fw-semibold">
+                  {{ ins.montant_paye|floatformat:0 }} FCFA
+                </span>
+              </td>
+              <td>
+                <a href="{% url 'academics:bulletin' ins.pk %}" class="btn btn-sm btn-outline-primary"><i class="bi bi-file-earmark-text me-1"></i>Bulletin</a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" class="text-center text-muted">Aucune inscription.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
