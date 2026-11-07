@@ -1,102 +1,1014 @@
 {% extends 'base.html' %}
-{% block title %}Tableau de bord — SchoolManager{% endblock %}
-{% block page_title %}Tableau de bord{% endblock %}
+{% load static %}
+
+{% block title %}
+  {% if user.is_enseignant %}Espace Enseignant &amp; Pédagogie — SchoolManager
+  {% elif user.is_paiement %}Espace Caisse &amp; Recouvrement — SchoolManager
+  {% else %}Tableau de bord Direction — SchoolManager{% endif %}
+{% endblock %}
+
+{% block page_title %}
+  {% if user.is_enseignant %}Espace Pédagogique Enseignant
+  {% elif user.is_paiement %}Espace Caisse &amp; Comptabilité
+  {% else %}Tableau de bord Général{% endif %}
+{% endblock %}
+
+{% block topbar_actions %}
+<div class="d-flex align-items-center gap-2">
+  <!-- Widget Dynamique Temps Réel -->
+  <div class="dynamic-system-badge">
+    <span class="live-dot-pulse" title="Système opérationnel"></span>
+    <span class="small fw-bold text-dark font-monospace" id="topbarLiveClock">--:--:--</span>
+    <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 rounded-pill px-2 py-1 d-none d-sm-inline-flex align-items-center" style="font-size:0.72rem;">
+      <i class="bi bi-shield-check me-1"></i>En ligne &bull; {{ user.get_role_display }}
+    </span>
+  </div>
+
+  <!-- Bouton d'action selon le profil -->
+  {% if user.is_enseignant %}
+    <a href="{% url 'academics:note_create' %}" class="btn btn-sm btn-dark rounded-pill px-3 py-1 btn-topbar-action">
+      <i class="bi bi-pencil-square text-warning"></i><span>Saisir une note</span>
+    </a>
+  {% elif user.is_paiement %}
+    <a href="{% url 'attendance_payments:paiement_create' %}" class="btn btn-sm btn-dark rounded-pill px-3 py-1 btn-topbar-action">
+      <i class="bi bi-cash-stack text-success"></i><span>Encaisser</span>
+    </a>
+  {% else %}
+    <a href="{% url 'students:inscription_create' %}" class="btn btn-sm btn-dark rounded-pill px-3 py-1 btn-topbar-action">
+      <i class="bi bi-file-earmark-plus-fill text-warning"></i><span>Nouvelle inscription</span>
+    </a>
+  {% endif %}
+</div>
+{% endblock %}
 
 {% block content %}
-<!-- Statistiques -->
-<div class="row g-3 mb-4">
-  <div class="col-sm-6 col-xl-3">
-    <a href="{% url 'students:eleve_list' %}" class="stat-card" style="background:#fff;">
-      <div class="stat-icon" style="background:#ebf4ff;color:#2563a8;"><i class="bi bi-person-badge-fill"></i></div>
-      <div>
-        <div class="stat-value" style="color:#1a3c5e;">{{ nb_eleves }}</div>
-        <div class="stat-label">Élèves inscrits</div>
+
+<!-- ═════════════════════════════════════════════════════════════════════════════
+     1. VUE EXCLUSIVE : ESPACE ENSEIGNANT (Uniquement lié à la pédagogie)
+     ═════════════════════════════════════════════════════════════════════════════ -->
+{% if user.is_enseignant %}
+<div class="dashboard-hero mb-4">
+  <div class="row align-items-center g-3">
+    <div class="col-lg-8">
+      <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 border border-white border-opacity-15 small mb-2">
+        <i class="bi bi-person-workspace text-warning"></i>
+        <span>Espace Pédagogique Officiel</span>
       </div>
-    </a>
-  </div>
-  <div class="col-sm-6 col-xl-3">
-    <a href="{% url 'school:classe_list' %}" class="stat-card" style="background:#fff;">
-      <div class="stat-icon" style="background:#fef3e2;color:#e8b84b;"><i class="bi bi-people-fill"></i></div>
-      <div>
-        <div class="stat-value" style="color:#1a3c5e;">{{ nb_classes }}</div>
-        <div class="stat-label">Classes actives</div>
+      <h2 class="dashboard-hero-title mb-2">
+        Bienvenue, {{ user.get_full_name|default:user.username }}
+      </h2>
+      <p class="dashboard-hero-subtitle mb-3">
+        Gérez vos évaluations, notez l'assiduité de vos élèves et suivez les affectations de vos classes pour l'année en cours.
+      </p>
+      <div class="d-flex flex-wrap gap-2">
+        <a href="{% url 'academics:note_create' %}" class="btn btn-light btn-sm fw-bold rounded-pill px-3 py-2 text-dark shadow-sm">
+          <i class="bi bi-pencil me-1 text-primary"></i>Saisir une évaluation
+        </a>
+        <a href="{% url 'attendance_payments:absence_create' %}" class="btn btn-hero-secondary">
+          <i class="bi bi-calendar-x me-1"></i>Signaler une absence
+        </a>
+        <a href="{% url 'academics:affectation_list' %}" class="btn btn-hero-secondary">
+          <i class="bi bi-diagram-3 me-1"></i>Mes affectations
+        </a>
       </div>
-    </a>
-  </div>
-  <div class="col-sm-6 col-xl-3">
-    <a href="{% url 'academics:enseignant_list' %}" class="stat-card" style="background:#fff;">
-      <div class="stat-icon" style="background:#e6ffed;color:#17a589;"><i class="bi bi-person-workspace"></i></div>
-      <div>
-        <div class="stat-value" style="color:#1a3c5e;">{{ nb_enseignants }}</div>
-        <div class="stat-label">Enseignants</div>
+    </div>
+    <div class="col-lg-4 text-center d-none d-lg-block">
+      <div class="p-2 bg-white bg-opacity-15 rounded-circle d-inline-block shadow">
+        <img src="{% static 'img/logo.jpg' %}" alt="Logo Hibou" style="width: 120px; height: 120px; object-fit: contain;">
       </div>
-    </a>
-  </div>
-  <div class="col-sm-6 col-xl-3">
-    <a href="{% url 'students:inscription_list' %}" class="stat-card" style="background:#fff;">
-      <div class="stat-icon" style="background:#fce8e8;color:#c0392b;"><i class="bi bi-clipboard-check-fill"></i></div>
-      <div>
-        <div class="stat-value" style="color:#1a3c5e;">{{ nb_inscriptions_actives }}</div>
-        <div class="stat-label">Inscriptions actives</div>
-      </div>
-    </a>
+    </div>
   </div>
 </div>
 
-<div class="row g-3">
-  <!-- Années scolaires -->
+<!-- KPIs Enseignant -->
+<div class="row g-3 mb-4">
+  <div class="col-6 col-lg-3">
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#f0fdf4; color:#16a34a;">
+        <i class="bi bi-people-fill"></i>
+      </div>
+      <div>
+        <div class="stat-value">{{ nb_classes_assignees }}</div>
+        <div class="stat-label">Classes prises en charge</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#f8fafc; color:#475569;">
+        <i class="bi bi-book-fill"></i>
+      </div>
+      <div>
+        <div class="stat-value">{{ nb_matieres_assignees }}</div>
+        <div class="stat-label">Matières enseignées</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#fffbeb; color:#d97706;">
+        <i class="bi bi-pencil-square"></i>
+      </div>
+      <div>
+        <div class="stat-value">{{ nb_notes_saisies }}</div>
+        <div class="stat-label">Notes enregistrées</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#eff6ff; color:#2563eb;">
+        <i class="bi bi-person-lines-fill"></i>
+      </div>
+      <div>
+        <div class="stat-value">{{ nb_eleves_total }}</div>
+        <div class="stat-label">Élèves sous ma tutelle</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4 mb-4">
+  <!-- Mes classes & affectations -->
   <div class="col-lg-6">
     <div class="table-card h-100">
       <div class="table-header">
-        <h6 class="fw-semibold mb-0"><i class="bi bi-calendar3 me-2 text-primary"></i>Années scolaires</h6>
-        <a href="{% url 'school:annee_list' %}" class="btn btn-sm btn-outline-primary">Voir tout</a>
+        <h6 class="fw-bold mb-0 text-dark">
+          <i class="bi bi-diagram-3-fill text-primary me-2"></i>Mes Classes &amp; Matières
+        </h6>
+        <a href="{% url 'academics:affectation_list' %}" class="btn btn-xs btn-outline-secondary rounded-pill px-3">Toutes</a>
+      </div>
+      <div class="p-3">
+        <div class="row g-2">
+          {% for aff in mes_affectations %}
+          <div class="col-sm-6">
+            <div class="p-3 rounded-3 border bg-light h-100 d-flex flex-column justify-content-between">
+              <div>
+                <span class="badge bg-dark mb-1">{{ aff.classe.nom }}</span>
+                <h6 class="fw-bold mb-1 text-dark">{{ aff.matiere.nom }}</h6>
+                <small class="text-muted d-block">Coeff : ×{{ aff.matiere.coefficient }}</small>
+              </div>
+              <div class="mt-3 pt-2 border-top">
+                <a href="{% url 'academics:note_create' %}" class="btn btn-xs btn-outline-primary w-100 rounded-pill">
+                  <i class="bi bi-pencil-square me-1"></i>Saisir notes
+                </a>
+              </div>
+            </div>
+          </div>
+          {% empty %}
+          <div class="text-center py-4 text-muted">
+            <i class="bi bi-journal-x fs-2 d-block mb-2"></i>
+            Aucune affectation de classe pour le moment.
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dernières notes enregistrées -->
+  <div class="col-lg-6">
+    <div class="table-card h-100">
+      <div class="table-header">
+        <h6 class="fw-bold mb-0 text-dark">
+          <i class="bi bi-clipboard-data text-success me-2"></i>Dernières Évaluations Saisies
+        </h6>
+        <a href="{% url 'academics:note_list' %}" class="btn btn-xs btn-outline-secondary rounded-pill px-3">Voir tout</a>
       </div>
       <div class="table-responsive">
-        <table class="table table-hover align-middle">
-          <thead><tr><th>Libellé</th><th>Établissement</th><th>Statut</th></tr></thead>
-          <tbody>
-            {% for annee in annees %}
+        <table class="table table-hover align-middle mb-0">
+          <thead>
             <tr>
-              <td class="fw-semibold">{{ annee.libelle }}</td>
-              <td>{{ annee.etablissement.nom }}</td>
+              <th>Élève</th>
+              <th>Matière</th>
+              <th>Période</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for n in mes_notes_recentes %}
+            <tr>
+              <td class="fw-semibold text-dark">{{ n.inscription.eleve.nom_complet }}</td>
+              <td class="small text-muted">{{ n.matiere.nom }}</td>
+              <td><span class="badge bg-light text-dark border">{{ n.get_periode_display|default:n.periode }}</span></td>
               <td>
-                {% if annee.statut == 'en_cours' %}
-                  <span class="badge bg-success">En cours</span>
-                {% elif annee.statut == 'a_venir' %}
-                  <span class="badge bg-info text-dark">À venir</span>
+                {% if n.valeur >= 10 %}
+                  <span class="badge bg-success bg-opacity-15 text-success border border-success border-opacity-25">{{ n.valeur }}/20</span>
                 {% else %}
-                  <span class="badge bg-secondary">Terminée</span>
+                  <span class="badge bg-danger bg-opacity-15 text-danger border border-danger border-opacity-25">{{ n.valeur }}/20</span>
                 {% endif %}
               </td>
             </tr>
             {% empty %}
-            <tr><td colspan="3" class="text-center text-muted">Aucune année scolaire.</td></tr>
+            <tr><td colspan="4" class="text-center text-muted py-4">Aucune note saisie récemment.</td></tr>
             {% endfor %}
           </tbody>
         </table>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Derniers paiements -->
+<!-- Suivi Absences & Guide Enseignant -->
+<div class="row g-4 mb-4">
   <div class="col-lg-6">
     <div class="table-card h-100">
       <div class="table-header">
-        <h6 class="fw-semibold mb-0"><i class="bi bi-cash-stack me-2 text-success"></i>Derniers paiements</h6>
-        <a href="{% url 'attendance_payments:paiement_list' %}" class="btn btn-sm btn-outline-success">Voir tout</a>
+        <h6 class="fw-bold mb-0 text-dark">
+          <i class="bi bi-calendar-x text-warning me-2"></i>Absences Signalées Récemment
+        </h6>
+        <a href="{% url 'attendance_payments:absence_list' %}" class="btn btn-xs btn-outline-secondary rounded-pill px-3">Liste complète</a>
       </div>
       <div class="table-responsive">
-        <table class="table table-hover align-middle">
-          <thead><tr><th>Référence</th><th>Élève</th><th>Montant</th></tr></thead>
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Élève</th>
+              <th>Statut</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for abs in absences_recentes %}
+            <tr>
+              <td class="small text-muted">{{ abs.date|date:"d/m/Y" }}</td>
+              <td class="fw-semibold text-dark">{{ abs.inscription.eleve.nom_complet }}</td>
+              <td>
+                {% if abs.motif == 'justifie' %}
+                  <span class="badge bg-info bg-opacity-15 text-info border">Justifiée</span>
+                {% else %}
+                  <span class="badge bg-danger bg-opacity-15 text-danger border">Non justifiée</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3" class="text-center text-muted py-3">Aucune absence enregistrée.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="bg-white border rounded-3 p-4 h-100 shadow-xs">
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <i class="bi bi-info-circle-fill text-primary fs-5"></i>
+        <h6 class="fw-bold mb-0 text-dark">Rappels &amp; Guide d'Évaluation</h6>
+      </div>
+      <ul class="list-unstyled small text-muted mb-0">
+        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Les notes doivent être saisies sur un barème de <strong>0 à 20</strong>.</li>
+        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>La période en cours correspond au <strong>1er Trimestre</strong>.</li>
+        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>En cas d'erreur de saisie, vous pouvez modifier une note depuis la liste de vos évaluations.</li>
+        <li><i class="bi bi-check-circle-fill text-success me-2"></i>Pour toute anomalie dans votre liste de classes, contactez la Direction des Études.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═════════════════════════════════════════════════════════════════════════════
+     2. VUE EXCLUSIVE : ESPACE COMPTABLE & CAISSE (Uniquement lié aux finances)
+     ═════════════════════════════════════════════════════════════════════════════ -->
+{% elif user.is_paiement %}
+<div class="dashboard-hero mb-4">
+  <div class="row align-items-center g-3">
+    <div class="col-lg-8">
+      <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 border border-white border-opacity-15 small mb-2">
+        <i class="bi bi-cash-stack text-success"></i>
+        <span>Espace Caisse &amp; Recouvrement</span>
+      </div>
+      <h2 class="dashboard-hero-title mb-2">
+        Gestion Financière &amp; Scolarité
+      </h2>
+      <p class="dashboard-hero-subtitle mb-3">
+        Enregistrez les encaissements des frais scolaires, délivrez les quittances officielles et téléchargez le bilan financier.
+      </p>
+      <div class="d-flex flex-wrap gap-2">
+        <a href="{% url 'attendance_payments:paiement_create' %}" class="btn btn-success btn-sm fw-bold rounded-pill px-3 py-2 text-white shadow-sm">
+          <i class="bi bi-cash me-1"></i>Enregistrer un paiement
+        </a>
+        <a href="{% url 'attendance_payments:suivi_paiements' %}" class="btn btn-hero-secondary">
+          <i class="bi bi-graph-up me-1"></i>Suivi des recouvrements
+        </a>
+        <a href="{% url 'export_stats_csv' %}" class="btn btn-hero-secondary">
+          <i class="bi bi-file-earmark-arrow-down me-1"></i>Télécharger le Bilan (CSV)
+        </a>
+      </div>
+    </div>
+    <div class="col-lg-4 text-center d-none d-lg-block">
+      <div class="p-2 bg-white bg-opacity-15 rounded-circle d-inline-block shadow">
+        <img src="{% static 'img/logo.jpg' %}" alt="Logo Hibou" style="width: 120px; height: 120px; object-fit: contain;">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- KPIs Comptable -->
+<div class="row g-3 mb-4">
+  <div class="col-6 col-lg-3">
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#f0fdf4; color:#16a34a;">
+        <i class="bi bi-cash-coin"></i>
+      </div>
+      <div>
+        <div class="stat-value text-success">{{ total_encaisse|floatformat:0 }}</div>
+        <div class="stat-label">Total Encaissé (FCFA)</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#fef2f2; color:#ef4444;">
+        <i class="bi bi-clock-history"></i>
+      </div>
+      <div>
+        <div class="stat-value text-danger">{{ reste_a_recouvrer|floatformat:0 }}</div>
+        <div class="stat-label">Reste à recouvrer (FCFA)</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#fffbeb; color:#d97706;">
+        <i class="bi bi-percent"></i>
+      </div>
+      <div>
+        <div class="stat-value text-dark">{{ taux_recouvrement }}%</div>
+        <div class="stat-label">Taux de recouvrement</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#eff6ff; color:#2563eb;">
+        <i class="bi bi-receipt"></i>
+      </div>
+      <div>
+        <div class="stat-value text-dark">{{ nb_quittances }}</div>
+        <div class="stat-label">Quittances délivrées</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Section Téléchargement & Export du fichier -->
+<div class="bg-white border rounded-3 p-3 p-md-4 mb-4 d-flex flex-wrap align-items-center justify-content-between gap-3 shadow-xs">
+  <div>
+    <h6 class="fw-bold mb-1 text-dark">
+      <i class="bi bi-file-earmark-spreadsheet-fill text-success me-2"></i>Extraction du Bilan Comptable &amp; Journal de Caisse
+    </h6>
+    <p class="text-muted small mb-0">Téléchargez le journal des opérations financières au format CSV exploitable sur Excel.</p>
+  </div>
+  <div class="d-flex gap-2">
+    <a href="{% url 'export_stats_csv' %}" class="btn btn-sm btn-success fw-bold rounded-pill px-3 py-2">
+      <i class="bi bi-download me-1"></i>Enregistrer sur un fichier (CSV / Excel)
+    </a>
+    <button onclick="window.print()" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-2">
+      <i class="bi bi-printer me-1"></i>Imprimer
+    </button>
+  </div>
+</div>
+
+<!-- Tableaux Journal des Paiements & Inscriptions -->
+<div class="row g-4 mb-4">
+  <!-- Journal des paiements récents -->
+  <div class="col-lg-8">
+    <div class="table-card h-100">
+      <div class="table-header">
+        <h6 class="fw-bold mb-0 text-dark">
+          <i class="bi bi-receipt me-2 text-success"></i>Dernières Transactions &amp; Encaissements
+        </h6>
+        <a href="{% url 'attendance_payments:paiement_list' %}" class="btn btn-xs btn-outline-secondary rounded-pill px-3">Tout voir</a>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Référence</th>
+              <th>Élève</th>
+              <th>Montant</th>
+              <th>Date</th>
+            </tr>
+          </thead>
           <tbody>
             {% for p in derniers_paiements %}
             <tr>
-              <td><span class="badge bg-light text-dark border">{{ p.reference }}</span></td>
-              <td>{{ p.inscription.eleve }}</td>
-              <td class="fw-semibold text-success">{{ p.montant|floatformat:0 }} FCFA</td>
+              <td><span class="badge bg-light text-dark border font-monospace">{{ p.reference }}</span></td>
+              <td class="fw-semibold text-dark">{{ p.inscription.eleve }}</td>
+              <td class="fw-bold text-success">{{ p.montant|floatformat:0 }} FCFA</td>
+              <td class="small text-muted">{{ p.date|date:"d/m/Y" }}</td>
             </tr>
             {% empty %}
-            <tr><td colspan="3" class="text-center text-muted">Aucun paiement enregistré.</td></tr>
+            <tr><td colspan="4" class="text-center text-muted py-4">Aucun paiement enregistré récemment.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guide de Caisse & Sécurité -->
+  <div class="col-lg-4">
+    <div class="bg-white border rounded-3 p-4 h-100 shadow-xs">
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <i class="bi bi-shield-lock-fill text-success fs-5"></i>
+        <h6 class="fw-bold mb-0 text-dark">Règles de Caisse</h6>
+      </div>
+      <ul class="list-unstyled small text-muted mb-4">
+        <li class="mb-2">&bull; Chaque encaissement génère une référence unique inviolable.</li>
+        <li class="mb-2">&bull; Remettre systématiquement le reçu imprimé aux parents.</li>
+        <li class="mb-2">&bull; Clôturer le journal journalier avec le solde physique de caisse.</li>
+      </ul>
+      <div class="d-grid">
+        <a href="{% url 'attendance_payments:paiement_create' %}" class="btn btn-dark btn-sm rounded-pill py-2 fw-semibold">
+          <i class="bi bi-plus-circle me-1"></i>Nouvel Encaissement
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═════════════════════════════════════════════════════════════════════════════
+     3. VUE EXCLUSIVE : DIRECTION & ADMINISTRATEUR (Supervision complète)
+     ═════════════════════════════════════════════════════════════════════════════ -->
+{% else %}
+<!-- ══ SECTION ÉCHANGES D'ÉTABLISSEMENT ═══════════════ -->
+<div class="exchange-section-banner mb-4">
+  <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+    <div class="d-flex align-items-center gap-3">
+      <div class="p-2 rounded-3 bg-light border text-dark fs-4">
+        <i class="bi bi-arrow-left-right text-secondary"></i>
+      </div>
+      <div>
+        <div class="d-flex align-items-center gap-2">
+          <h6 class="fw-bold mb-0 text-dark">Échanges &amp; Mobilité Inter-Établissements</h6>
+          <span class="badge bg-secondary bg-opacity-10 text-dark border px-2 py-1" style="font-size: 0.7rem;">
+            {{ echanges_etablissements|length }} dossiers en cours
+          </span>
+        </div>
+        <p class="text-muted small mb-0">Supervision des transferts d'élèves et des conventions inter-écoles.</p>
+      </div>
+    </div>
+    
+    <div class="d-flex align-items-center gap-2">
+      <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEchanges">
+        <i class="bi bi-eye me-1"></i>Voir les dossiers
+      </button>
+      <button class="btn btn-sm btn-dark rounded-pill px-3 py-1" type="button" data-bs-toggle="modal" data-bs-target="#modalNouvelEchange">
+        <i class="bi bi-plus-circle me-1 text-warning"></i>Nouvel échange
+      </button>
+    </div>
+  </div>
+
+  <div class="collapse mt-3" id="collapseEchanges">
+    <div class="row g-2 pt-2 border-top">
+      {% for ech in echanges_etablissements %}
+      <div class="col-md-4">
+        <div class="exchange-pill-card">
+          <div>
+            <div class="fw-bold text-dark small">{{ ech.eleve_nom }} <span class="text-muted fw-normal">({{ ech.classe }})</span></div>
+            <div class="text-secondary small" style="font-size: 0.75rem;">
+              {{ ech.origine }} &rarr; <span class="fw-semibold text-dark">{{ ech.destination }}</span>
+            </div>
+            <div class="text-muted" style="font-size: 0.7rem;">{{ ech.motif }}</div>
+          </div>
+          <div class="text-end">
+            {% if ech.statut == 'valide' %}
+              <span class="badge bg-success bg-opacity-15 text-success border">Validé</span>
+            {% elif ech.statut == 'en_cours' %}
+              <span class="badge bg-warning bg-opacity-15 text-dark border">En cours</span>
+            {% else %}
+              <span class="badge bg-secondary bg-opacity-15 text-secondary border">En attente</span>
+            {% endif %}
+            <div class="text-muted mt-1" style="font-size: 0.65rem;">{{ ech.date }}</div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- Modal Demande d'échange -->
+<div class="modal fade" id="modalNouvelEchange" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg" style="border-radius: 16px;">
+      <div class="modal-header border-bottom bg-light">
+        <h5 class="modal-title fw-bold">Demande de transfert d'établissement</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-4">
+        <form onsubmit="event.preventDefault(); alert('Demande de transfert enregistrée avec succès.'); bootstrap.Modal.getInstance(document.getElementById('modalNouvelEchange')).hide();">
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Élève concerné</label>
+            <input type="text" class="form-control" placeholder="Nom ou matricule" required>
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <label class="form-label small fw-semibold">Départ</label>
+              <input type="text" class="form-control" value="Enko Bamako Campus 1" required>
+            </div>
+            <div class="col-6">
+              <label class="form-label small fw-semibold">Accueil souhaité</label>
+              <select class="form-select" required>
+                <option value="">Sélectionner...</option>
+                <option value="Lycée Ba Aminata Diallo">Lycée Ba Aminata Diallo</option>
+                <option value="Lycée Castors">Lycée Castors</option>
+                <option value="Complexe Progrès">Complexe Scolaire Progrès</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Motif</label>
+            <textarea class="form-control" rows="2" placeholder="Déménagement, cursus..." required></textarea>
+          </div>
+          <div class="text-end">
+            <button type="button" class="btn btn-sm btn-light border" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-sm btn-dark px-3">Valider</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Hero Direction -->
+<div class="dashboard-hero mb-4">
+  <div class="row align-items-center g-3">
+    <div class="col-lg-8">
+      <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 border border-white border-opacity-15 small mb-2">
+        <i class="bi bi-building text-warning"></i>
+        <span>Direction Générale &amp; Supervision</span>
+      </div>
+      <h2 class="dashboard-hero-title mb-2">
+        SchoolManager — Direction des Études
+      </h2>
+      <p class="dashboard-hero-subtitle mb-3">
+        Pilotage global de l'établissement : gestion académique, admissions, enseignants et indicateurs de performance.
+      </p>
+      <div class="d-flex flex-wrap gap-2">
+        <a href="{% url 'students:inscription_create' %}" class="btn btn-light btn-sm fw-bold rounded-pill px-3 py-2 text-dark shadow-sm">
+          <i class="bi bi-file-earmark-plus me-1 text-primary"></i>Nouvelle inscription
+        </a>
+        <a href="#section-stats-detaillees" class="btn btn-hero-secondary">
+          <i class="bi bi-bar-chart-line me-1"></i>Bilan Élèves &amp; Finances
+        </a>
+        <a href="{% url 'export_stats_csv' %}" class="btn btn-hero-secondary">
+          <i class="bi bi-file-earmark-arrow-down me-1"></i>Export Fichier (CSV)
+        </a>
+      </div>
+    </div>
+    <div class="col-lg-4 text-center d-none d-lg-block">
+      <div class="p-2 bg-white bg-opacity-15 rounded-circle d-inline-block shadow">
+        <img src="{% static 'img/logo.jpg' %}" alt="Logo Hibou" style="width: 120px; height: 120px; object-fit: contain;">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4 Cartouches d'accès direct (Statistiques, Carte Scolaire, Documents, Aide & Directions) -->
+<div class="row g-3 mb-4">
+  <div class="col-6 col-lg-3">
+    <a href="#section-stats-detaillees" class="quick-cat-card text-decoration-none">
+      <div class="quick-cat-icon" style="background: #f5f3ff; color: #7c3aed;">
+        <i class="bi bi-pie-chart-fill"></i>
+      </div>
+      <div class="fw-bold text-dark fs-6 mb-1">Statistiques</div>
+      <div class="text-muted small" style="font-size: 0.76rem;">Indicateurs &amp; bilans</div>
+    </a>
+  </div>
+  <div class="col-6 col-lg-3">
+    <a href="#section-carte-scolaire" class="quick-cat-card text-decoration-none">
+      <div class="quick-cat-icon" style="background: #ecfdf5; color: #059669;">
+        <i class="bi bi-geo-alt-fill"></i>
+      </div>
+      <div class="fw-bold text-dark fs-6 mb-1">Carte Scolaire</div>
+      <div class="text-muted small" style="font-size: 0.76rem;">Établissements &amp; classes</div>
+    </a>
+  </div>
+  <div class="col-6 col-lg-3">
+    <a href="#section-documents-administratifs" class="quick-cat-card text-decoration-none">
+      <div class="quick-cat-icon" style="background: #eff6ff; color: #2563eb;">
+        <i class="bi bi-folder-fill"></i>
+      </div>
+      <div class="fw-bold text-dark fs-6 mb-1">Documents</div>
+      <div class="text-muted small" style="font-size: 0.76rem;">Dossiers &amp; formulaires</div>
+    </a>
+  </div>
+  <div class="col-6 col-lg-3">
+    <a href="#section-aide-fonctionnement" class="quick-cat-card text-decoration-none">
+      <div class="quick-cat-icon" style="background: #fdf2f8; color: #db2777;">
+        <i class="bi bi-question-circle-fill"></i>
+      </div>
+      <div class="fw-bold text-dark fs-6 mb-1">Aide &amp; Directions</div>
+      <div class="text-muted small" style="font-size: 0.76rem;">Services &amp; assistance</div>
+    </a>
+  </div>
+</div>
+
+<!-- KPIs Direction -->
+<div class="row g-3 mb-4">
+  <div class="col-6 col-lg-3">
+    <a href="{% url 'students:eleve_list' %}" class="stat-card text-decoration-none">
+      <div class="stat-icon" style="background:#eff6ff; color:#2563eb;">
+        <i class="bi bi-person-badge-fill"></i>
+      </div>
+      <div>
+        <div class="stat-value">{{ nb_eleves }}</div>
+        <div class="stat-label">Élèves inscrits</div>
+      </div>
+    </a>
+  </div>
+  <div class="col-6 col-lg-3">
+    <a href="{% url 'school:classe_list' %}" class="stat-card text-decoration-none">
+      <div class="stat-icon" style="background:#f8fafc; color:#475569;">
+        <i class="bi bi-people-fill"></i>
+      </div>
+      <div>
+        <div class="stat-value">{{ nb_classes }}</div>
+        <div class="stat-label">Classes actives</div>
+      </div>
+    </a>
+  </div>
+  <div class="col-6 col-lg-3">
+    <a href="{% url 'academics:enseignant_list' %}" class="stat-card text-decoration-none">
+      <div class="stat-icon" style="background:#f0fdf4; color:#16a34a;">
+        <i class="bi bi-person-workspace"></i>
+      </div>
+      <div>
+        <div class="stat-value">{{ nb_enseignants }}</div>
+        <div class="stat-label">Enseignants &amp; Profs</div>
+      </div>
+    </a>
+  </div>
+  <div class="col-6 col-lg-3">
+    <a href="{% url 'attendance_payments:suivi_paiements' %}" class="stat-card text-decoration-none">
+      <div class="stat-icon" style="background:#fffbeb; color:#d97706;">
+        <i class="bi bi-cash-stack"></i>
+      </div>
+      <div>
+        <div class="stat-value">{{ taux_recouvrement }}%</div>
+        <div class="stat-label">Recouvrement scolarité</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- ══ SECTION STATISTIQUES ÉLÈVES & FINANCES + EXPORT (Flèche Bleue) ══ -->
+<div id="section-stats-detaillees" class="stats-detailed-box">
+  <div class="d-flex flex-wrap align-items-center justify-content-between pb-3 mb-4 border-bottom gap-3">
+    <div class="d-flex align-items-center gap-2">
+      <div class="p-2 bg-light rounded text-success fs-5">
+        <i class="bi bi-bar-chart-line-fill"></i>
+      </div>
+      <div>
+        <h5 class="fw-bold mb-0 text-dark">Bilan Global : Élèves &amp; Finances</h5>
+        <small class="text-muted">Indicateurs consolidés et exportation officielle des données</small>
+      </div>
+    </div>
+    
+    <div class="d-flex align-items-center gap-2">
+      <a href="{% url 'export_stats_csv' %}" class="btn btn-sm btn-success fw-bold rounded-pill px-3 py-2 shadow-xs">
+        <i class="bi bi-file-earmark-arrow-down-fill me-1"></i>Enregistrer sur un fichier (CSV / Excel)
+      </a>
+      <button onclick="window.print()" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-2">
+        <i class="bi bi-printer me-1"></i>Imprimer
+      </button>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Démographie Élèves -->
+    <div class="col-lg-6">
+      <div class="p-3 bg-light rounded-3 border h-100">
+        <h6 class="fw-bold mb-3 text-dark"><i class="bi bi-people-fill text-primary me-2"></i>Démographie des Élèves</h6>
+        <div class="row g-2 mb-3">
+          <div class="col-6">
+            <div class="p-3 bg-white rounded-3 border">
+              <div class="text-muted small">Garçons (M)</div>
+              <div class="fs-4 fw-bold text-dark">{{ nb_garcons }}</div>
+              <div class="small text-muted">{{ pourcent_garcons }}% de l'effectif</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="p-3 bg-white rounded-3 border">
+              <div class="text-muted small">Filles (F)</div>
+              <div class="fs-4 fw-bold text-dark">{{ nb_filles }}</div>
+              <div class="small text-muted">{{ pourcent_filles }}% de l'effectif</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-progress-bar mb-2 d-flex">
+          <div class="bg-primary" style="width: {{ pourcent_garcons }}%;" title="Garçons {{ pourcent_garcons }}%"></div>
+          <div class="bg-warning" style="width: {{ pourcent_filles }}%;" title="Filles {{ pourcent_filles }}%"></div>
+        </div>
+        <div class="d-flex justify-content-between text-muted small" style="font-size:0.75rem;">
+          <span><i class="bi bi-circle-fill text-primary me-1"></i>Garçons : {{ nb_garcons }}</span>
+          <span><i class="bi bi-circle-fill text-warning me-1"></i>Filles : {{ nb_filles }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Finances & Recouvrement -->
+    <div class="col-lg-6">
+      <div class="p-3 bg-light rounded-3 border h-100">
+        <h6 class="fw-bold mb-3 text-dark"><i class="bi bi-cash-stack text-success me-2"></i>Bilan Recouvrement Frais Scolaires</h6>
+        <div class="row g-2 mb-3">
+          <div class="col-6">
+            <div class="p-3 bg-white rounded-3 border">
+              <div class="text-muted small">Total Encaissé</div>
+              <div class="fs-5 fw-bold text-success">{{ total_encaisse|floatformat:0 }} FCFA</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="p-3 bg-white rounded-3 border">
+              <div class="text-muted small">Reste à Recouvrer</div>
+              <div class="fs-5 fw-bold text-danger">{{ reste_a_recouvrer|floatformat:0 }} FCFA</div>
+            </div>
+          </div>
+        </div>
+        <div class="stat-progress-bar mb-2">
+          <div class="bg-success h-100" style="width: {{ taux_recouvrement }}%;"></div>
+        </div>
+        <div class="d-flex justify-content-between text-muted small" style="font-size:0.75rem;">
+          <span>Taux d'encaissement : <strong>{{ taux_recouvrement }}%</strong></span>
+          <span>Prévisionnel : <strong>{{ total_previsionnel|floatformat:0 }} FCFA</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SECTION CARTE SCOLAIRE & CYCLES PÉDAGOGIQUES ══ -->
+<div id="section-carte-scolaire" class="bg-white border rounded-4 p-4 mb-4 shadow-xs">
+  <div class="d-flex flex-wrap align-items-center justify-content-between pb-3 mb-3 border-bottom gap-2">
+    <div class="d-flex align-items-center gap-2">
+      <div class="p-2 bg-light rounded text-success fs-5">
+        <i class="bi bi-geo-alt-fill"></i>
+      </div>
+      <div>
+        <h5 class="fw-bold mb-0 text-dark">Carte Scolaire &amp; Cycles de la Pédagogie Malienne</h5>
+        <small class="text-muted">Maternelle &bull; Fondamental 1 &amp; 2 (DEF) &bull; Lycée (BAC) &bull; Supérieur (LMD)</small>
+      </div>
+    </div>
+    <a href="{% url 'school:classe_list' %}" class="btn btn-sm btn-outline-dark rounded-pill px-3">
+      <i class="bi bi-eye me-1"></i>Toutes les classes
+    </a>
+  </div>
+
+  <div class="row g-3">
+    {% for cy in cycles_breakdown %}
+    <div class="col-md-4 col-lg">
+      <div class="p-3 rounded-3 border bg-light h-100 d-flex flex-column justify-content-between">
+        <div>
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <i class="bi {{ cy.icone }} fs-4 text-secondary"></i>
+            <span class="badge bg-dark rounded-pill">{{ cy.nb }} classe{{ cy.nb|pluralize }}</span>
+          </div>
+          <div class="fw-bold text-dark small">{{ cy.label }}</div>
+        </div>
+        <div class="mt-3 pt-2 border-top">
+          <a href="{% url 'school:classe_list' %}" class="text-decoration-none small text-secondary fw-semibold">
+            Consulter &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- ══ SECTION DOCUMENTS ADMINISTRATIFS & DOSSIERS ══ -->
+<div id="section-documents-administratifs" class="bg-white border rounded-4 p-4 mb-4 shadow-xs">
+  <div class="d-flex flex-wrap align-items-center justify-content-between pb-3 mb-3 border-bottom gap-2">
+    <div class="d-flex align-items-center gap-2">
+      <div class="p-2 bg-light rounded text-primary fs-5">
+        <i class="bi bi-folder-fill"></i>
+      </div>
+      <div>
+        <h5 class="fw-bold mb-0 text-dark">Dossiers &amp; Documents Administratifs</h5>
+        <small class="text-muted">Génération instantanée, quittances officielles et formulaires types</small>
+      </div>
+    </div>
+    <a href="{% url 'export_stats_csv' %}" class="btn btn-sm btn-outline-success rounded-pill px-3">
+      <i class="bi bi-download me-1"></i>Exporter le Bilan CSV
+    </a>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-sm-6 col-lg-3">
+      <div class="p-3 rounded-3 border bg-light h-100 d-flex flex-column justify-content-between">
+        <div>
+          <i class="bi bi-file-earmark-person-fill text-primary fs-3 d-block mb-2"></i>
+          <h6 class="fw-bold text-dark mb-1">Attestation de Scolarité</h6>
+          <p class="text-muted small mb-0" style="font-size:0.75rem;">Document officiel certifiant la fréquentation d'un apprenant pour les démarches administratives.</p>
+        </div>
+        <div class="mt-3">
+          <a href="{% url 'students:eleve_list' %}" class="btn btn-xs btn-outline-primary w-100 rounded-pill">
+            <i class="bi bi-printer me-1"></i>Délivrer
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-lg-3">
+      <div class="p-3 rounded-3 border bg-light h-100 d-flex flex-column justify-content-between">
+        <div>
+          <i class="bi bi-clipboard2-check-fill text-success fs-3 d-block mb-2"></i>
+          <h6 class="fw-bold text-dark mb-1">Bulletin Trimestriel</h6>
+          <p class="text-muted small mb-0" style="font-size:0.75rem;">Relevé d'évaluation officiel avec barème sur 20, moyennes pondérées et appréciations.</p>
+        </div>
+        <div class="mt-3">
+          <a href="{% url 'academics:note_list' %}" class="btn btn-xs btn-outline-success w-100 rounded-pill">
+            <i class="bi bi-file-text me-1"></i>Générer
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-lg-3">
+      <div class="p-3 rounded-3 border bg-light h-100 d-flex flex-column justify-content-between">
+        <div>
+          <i class="bi bi-receipt-cutoff text-warning fs-3 d-block mb-2"></i>
+          <h6 class="fw-bold text-dark mb-1">Quittance de Paiement</h6>
+          <p class="text-muted small mb-0" style="font-size:0.75rem;">Reçu de scolarité horodaté avec numéro de référence inviolable et solde restant.</p>
+        </div>
+        <div class="mt-3">
+          <a href="{% url 'attendance_payments:paiement_list' %}" class="btn btn-xs btn-outline-warning text-dark w-100 rounded-pill">
+            <i class="bi bi-receipt me-1"></i>Imprimer reçu
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-lg-3">
+      <div class="p-3 rounded-3 border bg-light h-100 d-flex flex-column justify-content-between">
+        <div>
+          <i class="bi bi-arrow-left-right text-info fs-3 d-block mb-2"></i>
+          <h6 class="fw-bold text-dark mb-1">Certificat de Radiation</h6>
+          <p class="text-muted small mb-0" style="font-size:0.75rem;">Dossier de transfert pour changement d'école, déménagement ou mobilité inter-établissements.</p>
+        </div>
+        <div class="mt-3">
+          <button type="button" class="btn btn-xs btn-outline-info text-dark w-100 rounded-pill" data-bs-toggle="modal" data-bs-target="#modalNouvelEchange">
+            <i class="bi bi-send me-1"></i>Demande
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SECTION AIDE, FONCTIONNEMENT & ASSISTANCE (Flèche Violette) ══ -->
+<div id="section-aide-fonctionnement" class="help-section-card">
+  <div class="d-flex flex-wrap align-items-center justify-content-between pb-3 mb-4 border-bottom gap-3">
+    <div class="d-flex align-items-center gap-2">
+      <div class="p-2 bg-light rounded text-primary fs-4">
+        <i class="bi bi-question-circle-fill"></i>
+      </div>
+      <div>
+        <h5 class="fw-bold mb-0 text-dark">Guide d'Aide &amp; Fonctionnement de SchoolManager</h5>
+        <small class="text-muted">Documentation technique, règles de sécurité, accessibilité et assistance</small>
+      </div>
+    </div>
+    <span class="badge bg-light text-dark border px-3 py-2 rounded-pill small">
+      <i class="bi bi-shield-check text-success me-1"></i>Version Conforme DEF &amp; BAC 2026
+    </span>
+  </div>
+
+  <div class="row g-4">
+    <!-- Cloisonnement des Rôles -->
+    <div class="col-md-6 col-lg-4">
+      <div class="help-topic-pill">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-people text-primary fs-5"></i>
+          <h6 class="fw-bold text-dark mb-0">Rôles &amp; Espaces Cloisonnés</h6>
+        </div>
+        <p class="text-muted small mb-0">
+          Chaque acteur (Élève, Parent, Enseignant, Comptable, Direction) dispose d'un espace strictement étanche. L'enseignant n'a accès qu'à ses matières et évaluations, le comptable à la caisse et la direction à la gouvernance globale.
+        </p>
+      </div>
+    </div>
+
+    <!-- Pédagogie Malienne -->
+    <div class="col-md-6 col-lg-4">
+      <div class="help-topic-pill">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-award text-success fs-5"></i>
+          <h6 class="fw-bold text-dark mb-0">Standards Pédagogiques Maliens</h6>
+        </div>
+        <p class="text-muted small mb-0">
+          Intégration native des cycles officiels : Maternelle (PS, MS, GS), Fondamental 1 &amp; 2 (DEF), Lycée Général/Technique (BAC) et Supérieur LMD (Licence, Master, Doctorat). Les notes sont notées sur 20 avec coefficients officiels.
+        </p>
+      </div>
+    </div>
+
+    <!-- Confidentialité & Sauvegarde -->
+    <div class="col-md-6 col-lg-4">
+      <div class="help-topic-pill">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-shield-lock text-warning fs-5"></i>
+          <h6 class="fw-bold text-dark mb-0">Sécurité &amp; Sauvegardes</h6>
+        </div>
+        <p class="text-muted small mb-0">
+          Toutes les données sont protégées par chiffrement des mots de passe (PBKDF2), jetons anti-CSRF et contrôle d'accès nominatif. Les historiques d'actions administratives et bilans financiers peuvent être sauvegardés en CSV à tout moment.
+        </p>
+      </div>
+    </div>
+
+    <!-- Accessibilité & Mobilité -->
+    <div class="col-md-6 col-lg-4">
+      <div class="help-topic-pill">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-phone text-info fs-5"></i>
+          <h6 class="fw-bold text-dark mb-0">Accessibilité &amp; Connexions Lentes</h6>
+        </div>
+        <p class="text-muted small mb-0">
+          L'interface est optimisée pour charger instantanément sur smartphone avec connexion 3G/4G lente. Les formulaires supportent la navigation au clavier (Tab/Entrée) et les éléments interactifs respectent les normes WCAG AA.
+        </p>
+      </div>
+    </div>
+
+    <!-- Communication & Boîte à Idées -->
+    <div class="col-md-6 col-lg-4">
+      <div class="help-topic-pill">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-chat-heart text-danger fs-5"></i>
+          <h6 class="fw-bold text-dark mb-0">Communication &amp; Boîte à Idées</h6>
+        </div>
+        <p class="text-muted small mb-0">
+          Partagez vos suggestions d'amélioration pour la vie de l'établissement ou signalez une difficulté technique à la direction via notre formulaire de contact et boîte à idées intégrée.
+        </p>
+      </div>
+    </div>
+
+    <!-- Support & Helpdesk -->
+    <div class="col-md-6 col-lg-4">
+      <div class="help-topic-pill">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-headset text-secondary fs-5"></i>
+          <h6 class="fw-bold text-dark mb-0">Cellule d'Assistance &amp; Support</h6>
+        </div>
+        <p class="text-muted small mb-0">
+          En cas de blocage ou d'oubli de mot de passe, contactez l'administrateur système ou le secrétariat de l'établissement au <strong>+223 20 23 10 35</strong> ou par courriel à <strong>support@schoolmanager.ml</strong>.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ACTUALITÉS DE L'ACADÉMIE & CALENDRIER PÉDAGOGIQUE ══ -->
+<div class="row g-4 mb-4">
+  <!-- Actualités -->
+  <div class="col-lg-6">
+    <div class="table-card h-100">
+      <div class="table-header">
+        <h6 class="fw-bold mb-0 text-dark">
+          <i class="bi bi-newspaper text-danger me-2"></i>Actualités de l'Académie &amp; Notes de Service
+        </h6>
+        <span class="badge bg-light text-dark border">Officiel</span>
+      </div>
+      <div class="p-3">
+        {% for act in actualites_academie %}
+        <div class="p-3 mb-2 rounded-3 border bg-light">
+          <div class="d-flex align-items-center justify-content-between mb-1">
+            <span class="badge {{ act.badge }}">{{ act.tag }}</span>
+            <small class="text-muted" style="font-size:0.72rem;">{{ act.date }}</small>
+          </div>
+          <h6 class="fw-bold text-dark mb-1" style="font-size:0.88rem;">{{ act.titre }}</h6>
+          <small class="text-muted"><i class="bi bi-building me-1"></i>{{ act.source }}</small>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Calendrier des Échéances -->
+  <div class="col-lg-6">
+    <div class="table-card h-100">
+      <div class="table-header">
+        <h6 class="fw-bold mb-0 text-dark">
+          <i class="bi bi-calendar-event text-primary me-2"></i>Calendrier &amp; Échéances Nationales
+        </h6>
+        <span class="badge bg-light text-dark border">Année 2025-2026</span>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Événement Pédagogique</th>
+              <th>Statut</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c in calendrier_scolaire %}
+            <tr>
+              <td class="fw-semibold text-dark small" style="white-space:nowrap;">{{ c.date }}</td>
+              <td class="small">{{ c.evenement }}</td>
+              <td><span class="badge {{ c.badge }}">{{ c.statut }}</span></td>
+            </tr>
             {% endfor %}
           </tbody>
         </table>
@@ -105,21 +1017,90 @@
   </div>
 </div>
 
-<!-- Accès rapide -->
-<div class="row g-3 mt-2">
-  <div class="col-12">
-    <div class="table-card">
-      <div class="table-header"><h6 class="fw-semibold mb-0">Accès rapide</h6></div>
-      <div class="p-3 d-flex flex-wrap gap-2">
-        <a href="{% url 'students:eleve_create' %}" class="btn btn-outline-primary btn-sm"><i class="bi bi-person-plus me-1"></i>Nouvel élève</a>
-        <a href="{% url 'students:inscription_create' %}" class="btn btn-outline-primary btn-sm"><i class="bi bi-clipboard-plus me-1"></i>Nouvelle inscription</a>
-        <a href="{% url 'academics:note_create' %}" class="btn btn-outline-success btn-sm"><i class="bi bi-pencil me-1"></i>Saisir une note</a>
-        <a href="{% url 'attendance_payments:absence_create' %}" class="btn btn-outline-warning btn-sm"><i class="bi bi-calendar-x me-1"></i>Enregistrer une absence</a>
-        <a href="{% url 'attendance_payments:paiement_create' %}" class="btn btn-outline-success btn-sm"><i class="bi bi-cash me-1"></i>Enregistrer un paiement</a>
-        <a href="{% url 'attendance_payments:suivi_paiements' %}" class="btn btn-outline-info btn-sm"><i class="bi bi-graph-up me-1"></i>Suivi des frais</a>
+<!-- Tableaux Années & Paiements -->
+<div class="row g-3 mb-4">
+  <div class="col-lg-6">
+    <div class="table-card h-100">
+      <div class="table-header">
+        <h6 class="fw-bold mb-0 text-dark"><i class="bi bi-calendar3 me-2 text-secondary"></i>Années scolaires</h6>
+        <a href="{% url 'school:annee_list' %}" class="btn btn-xs btn-outline-secondary rounded-pill px-3">Tout voir</a>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead><tr><th>Libellé</th><th>Établissement</th><th>Statut</th></tr></thead>
+          <tbody>
+            {% for annee in annees %}
+            <tr>
+              <td class="fw-semibold text-dark">{{ annee.libelle }}</td>
+              <td class="text-muted small">{{ annee.etablissement.nom }}</td>
+              <td><span class="badge bg-success bg-opacity-15 text-success border">En cours</span></td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3" class="text-center text-muted py-3">Aucune année enregistrée.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="table-card h-100">
+      <div class="table-header">
+        <h6 class="fw-bold mb-0 text-dark"><i class="bi bi-receipt me-2 text-success"></i>Derniers encaissements</h6>
+        <a href="{% url 'attendance_payments:paiement_list' %}" class="btn btn-xs btn-outline-secondary rounded-pill px-3">Tout voir</a>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead><tr><th>Réf</th><th>Élève</th><th>Montant</th></tr></thead>
+          <tbody>
+            {% for p in derniers_paiements %}
+            <tr>
+              <td><span class="badge bg-light text-dark border font-monospace">{{ p.reference }}</span></td>
+              <td class="fw-semibold text-dark">{{ p.inscription.eleve }}</td>
+              <td class="fw-bold text-success">{{ p.montant|floatformat:0 }} FCFA</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3" class="text-center text-muted py-3">Aucun paiement récent.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 </div>
-{% endblock %}
 
+<!-- Directions & Organigramme -->
+<div class="row g-3 mb-4">
+  {% for dir in directions %}
+  <div class="col-sm-6 col-lg-3">
+    <div class="bg-white border rounded-3 p-3 h-100 shadow-xs">
+      <div class="fw-bold text-dark fs-5">{{ dir.code }}</div>
+      <div class="text-muted small mb-2">{{ dir.nom }}</div>
+      <div class="small text-muted"><i class="bi bi-envelope me-1"></i>{{ dir.email }}</div>
+      <div class="small text-muted"><i class="bi bi-telephone me-1"></i>{{ dir.telephone }}</div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Contact & Campus -->
+<div class="bg-white border rounded-4 p-4 mb-4 shadow-xs">
+  <div class="row g-3 align-items-center">
+    <div class="col-lg-6">
+      <h5 class="fw-bold text-dark mb-2"><i class="bi bi-geo-alt-fill text-danger me-2"></i>Campus &amp; Secrétariat</h5>
+      <p class="text-muted small mb-3">Place de la Liberté - BP 71, Bamako - Mali | Tél: +223 20 23 10 35</p>
+      <a href="{% url 'students:inscription_create' %}" class="btn btn-sm btn-dark rounded-pill px-3 py-1">
+        <i class="bi bi-file-earmark-plus me-1"></i>Nouvelle inscription
+      </a>
+    </div>
+    <div class="col-lg-6">
+      <div class="rounded-3 overflow-hidden border" style="height: 180px;">
+        <iframe title="Carte Bamako" src="https://www.openstreetmap.org/export/embed.html?bbox=-8.030%2C12.620%2C-7.960%2C12.665&amp;layer=mapnik&amp;marker=12.6392%2C-7.9982" width="100%" height="100%" style="border:0;" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,26 +1,45 @@
 {% extends 'base.html' %}
-{% block title %}{{ title }}{% endblock %}
+{% block title %}{{ title }} — SchoolManager{% endblock %}
 {% block page_title %}{{ title }}{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
-  <div class="col-lg-7">
+  <div class="col-lg-7 col-xl-6">
     <div class="form-card">
-      <div class="alert alert-info py-2 small mb-4">
-        <i class="bi bi-info-circle me-2"></i>Laissez la référence vide pour en générer une automatiquement.
+      <div class="form-card-header d-flex align-items-center gap-3">
+        <div class="p-3 bg-light rounded-3 border text-dark fs-4">
+          <i class="bi bi-cash-stack text-success"></i>
+        </div>
+        <div>
+          <h5 class="fw-bold mb-1 text-dark">{{ title }}</h5>
+          <p class="text-muted small mb-0">Enregistrement d'un encaissement et délivrance de quittance officielle</p>
+        </div>
       </div>
+
+      <div class="alert alert-info py-2 px-3 small mb-4 rounded-3 border">
+        <i class="bi bi-info-circle-fill me-2 text-info"></i>La référence de paiement est auto-générée si vous laissez le champ vide.
+      </div>
+
       <form method="post" novalidate>
         {% csrf_token %}
         {% for field in form %}
         <div class="mb-3">
-          <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+          <label for="{{ field.id_for_label }}" class="form-label">
+            {{ field.label }}
+            {% if field.field.required %}<span class="required-star">*</span>{% endif %}
+          </label>
           {{ field }}
-          {% if field.errors %}<div class="invalid-feedback d-block">{{ field.errors.as_text }}</div>{% endif %}
+          {% if field.help_text %}<div class="form-helper-text">{{ field.help_text }}</div>{% endif %}
+          {% if field.errors %}<div class="invalid-feedback d-block small mt-1"><i class="bi bi-exclamation-circle me-1"></i>{{ field.errors.0 }}</div>{% endif %}
         </div>
         {% endfor %}
-        <div class="d-flex gap-2 mt-4">
-          <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Enregistrer</button>
-          <a href="{% url 'attendance_payments:paiement_list' %}" class="btn btn-outline-secondary">Annuler</a>
+        <div class="d-flex align-items-center justify-content-between gap-2 mt-4 pt-3 border-top">
+          <a href="{% url 'attendance_payments:paiement_list' %}" class="btn btn-outline-secondary rounded-pill px-4">
+            <i class="bi bi-arrow-left me-1"></i>Annuler
+          </a>
+          <button type="submit" class="btn btn-success rounded-pill px-4 shadow-sm fw-bold">
+            <i class="bi bi-check2-circle me-1"></i>Encaisser &amp; Valider
+          </button>
         </div>
       </form>
     </div>

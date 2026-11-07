@@ -1,28 +1,128 @@
 {% extends 'base.html' %}
-{% block title %}{{ title }}{% endblock %}
+{% load static %}
+
+{% block title %}{{ title }} — SchoolManager{% endblock %}
 {% block page_title %}{{ title }}{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
-  <div class="col-lg-7">
-    <div class="form-card">
+  <div class="col-lg-8 col-xl-7">
+    
+    <!-- Carte de Formulaire Haute Qualité -->
+    <div class="form-card shadow-sm border-0" style="border-radius: 24px; background: #ffffff; border: 1px solid #e2e8f0 !important;">
+      
+      <!-- En-tête du Formulaire avec Logo Hibou Officiel -->
+      <div class="d-flex align-items-center justify-content-between pb-3 mb-4 border-bottom">
+        <div class="d-flex align-items-center gap-3">
+          <div class="p-2 rounded-circle bg-light border shadow-2xs" style="width: 54px; height: 54px; display: flex; align-items: center; justify-content: center;">
+            <img src="{% static 'img/logo.jpg' %}" alt="Logo Hibou" style="width: 44px; height: 44px; object-fit: contain; border-radius: 50%;">
+          </div>
+          <div>
+            <div class="d-flex align-items-center gap-2">
+              <h5 class="fw-bold mb-0 text-dark">{{ title }}</h5>
+              <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25" style="font-size: 0.72rem;">
+                Standard Pédagogique Malien
+              </span>
+            </div>
+            <p class="text-muted small mb-0">Renseignez les informations requises pour officialiser l'inscription scolaire.</p>
+          </div>
+        </div>
+      </div>
+
       <form method="post" novalidate>
         {% csrf_token %}
-        {% for field in form %}
-        <div class="mb-3">
-          <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-          {{ field }}
-          {% if field.help_text %}<div class="form-text">{{ field.help_text }}</div>{% endif %}
-          {% if field.errors %}<div class="invalid-feedback d-block">{{ field.errors.as_text }}</div>{% endif %}
+
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger alert-dismissible fade show small py-2 mb-4" role="alert">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
-        {% endfor %}
-        <div class="d-flex gap-2 mt-4">
-          <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Enregistrer</button>
-          <a href="{% url 'students:inscription_list' %}" class="btn btn-outline-secondary">Annuler</a>
+        {% endif %}
+
+        <div class="row g-3">
+          <!-- Section 1 : Affectation de l'Élève -->
+          <div class="col-12">
+            <div class="p-3 bg-light rounded-3 border">
+              <h6 class="fw-bold mb-3 text-dark small text-uppercase letter-spacing-1">
+                <i class="bi bi-person-badge-fill text-primary me-2"></i>1. Élève &amp; Année Scolaire
+              </h6>
+              <div class="row g-3">
+                <div class="col-md-7">
+                  <label for="{{ form.eleve.id_for_label }}" class="form-label small fw-bold">Élève concerné <span class="text-danger">*</span></label>
+                  {{ form.eleve }}
+                  {% if form.eleve.errors %}<div class="invalid-feedback d-block small">{{ form.eleve.errors.0 }}</div>{% endif %}
+                </div>
+                <div class="col-md-5">
+                  <label for="{{ form.annee_scolaire.id_for_label }}" class="form-label small fw-bold">Année scolaire <span class="text-danger">*</span></label>
+                  {{ form.annee_scolaire }}
+                  {% if form.annee_scolaire.errors %}<div class="invalid-feedback d-block small">{{ form.annee_scolaire.errors.0 }}</div>{% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2 : Classe & Cycle Malien -->
+          <div class="col-12">
+            <div class="p-3 bg-light rounded-3 border">
+              <h6 class="fw-bold mb-3 text-dark small text-uppercase letter-spacing-1">
+                <i class="bi bi-mortarboard-fill text-warning me-2"></i>2. Classe &amp; Niveau d'Enseignement
+              </h6>
+              <div class="row g-3">
+                <div class="col-md-7">
+                  <label for="{{ form.classe.id_for_label }}" class="form-label small fw-bold">Classe d'affectation <span class="text-danger">*</span></label>
+                  {{ form.classe }}
+                  <div class="form-text small" style="font-size:0.75rem;">
+                    Conforme aux cycles maliens : Maternelle, 1er Cycle (1-6), 2nd Cycle (7-9 DEF), Lycée (10-Tle BAC) ou Supérieur LMD.
+                  </div>
+                  {% if form.classe.errors %}<div class="invalid-feedback d-block small">{{ form.classe.errors.0 }}</div>{% endif %}
+                </div>
+                <div class="col-md-5">
+                  <label for="{{ form.statut.id_for_label }}" class="form-label small fw-bold">Statut du dossier <span class="text-danger">*</span></label>
+                  {{ form.statut }}
+                  {% if form.statut.errors %}<div class="invalid-feedback d-block small">{{ form.statut.errors.0 }}</div>{% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3 : Frais de Scolarité & Modalités -->
+          <div class="col-12">
+            <div class="p-3 bg-light rounded-3 border">
+              <h6 class="fw-bold mb-3 text-dark small text-uppercase letter-spacing-1">
+                <i class="bi bi-cash-coin text-success me-2"></i>3. Frais de Scolarité &amp; Remarques
+              </h6>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="{{ form.frais_scolarite.id_for_label }}" class="form-label small fw-bold">Montant des frais annuels (FCFA)</label>
+                  <div class="input-group">
+                    {{ form.frais_scolarite }}
+                    <span class="input-group-text bg-white small fw-bold text-muted">FCFA</span>
+                  </div>
+                  {% if form.frais_scolarite.errors %}<div class="invalid-feedback d-block small">{{ form.frais_scolarite.errors.0 }}</div>{% endif %}
+                </div>
+                <div class="col-md-6">
+                  <label for="{{ form.observations.id_for_label }}" class="form-label small fw-bold">Observations administratives</label>
+                  {{ form.observations }}
+                  {% if form.observations.errors %}<div class="invalid-feedback d-block small">{{ form.observations.errors.0 }}</div>{% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Boutons d'action -->
+        <div class="d-flex align-items-center justify-content-between mt-4 pt-3 border-top">
+          <a href="{% url 'students:inscription_list' %}" class="btn btn-outline-secondary rounded-pill px-4">
+            <i class="bi bi-x-lg me-1"></i>Annuler
+          </a>
+          <button type="submit" class="btn btn-dark fw-bold rounded-pill px-4 py-2 shadow-sm">
+            <i class="bi bi-check-circle-fill text-success me-2"></i>Valider &amp; Enregistrer l'Inscription
+          </button>
         </div>
       </form>
+
     </div>
   </div>
 </div>
 {% endblock %}
-

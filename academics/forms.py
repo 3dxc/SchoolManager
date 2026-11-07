@@ -8,11 +8,11 @@ class EnseignantForm(forms.ModelForm):
         model = Enseignant
         fields = ['nom', 'prenom', 'specialite', 'telephone', 'email', 'user']
         widgets = {
-            'nom': forms.TextInput(attrs={'class': 'form-control'}),
-            'prenom': forms.TextInput(attrs={'class': 'form-control'}),
-            'specialite': forms.TextInput(attrs={'class': 'form-control'}),
-            'telephone': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'nom': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: Coulibaly'}),
+            'prenom': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: Bakary'}),
+            'specialite': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: Mathématiques, Sciences Physiques'}),
+            'telephone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: +223 70 11 22 33'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Ex: b.coulibaly@schoolmanager.ml'}),
             'user': forms.Select(attrs={'class': 'form-select'}),
         }
 
@@ -37,8 +37,8 @@ class NoteForm(forms.ModelForm):
             'inscription': forms.Select(attrs={'class': 'form-select'}),
             'matiere': forms.Select(attrs={'class': 'form-select'}),
             'periode': forms.Select(attrs={'class': 'form-select'}),
-            'valeur': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.5', 'min': '0', 'max': '20'}),
-            'commentaire': forms.TextInput(attrs={'class': 'form-control'}),
+            'valeur': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.5', 'min': '0', 'max': '20', 'placeholder': 'Note / 20 (ex: 15.5)'}),
+            'commentaire': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: Très bon travail, persévérez / Devoir N°1'}),
         }
 
     def __init__(self, *args, user=None, **kwargs):

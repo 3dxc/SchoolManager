@@ -1,35 +1,113 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Connexion — SchoolManager{% endblock %}
+{% block title %}Connexion Sécurisée — SchoolManager{% endblock %}
 
 {% block content %}
-<div class="login-page d-flex align-items-center justify-content-center py-5" style="min-height: 100vh; background: radial-gradient(circle at 10% 20%, #1a3c5e 0%, #0f2235 90%);">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8 col-lg-5 col-xl-4">
-        
-        <!-- Carte de Connexion -->
-        <div class="card border-0 shadow-lg" style="border-radius: 16px; overflow: hidden; background: #ffffff;">
+<div class="login-wrapper position-relative overflow-hidden" style="min-height: 100vh;">
+  
+  <!-- ══ Carrousel d'arrière-plan dynamique en fondu enchaîné ══ -->
+  <div class="bg-carousel-container">
+    <div class="bg-slide active" style="background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1920&q=80');"></div>
+    <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1920&q=80');"></div>
+    <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1920&q=80');"></div>
+    <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1920&q=80');"></div>
+    <div class="bg-carousel-overlay"></div>
+  </div>
+
+  <div class="container position-relative py-5" style="z-index: 10; min-height: 100vh; display: flex; align-items: center;">
+    <div class="row w-100 align-items-center g-4 justify-content-between">
+      
+      <!-- Colonne Gauche : Présentation institutionnelle (Image 3 Redesign) -->
+      <div class="col-lg-6 col-xl-7 text-white mb-4 mb-lg-0 d-none d-lg-block">
+        <div class="pe-lg-4">
+          <!-- Badge amélioré (Cercle Rouge) -->
+          <div class="login-hero-badge mb-3">
+            <span class="live-status-dot"></span>
+            <i class="bi bi-mortarboard-fill login-badge-icon"></i>
+            <span class="login-hero-badge-text">Pédagogie &amp; Standards Maliens</span>
+            <span class="badge-shimmer"></span>
+          </div>
+          <!-- Titre rotatif 5 messages (Cercle Bleu) -->
+          <h1 class="display-4 fw-extrabold mb-3 text-white tracking-tight hero-title-wrapper">
+            School<span class="hero-title-cycling" id="heroTitleCycle">Manager</span>
+          </h1>
+          <p class="lead text-white text-opacity-90 mb-4" style="max-width: 560px; font-weight: 400; line-height: 1.6;">
+            De la Maternelle au Supérieur (Doctorat), en passant par les 1er et 2nd Cycles Fondamentaux et le Lycée : l'environnement numérique officiel d'excellence pour la gouvernance scolaire intégrée.
+          </p>
           
-          <!-- En-tête de marque -->
-          <div class="p-4 text-center text-white" style="background: linear-gradient(135deg, #1a3c5e, #2563a8);">
-            <div class="d-inline-flex align-items-center justify-content-center bg-white bg-opacity-10 rounded-circle mb-3" style="width: 68px; height: 68px;">
-              <i class="bi bi-mortarboard-fill text-warning fs-1"></i>
+          <!-- Cartes redessinées (Cercle Noir) -->
+          <div class="d-flex flex-column gap-3 mt-4" style="max-width: 520px;">
+            <!-- Carte 1 : Cycles Pédagogiques -->
+            <div class="login-glass-card d-flex align-items-center gap-4">
+              <div class="glass-card-icon-wrap flex-shrink-0" style="background: rgba(245,158,11,0.18); border: 1.5px solid rgba(245,158,11,0.3);">
+                <i class="bi bi-mortarboard-fill" style="color: #f59e0b; font-size: 1.75rem;"></i>
+              </div>
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center justify-content-between mb-1">
+                  <span class="fw-bold text-white" style="font-size: 0.95rem; letter-spacing: -0.02em;">Cycles Pédagogiques Officiels</span>
+                  <span class="glass-card-badge" style="border-color: rgba(245,158,11,0.4); color: #fbbf24; background: rgba(245,158,11,0.15);">Mali DEF &amp; BAC</span>
+                </div>
+                <div class="text-white-50" style="font-size: 0.78rem; line-height: 1.5;">
+                  Maternelle (PS, MS, GS) &bull; Fondamental 1 &amp; 2 &bull; Lycée &bull; LMD Supérieur
+                </div>
+              </div>
             </div>
-            <h3 class="fw-bold mb-1 tracking-wide">SchoolManager</h3>
-            <p class="small text-white-50 mb-0">Espace numérique de gestion scolaire</p>
+
+            <!-- Carte 2 : Espaces Cloisonnés -->
+            <div class="login-glass-card d-flex align-items-center gap-4">
+              <div class="glass-card-icon-wrap flex-shrink-0" style="background: rgba(16,185,129,0.18); border: 1.5px solid rgba(16,185,129,0.3);">
+                <i class="bi bi-shield-check-fill" style="color: #10b981; font-size: 1.75rem;"></i>
+              </div>
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center justify-content-between mb-1">
+                  <span class="fw-bold text-white" style="font-size: 0.95rem; letter-spacing: -0.02em;">Espaces Métiers Cloisonnés</span>
+                  <span class="glass-card-badge" style="border-color: rgba(16,185,129,0.4); color: #34d399; background: rgba(16,185,129,0.15);">Sécurisé</span>
+                </div>
+                <div class="text-white-50" style="font-size: 0.78rem; line-height: 1.5;">
+                  Interfaces dédiées Enseignants, Caisse &amp; Recouvrement, Direction des Études
+                </div>
+              </div>
+            </div>
+
+            <!-- Carte 3 : Mobilité & Bilan -->
+            <div class="login-glass-card d-flex align-items-center gap-4">
+              <div class="glass-card-icon-wrap flex-shrink-0" style="background: rgba(99,179,237,0.18); border: 1.5px solid rgba(99,179,237,0.3);">
+                <i class="bi bi-lightning-charge-fill" style="color: #63b3ed; font-size: 1.75rem;"></i>
+              </div>
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center justify-content-between mb-1">
+                  <span class="fw-bold text-white" style="font-size: 0.95rem; letter-spacing: -0.02em;">Mobilité &amp; Exports Instantanés</span>
+                  <span class="glass-card-badge" style="border-color: rgba(99,179,237,0.4); color: #90cdf4; background: rgba(99,179,237,0.15);">Temps Réel</span>
+                </div>
+                <div class="text-white-50" style="font-size: 0.78rem; line-height: 1.5;">
+                  Horloge live, extraction CSV / Excel des bilans, transferts d'établissement
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colonne Droite : Formulaire d'authentification Haute Couture -->
+      <div class="col-lg-6 col-xl-5 col-xxl-4 ms-auto">
+        <div class="card border-0 login-card-luxury">
+          
+          <!-- En-tête de Carte avec Logo Hibou Officiel -->
+          <div class="p-4 text-center border-bottom bg-white" style="border-radius: 28px 28px 0 0;">
+            <div class="login-logo-ring mb-3">
+              <img src="{% static 'img/logo.jpg' %}" alt="Logo Hibou Officiel" class="login-logo-img">
+            </div>
+            <div class="d-inline-flex align-items-center gap-1 px-3 py-1 rounded-pill bg-light border text-muted small mb-2" style="font-size:0.7rem; font-weight:700; letter-spacing:0.8px;">
+              <i class="bi bi-lock-fill text-success"></i> ESPACE SÉCURISÉ
+            </div>
+            <h3 class="fw-bold mb-1 text-dark tracking-tight">Authentification</h3>
+            <p class="text-muted small mb-0">Connectez-vous pour accéder à votre espace de travail</p>
           </div>
 
           <!-- Corps du Formulaire -->
-          <div class="card-body p-4 p-md-4">
-            
-            <div class="mb-3 text-center">
-              <h5 class="fw-semibold text-dark mb-1">Authentification</h5>
-              <p class="text-muted small">Connectez-vous pour accéder à votre espace</p>
-            </div>
-
-            <!-- Affichage des erreurs globales -->
+          <div class="card-body p-4 bg-white">
+              
             {% if form.non_field_errors %}
             <div class="alert alert-danger alert-dismissible fade show py-2 small" role="alert">
               <i class="bi bi-exclamation-triangle-fill me-2"></i>
@@ -45,19 +123,19 @@
 
               <!-- Champ Identifiant -->
               <div class="mb-3">
-                <label for="{{ form.username.id_for_label }}" class="form-label small fw-semibold text-secondary">
-                  <i class="bi bi-person me-1"></i>Identifiant
+                <label for="{{ form.username.id_for_label }}" class="form-label small fw-bold text-dark mb-1">
+                  Identifiant de connexion
                 </label>
-                <div class="input-group">
-                  <span class="input-group-text bg-light border-end-0 text-muted">
-                    <i class="bi bi-person-fill"></i>
+                <div class="input-group luxury-input-group">
+                  <span class="input-group-text">
+                    <i class="bi bi-person-circle"></i>
                   </span>
                   <input type="text" 
                          name="{{ form.username.name }}" 
                          id="{{ form.username.id_for_label }}" 
                          value="{{ form.username.value|default:'' }}" 
-                         class="form-control bg-light border-start-0 {% if form.username.errors %}is-invalid{% endif %}" 
-                         placeholder="Ex: admin, prof_maths" 
+                         class="form-control {% if form.username.errors %}is-invalid{% endif %}" 
+                         placeholder="Ex: admin, prof_maths, comptable" 
                          required 
                          autofocus>
                 </div>
@@ -70,20 +148,20 @@
 
               <!-- Champ Mot de passe -->
               <div class="mb-3">
-                <label for="{{ form.password.id_for_label }}" class="form-label small fw-semibold text-secondary">
-                  <i class="bi bi-shield-lock me-1"></i>Mot de passe
+                <label for="{{ form.password.id_for_label }}" class="form-label small fw-bold text-dark mb-1">
+                  Mot de passe
                 </label>
-                <div class="input-group">
-                  <span class="input-group-text bg-light border-end-0 text-muted">
-                    <i class="bi bi-lock-fill"></i>
+                <div class="input-group luxury-input-group">
+                  <span class="input-group-text">
+                    <i class="bi bi-shield-lock-fill"></i>
                   </span>
                   <input type="password" 
                          name="{{ form.password.name }}" 
                          id="{{ form.password.id_for_label }}" 
-                         class="form-control bg-light border-start-0 border-end-0 {% if form.password.errors %}is-invalid{% endif %}" 
+                         class="form-control {% if form.password.errors %}is-invalid{% endif %}" 
                          placeholder="••••••••" 
                          required>
-                  <button class="btn btn-light border border-start-0 text-muted" type="button" id="togglePasswordBtn" title="Afficher/Masquer le mot de passe">
+                  <button class="btn btn-password-toggle" type="button" id="togglePasswordBtn" title="Afficher/Masquer le mot de passe">
                     <i class="bi bi-eye" id="togglePasswordIcon"></i>
                   </button>
                 </div>
@@ -94,78 +172,386 @@
                 {% endif %}
               </div>
 
-              <!-- Bouton de Soumission -->
+              <!-- Bouton de Soumission Haute Gamme -->
               <div class="d-grid mt-4">
-                <button type="submit" class="btn btn-primary py-2 fw-semibold shadow-sm" style="background: #1a3c5e; border-color: #1a3c5e;">
-                  <i class="bi bi-box-arrow-in-right me-2"></i>Se connecter
+                <button type="submit" class="btn btn-luxury-submit py-3">
+                  <span>Se connecter</span>
+                  <i class="bi bi-arrow-right-short fs-4"></i>
                 </button>
               </div>
             </form>
 
             <hr class="my-4 text-muted opacity-25">
 
-            <!-- Section Démo Rapide (1-clic pour tester) -->
+            <!-- Comptes de Test avec badges raffinés -->
             <div>
-              <p class="text-center text-muted small fw-semibold mb-2">Comptes de test (Mot de passe : <code>admin123</code>)</p>
-              <div class="d-flex flex-wrap gap-2 justify-content-center">
-                <button type="button" class="btn btn-sm btn-outline-primary demo-fill-btn" data-user="admin">
-                  <i class="bi bi-shield-shaded me-1"></i>Admin
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-info demo-fill-btn" data-user="direction">
-                  <i class="bi bi-building me-1"></i>Direction
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success demo-fill-btn" data-user="prof_maths">
-                  <i class="bi bi-person-workspace me-1"></i>Enseignant
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-warning demo-fill-btn" data-user="comptable">
-                  <i class="bi bi-cash-stack me-1"></i>Comptable
-                </button>
+              <div class="text-center text-muted small fw-semibold mb-2" style="font-size:0.75rem;">
+                Comptes de test préconfigurés (Mot de passe : <code class="text-dark bg-light px-2 py-1 rounded">admin123</code>)
+              </div>
+              <div class="d-grid gap-2">
+                <div class="row g-2">
+                  <div class="col-6">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 rounded-3 py-2 text-start d-flex align-items-center gap-2 demo-chip" data-user="admin">
+                      <i class="bi bi-shield-check text-primary"></i>
+                      <div class="small fw-bold">Admin</div>
+                    </button>
+                  </div>
+                  <div class="col-6">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 rounded-3 py-2 text-start d-flex align-items-center gap-2 demo-chip" data-user="direction">
+                      <i class="bi bi-building text-info"></i>
+                      <div class="small fw-bold">Direction</div>
+                    </button>
+                  </div>
+                  <div class="col-6">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 rounded-3 py-2 text-start d-flex align-items-center gap-2 demo-chip" data-user="prof_maths">
+                      <i class="bi bi-person-workspace text-success"></i>
+                      <div class="small fw-bold">Enseignant</div>
+                    </button>
+                  </div>
+                  <div class="col-6">
+                    <button type="button" class="btn btn-sm btn-outline-dark w-100 rounded-3 py-2 text-start d-flex align-items-center gap-2 demo-chip" data-user="comptable">
+                      <i class="bi bi-cash-stack text-warning"></i>
+                      <div class="small fw-bold">Comptable</div>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
           </div>
 
           <!-- Pied de carte -->
-          <div class="card-footer bg-light border-0 py-3 text-center">
-            <small class="text-muted">SchoolManager &copy; {% now "Y" %} — Plateforme sécurisée</small>
+          <div class="card-footer bg-light border-0 py-3 text-center" style="border-radius: 0 0 28px 28px;">
+            <small class="text-muted d-flex align-items-center justify-content-center gap-1" style="font-size:0.72rem;">
+              <i class="bi bi-patch-check-fill text-success"></i>
+              SchoolManager &copy; {% now "Y" %} — Système officiel conforme DEF &amp; BAC
+            </small>
           </div>
 
         </div>
-
       </div>
+
     </div>
   </div>
 </div>
 {% endblock %}
 
-{% block extra_js %}
-<script>
-  // 1. Bascule pour afficher/masquer le mot de passe
-  const toggleBtn = document.getElementById('togglePasswordBtn');
-  const passwordInput = document.getElementById('{{ form.password.id_for_label }}');
-  const toggleIcon = document.getElementById('togglePasswordIcon');
-
-  if (toggleBtn && passwordInput && toggleIcon) {
-    toggleBtn.addEventListener('click', function () {
-      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-      passwordInput.setAttribute('type', type);
-      toggleIcon.classList.toggle('bi-eye');
-      toggleIcon.classList.toggle('bi-eye-slash');
-    });
+{% block extra_css %}
+<style>
+  /* ══ Styles Carrousel en Fondu Enchaîné ══ */
+  .bg-carousel-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .bg-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+    opacity: 0;
+    transform: scale(1);
+    transition: opacity 1.8s ease-in-out, transform 6s ease-out;
+  }
+  
+  .bg-slide.active {
+    opacity: 1;
+    transform: scale(1.05);
   }
 
-  // 2. Boutons de remplissage rapide des comptes de démonstration
-  const usernameInput = document.getElementById('{{ form.username.id_for_label }}');
-  document.querySelectorAll('.demo-fill-btn').forEach(button => {
-    button.addEventListener('click', function () {
-      const targetUser = this.getAttribute('data-user');
-      if (usernameInput && passwordInput) {
-        usernameInput.value = targetUser;
-        passwordInput.value = 'admin123';
-        usernameInput.focus();
-      }
-    });
+  .bg-carousel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(30, 26, 24, 0.86) 60%, rgba(15, 23, 42, 0.95) 100%);
+    z-index: 2;
+  }
+
+  /* ══ Carte de Connexion Luxury ══ */
+  .login-card-luxury {
+    border-radius: 28px;
+    background: #ffffff;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+  }
+
+  .login-logo-ring {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 6px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 0 0 2px #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+  }
+
+  .login-logo-ring:hover {
+    transform: scale(1.06);
+  }
+
+  .login-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+
+  /* ══ Champs de saisie raffinés ══ */
+  .luxury-input-group {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1.5px solid #e2e8f0;
+    transition: all 0.25s ease;
+    background: #f8fafc;
+  }
+
+  .luxury-input-group:focus-within {
+    border-color: #2b3240;
+    box-shadow: 0 0 0 4px rgba(43, 50, 64, 0.12);
+    background: #ffffff;
+  }
+
+  .luxury-input-group .input-group-text {
+    background: transparent;
+    border: none;
+    color: #64748b;
+    padding-left: 1rem;
+  }
+
+  .luxury-input-group .form-control {
+    background: transparent;
+    border: none;
+    padding: 0.75rem 1rem 0.75rem 0.5rem;
+    font-size: 0.92rem;
+    color: #0f172a;
+  }
+
+  .luxury-input-group .form-control:focus {
+    box-shadow: none;
+  }
+
+  .btn-password-toggle {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    padding: 0 1rem;
+  }
+
+  .btn-password-toggle:hover {
+    color: #0f172a;
+  }
+
+  /* ══ Bouton de Soumission ══ */
+  .btn-luxury-submit {
+    background: linear-gradient(135deg, #1e2430 0%, #2f3846 100%);
+    border: none;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-shadow: 0 6px 18px rgba(30, 36, 48, 0.25);
+    transition: all 0.25s ease;
+  }
+
+  .btn-luxury-submit:hover {
+    background: linear-gradient(135deg, #2f3846 0%, #1e2430 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(30, 36, 48, 0.35);
+    color: #ffffff;
+  }
+
+  /* ══ Chips de Démo ══ */
+  .demo-chip {
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    transition: all 0.2s ease;
+  }
+
+  .demo-chip:hover {
+    background: #ffffff;
+    border-color: #0f172a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .live-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #10b981;
+    display: inline-block;
+    box-shadow: 0 0 8px #10b981;
+    animation: livePulse 2s infinite;
+  }
+
+  @keyframes livePulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+  }
+
+  /* ══ Titre rotatif Hero ══ */
+  .hero-title-wrapper {
+    white-space: nowrap;
+    display: block;
+  }
+  .hero-title-cycling {
+    color: #f59e0b;
+    display: inline-block;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    min-width: 1px;
+  }
+  .hero-title-cycling.anim-out {
+    opacity: 0;
+    transform: translateY(-18px) scale(0.96);
+  }
+  .hero-title-cycling.anim-in {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  /* ══ Badge amélioré : shimmer + icône ══ */
+  .login-hero-badge {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.45rem 1.15rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+  .login-badge-icon {
+    color: #fbbf24;
+    font-size: 0.85rem;
+  }
+  .badge-shimmer {
+    position: absolute;
+    top: 0; left: -80%;
+    width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+    transform: skewX(-18deg);
+    animation: badgeShimmer 3.5s infinite 1.5s;
+    pointer-events: none;
+  }
+  @keyframes badgeShimmer {
+    0%   { left: -80%; }
+    55%  { left: 130%; }
+    100% { left: 130%; }
+  }
+
+  /* ══ Glass Cards redessinées : icônes 60×60 ══ */
+  .glass-card-icon-wrap {
+    width: 62px;
+    height: 62px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+  }
+  .login-glass-card:hover .glass-card-icon-wrap {
+    transform: scale(1.08) rotate(-3deg);
+  }
+  .glass-card-badge {
+    font-size: 0.63rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    border: 1px solid;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // 1. Carrousel d'arrière-plan
+    const slides = document.querySelectorAll('.bg-slide');
+    if (slides.length > 1) {
+      let currentIdx = 0;
+      setInterval(() => {
+        slides[currentIdx].classList.remove('active');
+        currentIdx = (currentIdx + 1) % slides.length;
+        slides[currentIdx].classList.add('active');
+      }, 5000);
+    }
+
+    // 2. Titre rotatif Hero (5 phrases, 2 s chacune, avec transition)
+    const heroEl = document.getElementById('heroTitleCycle');
+    if (heroEl) {
+      const cycleWords = ['Manager', 'Éducation', 'Excellence', 'Mali 🇲🇱', 'Scolaire'];
+      let wordIdx = 0;
+      heroEl.classList.add('anim-in');
+
+      setInterval(() => {
+        // Phase sortie
+        heroEl.classList.remove('anim-in');
+        heroEl.classList.add('anim-out');
+
+        setTimeout(() => {
+          wordIdx = (wordIdx + 1) % cycleWords.length;
+          heroEl.textContent = cycleWords[wordIdx];
+          heroEl.classList.remove('anim-out');
+          heroEl.classList.add('anim-in');
+        }, 420);
+      }, 2000);
+    }
+
+    // 3. Bascule mot de passe
+    const toggleBtn = document.getElementById('togglePasswordBtn');
+    const passwordInput = document.getElementById('{{ form.password.id_for_label }}');
+    const toggleIcon = document.getElementById('togglePasswordIcon');
+
+    if (toggleBtn && passwordInput && toggleIcon) {
+      toggleBtn.addEventListener('click', function () {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        toggleIcon.classList.toggle('bi-eye');
+        toggleIcon.classList.toggle('bi-eye-slash');
+      });
+    }
+
+    // 4. Remplissage test
+    const demoBtns = document.querySelectorAll('.demo-chip');
+    const userInput = document.getElementById('{{ form.username.id_for_label }}');
+    if (userInput && passwordInput) {
+      demoBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+          const user = this.getAttribute('data-user');
+          userInput.value = user;
+          passwordInput.value = 'admin123';
+          demoBtns.forEach(b => b.classList.remove('active', 'border-dark'));
+          this.classList.add('active', 'border-dark');
+        });
+      });
+    }
   });
 </script>
 {% endblock %}
-

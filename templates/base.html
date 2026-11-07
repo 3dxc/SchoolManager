@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}SchoolManager{% endblock %}</title>
+  <!-- Favicon Hibou Diplômé Officiel -->
+  <link rel="icon" type="image/jpeg" href="{% static 'img/logo.jpg' %}">
   <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
@@ -18,10 +20,13 @@
 {% if user.is_authenticated %}
 <!-- ══ Sidebar ═══════════════════════════════════════════════════════════════ -->
 <nav id="sidebar">
-  <!-- Bouton / Marque ramenant à l'accueil -->
+  <!-- Bouton / Marque ramenant à l'accueil avec Logo Hibou Officiel -->
   <a href="{% url 'dashboard' %}" class="sidebar-brand text-decoration-none" title="Tableau de bord — SchoolManager">
-    <h4><i class="bi bi-mortarboard-fill me-2" style="color:var(--secondary)"></i>SchoolManager</h4>
-    <small>Gestion scolaire</small>
+    <img src="{% static 'img/logo.jpg' %}" alt="Logo Hibou SchoolManager" class="sidebar-brand-logo rounded-2">
+    <div>
+      <h4>School<span>Manager</span></h4>
+      <small>Excellence Scolaire</small>
+    </div>
   </a>
 
   <!-- Menu défilable (scrollable) -->
@@ -31,6 +36,66 @@
       <i class="bi bi-grid-1x2-fill"></i> Tableau de bord
     </a>
 
+    {% if user.is_enseignant %}
+    <!-- ══ VUE ENSEIGNANT (Options liées exclusivement à son métier) ══ -->
+    <div class="nav-section-title">Espace Pédagogique</div>
+    <a href="{% url 'academics:note_list' %}" class="nav-link {% if 'notes' in request.path %}active{% endif %}">
+      <i class="bi bi-pencil-square"></i> Mes Notes
+    </a>
+    <a href="{% url 'academics:affectation_list' %}" class="nav-link {% if 'affectations' in request.path %}active{% endif %}">
+      <i class="bi bi-diagram-3-fill"></i> Mes Affectations
+    </a>
+
+    <div class="nav-section-title">Mes Classes &amp; Élèves</div>
+    <a href="{% url 'school:classe_list' %}" class="nav-link {% if 'classes' in request.path %}active{% endif %}">
+      <i class="bi bi-people-fill"></i> Classes
+    </a>
+    <a href="{% url 'school:matiere_list' %}" class="nav-link {% if 'matieres' in request.path %}active{% endif %}">
+      <i class="bi bi-book-fill"></i> Matières
+    </a>
+    <a href="{% url 'students:eleve_list' %}" class="nav-link {% if '/students/' in request.path and 'parents' not in request.path and 'inscriptions' not in request.path %}active{% endif %}">
+      <i class="bi bi-person-badge-fill"></i> Élèves
+    </a>
+
+    <div class="nav-section-title">Suivi des Présences</div>
+    <a href="{% url 'attendance_payments:absence_list' %}" class="nav-link {% if 'absences' in request.path %}active{% endif %}">
+      <i class="bi bi-calendar-x-fill"></i> Saisie des Absences
+    </a>
+
+    {% elif user.is_paiement %}
+    <!-- ══ VUE COMPTABLE / PAIEMENT (Options liées exclusivement à la gestion financière) ══ -->
+    <div class="nav-section-title">Caisse &amp; Finances</div>
+    <a href="{% url 'attendance_payments:paiement_list' %}" class="nav-link {% if 'paiements' in request.path and 'suivi' not in request.path %}active{% endif %}">
+      <i class="bi bi-cash-stack"></i> Encaisser / Paiements
+    </a>
+    <a href="{% url 'attendance_payments:suivi_paiements' %}" class="nav-link {% if 'suivi' in request.path %}active{% endif %}">
+      <i class="bi bi-graph-up-arrow"></i> Suivi des Recouvrements
+    </a>
+
+    <div class="nav-section-title">Inscriptions &amp; Élèves</div>
+    <a href="{% url 'students:inscription_list' %}" class="nav-link {% if 'inscriptions' in request.path %}active{% endif %}">
+      <i class="bi bi-clipboard-check-fill"></i> Inscriptions Scolaires
+    </a>
+    <a href="{% url 'students:eleve_list' %}" class="nav-link {% if '/students/' in request.path and 'parents' not in request.path and 'inscriptions' not in request.path %}active{% endif %}">
+      <i class="bi bi-person-badge-fill"></i> Répertoire Élèves
+    </a>
+    <a href="{% url 'students:parent_list' %}" class="nav-link {% if 'parents' in request.path %}active{% endif %}">
+      <i class="bi bi-people"></i> Parents / Tuteurs
+    </a>
+
+    <div class="nav-section-title">Structure</div>
+    <a href="{% url 'school:etablissement_list' %}" class="nav-link {% if 'etablissement' in request.path %}active{% endif %}">
+      <i class="bi bi-building"></i> Établissements
+    </a>
+    <a href="{% url 'school:annee_list' %}" class="nav-link {% if 'annees' in request.path %}active{% endif %}">
+      <i class="bi bi-calendar3"></i> Années Scolaires
+    </a>
+    <a href="{% url 'school:classe_list' %}" class="nav-link {% if 'classes' in request.path %}active{% endif %}">
+      <i class="bi bi-people-fill"></i> Classes
+    </a>
+
+    {% else %}
+    <!-- ══ VUE DIRECTION & ADMINISTRATEURS (Accès Global) ══ -->
     <!-- École -->
     <div class="nav-section-title">École</div>
     <a href="{% url 'school:etablissement_list' %}" class="nav-link {% if 'etablissement' in request.path %}active{% endif %}">
@@ -92,6 +157,7 @@
       <i class="bi bi-gear-fill"></i> Admin Django
     </a>
     {% endif %}
+    {% endif %}
   </div>
 
   <!-- Profil & Déconnexion (Pied de sidebar fixe) -->
@@ -117,41 +183,48 @@
 <div id="main-content" {% if not user.is_authenticated %}style="margin-left:0"{% endif %}>
   {% if user.is_authenticated %}
   <!-- Topbar -->
-  <div class="topbar">
-    <div class="d-flex align-items-center gap-2">
-      <button class="btn btn-sm d-md-none" id="sidebarToggle" style="background:transparent;border:none;">
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="btn btn-sm d-md-none" id="sidebarToggle" style="background:transparent;border:none;" aria-label="Ouvrir le menu">
         <i class="bi bi-list fs-4" style="color:var(--primary)"></i>
       </button>
       <h1 class="page-title">{% block page_title %}{% endblock %}</h1>
     </div>
-    <div class="d-flex align-items-center gap-3">
+    <div class="topbar-right">
       {% block topbar_actions %}{% endblock %}
     </div>
-  </div>
+  </header>
   {% endif %}
 
-  <!-- Messages flash -->
+  <!-- Messages flash (Disparition automatique après 3s avec repli fluide) -->
   {% if messages %}
-  <div class="{% if user.is_authenticated %}px-4 pt-3{% else %}container mt-3{% endif %}">
+  <div id="flash-messages-wrapper" class="{% if user.is_authenticated %}px-4 pt-3{% else %}container mt-3{% endif %}" role="region" aria-live="polite">
     {% for message in messages %}
-    <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
-      <i class="bi bi-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' or message.tags == 'danger' %}exclamation-triangle{% else %}info-circle{% endif %}-fill me-2"></i>
-      {{ message }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show auto-dismiss-alert mb-2" role="alert">
+      <div class="d-flex align-items-center">
+        <i class="bi bi-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' or message.tags == 'danger' %}exclamation-triangle{% else %}info-circle{% endif %}-fill fs-5 me-2 flex-shrink-0"></i>
+        <div class="flex-grow-1 fw-medium">{{ message }}</div>
+        <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Fermer"></button>
+      </div>
+      <!-- Barre de progression 3 secondes -->
+      <div class="alert-countdown-bar"></div>
     </div>
     {% endfor %}
   </div>
   {% endif %}
 
   <!-- Contenu de la page -->
-  <div class="{% if user.is_authenticated %}p-4 flex-grow-1{% endif %}">
+  <main class="{% if user.is_authenticated %}p-4 flex-grow-1{% endif %}">
     {% block content %}{% endblock %}
-  </div>
+  </main>
 
   {% if user.is_authenticated %}
   <!-- Footer -->
-  <footer class="text-center py-3" style="font-size:0.75rem;color:#a0aec0;border-top:1px solid #e2e8f0;">
-    SchoolManager &copy; {% now "Y" %} — Gestion scolaire
+  <footer class="text-center py-3" style="font-size:0.8rem;color:var(--secondary);border-top:1px solid rgba(110,84,70,0.12);">
+    <div class="d-flex align-items-center justify-content-center gap-2">
+      <img src="{% static 'img/logo.jpg' %}" alt="Logo Hibou SchoolManager" style="width:24px;height:24px;border-radius:4px;" class="shadow-xs" loading="lazy">
+      <span>SchoolManager &copy; {% now "Y" %} — Plateforme d'Excellence &amp; Gestion Scolaire</span>
+    </div>
   </footer>
   {% endif %}
 </div>
@@ -170,6 +243,51 @@
     if (sidebar && toggle && !sidebar.contains(e.target) && !toggle.contains(e.target)) {
       sidebar.classList.remove('show');
     }
+  });
+
+  // Horloge dynamique temps réel
+  function updateLiveClock() {
+    const el = document.getElementById('topbarLiveClock');
+    if (el) {
+      const now = new Date();
+      el.textContent = now.toLocaleTimeString('fr-FR');
+    }
+  }
+  setInterval(updateLiveClock, 1000);
+  updateLiveClock();
+
+  // ══ Disparition automatique des messages flash après 3 secondes avec repli fluide (Image 4 Fix) ══
+  document.addEventListener('DOMContentLoaded', function () {
+    const alerts = document.querySelectorAll('.auto-dismiss-alert');
+    alerts.forEach(function (alert) {
+      function smoothDismiss() {
+        alert.classList.add('collapsing-alert');
+        setTimeout(function () {
+          alert.remove();
+          const wrapper = document.getElementById('flash-messages-wrapper');
+          if (wrapper && wrapper.querySelectorAll('.auto-dismiss-alert').length === 0) {
+            wrapper.style.maxHeight = '0';
+            wrapper.style.padding = '0';
+            wrapper.style.margin = '0';
+            wrapper.style.overflow = 'hidden';
+            setTimeout(() => wrapper.remove(), 400);
+          }
+        }, 450);
+      }
+
+      // Déclencheur après 3 secondes (3000 ms)
+      const timer = setTimeout(smoothDismiss, 3000);
+
+      // Fermeture manuelle immédiate
+      const closeBtn = alert.querySelector('.btn-close');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          clearTimeout(timer);
+          smoothDismiss();
+        });
+      }
+    });
   });
 </script>
 {% block extra_js %}{% endblock %}

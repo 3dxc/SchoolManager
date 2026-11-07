@@ -1,25 +1,49 @@
 {% extends 'base.html' %}
-{% block title %}{{ title }}{% endblock %}
+{% block title %}{{ title }} — SchoolManager{% endblock %}
 {% block page_title %}{{ title }}{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
   <div class="col-lg-8">
     <div class="form-card">
+      <div class="form-card-header d-flex align-items-center gap-3">
+        <div class="p-3 bg-light rounded-3 border text-dark fs-4">
+          <i class="bi bi-person-plus-fill text-primary"></i>
+        </div>
+        <div>
+          <h5 class="fw-bold mb-1 text-dark">{{ title }}</h5>
+          <p class="text-muted small mb-0">Renseignez l'état civil de l'apprenant selon le standard d'immatriculation officiel</p>
+        </div>
+      </div>
+
       <form method="post" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
         <div class="row g-3">
           {% for field in form %}
           <div class="col-md-{% if field.name in 'adresse,photo' %}12{% else %}6{% endif %}">
-            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+            <label for="{{ field.id_for_label }}" class="form-label">
+              {{ field.label }}
+              {% if field.field.required %}<span class="required-star">*</span>{% endif %}
+            </label>
             {{ field }}
-            {% if field.errors %}<div class="invalid-feedback d-block">{{ field.errors.as_text }}</div>{% endif %}
+            {% if field.help_text %}
+              <div class="form-helper-text">{{ field.help_text }}</div>
+            {% endif %}
+            {% if field.errors %}
+              <div class="invalid-feedback d-block small mt-1">
+                <i class="bi bi-exclamation-circle me-1"></i>{{ field.errors.0 }}
+              </div>
+            {% endif %}
           </div>
           {% endfor %}
         </div>
-        <div class="d-flex gap-2 mt-4">
-          <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Enregistrer</button>
-          <a href="{% url 'students:eleve_list' %}" class="btn btn-outline-secondary">Annuler</a>
+        <div class="d-flex align-items-center justify-content-between gap-2 mt-4 pt-3 border-top">
+          <a href="{% url 'students:eleve_list' %}" class="btn btn-outline-secondary rounded-pill px-4">
+            <i class="bi bi-arrow-left me-1"></i>Annuler
+          </a>
+          <button type="submit" class="btn btn-primary rounded-pill px-4 shadow-sm">
+            <i class="bi bi-check2-circle me-1"></i>Enregistrer l'élève
+          </button>
         </div>
       </form>
     </div>

@@ -1,0 +1,81 @@
+# ═══════════════════════════════════════════════════════════════════════
+#  SchoolManager — .gitignore
+#  Ne JAMAIS versionner ces fichiers sensibles ou générés automatiquement
+# ═══════════════════════════════════════════════════════════════════════
+
+# ── Environnement virtuel Python ──────────────────────────────────────
+env/
+venv/
+.venv/
+ENV/
+*.egg-info/
+
+# ── Variables d'environnement SENSIBLES (secrets, mots de passe) ──────
+.env
+.env.local
+.env.production
+*.env
+
+# ── Base de données locale SQLite ─────────────────────────────────────
+db.sqlite3
+*.sqlite3
+
+# ── Fichiers uploadés par les utilisateurs (photos, logos) ───────────
+media/
+!media/.gitkeep
+!media/photos/.gitkeep
+!media/logos/.gitkeep
+!media/documents/.gitkeep
+
+# ── Fichiers statiques collectés (collectstatic) ─────────────────────
+staticfiles/
+
+# ── Cache Python ──────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+
+# ── Fichiers de migrations (optionnel, versionner si souhaité) ────────
+# Les migrations sont ici gardées en version control :
+# (NE PAS décommenter sauf si vous voulez les ignorer)
+# */migrations/*.py
+# !*/migrations/__init__.py
+
+# ── IDE et Éditeurs ───────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ── Fichiers de log ───────────────────────────────────────────────────
+*.log
+logs/
+*.pot
+
+# ── Tests et Couverture ───────────────────────────────────────────────
+.coverage
+htmlcov/
+.pytest_cache/
+coverage.xml
+
+# ── Certificats SSL/TLS ───────────────────────────────────────────────
+*.pem
+*.key
+*.crt
+
+# ── Exports temporaires et rapports CSV ──────────────────────────────
+rapport_statistiques_*.csv
+
+# ── Dossiers de build Node.js (si front séparé) ──────────────────────
+node_modules/
+dist/
+build/
+
+# ── Fichiers temporaires Windows ─────────────────────────────────────
+desktop.ini
+$RECYCLE.BIN/
+

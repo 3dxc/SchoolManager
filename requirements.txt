@@ -1,0 +1,53 @@
+# ═══════════════════════════════════════════════════════════════════════
+#  SchoolManager — Dépendances Python
+#  Système de Gestion Scolaire Intégré (Mali)
+#  Conforme aux standards DEF, BAC & LMD
+#  Mise à jour : Novembre 2026
+# ═══════════════════════════════════════════════════════════════════════
+
+# ── Framework Principal ───────────────────────────────────────────────
+Django==6.1.3
+
+# ── API REST ──────────────────────────────────────────────────────────
+djangorestframework==3.18.3
+
+# ── Traitement des Images (Logos, Photos d'élèves) ───────────────────
+Pillow==13.0.0
+
+# ── Base de données SQL (parsing) ────────────────────────────────────
+sqlparse==0.6.1
+
+# ── Gestion des fuseaux horaires (Bamako UTC+0) ───────────────────────
+tzdata==2026.6
+asgiref==3.13.0
+
+# ── Variables d'environnement (Production) ───────────────────────────
+# python-decouple==3.8      # À activer en production pour lire le .env
+# django-environ==0.11.2    # Alternative à decouple
+
+# ── Base de Données Production (PostgreSQL recommandé) ───────────────
+# psycopg2-binary==2.9.9    # Décommenter pour PostgreSQL
+# dj-database-url==2.1.0    # Parsing URL de base de données
+
+# ── Serveur WSGI Production ───────────────────────────────────────────
+# gunicorn==21.2.0           # Décommenter pour le déploiement
+
+# ── Stockage Fichiers Statiques (Production) ─────────────────────────
+# whitenoise==6.6.0          # Décommenter pour servir les fichiers statiques
+
+# ── Sécurité (Production) ─────────────────────────────────────────────
+# django-cors-headers==4.3.1 # CORS si séparation front/back
+# django-csp==3.7            # Content Security Policy
+
+# ══════════════════════════════════════════════════════════════════════
+# Installation :
+#   pip install -r requirements.txt
+#
+# Développement local :
+#   python manage.py runserver
+#
+# Production :
+#   Décommenter les packages de production ci-dessus
+#   puis : gunicorn edumanager.wsgi:application
+# ══════════════════════════════════════════════════════════════════════
+

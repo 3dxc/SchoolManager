@@ -1,6 +1,6 @@
 # 🎓 SchoolManager — Système Intégré de Gestion Scolaire
 
-**SchoolManager** est une solution web complète, moderne et responsive développée avec le framework **Django**. Elle centralise la gestion administrative, pédagogique et financière des établissements d'enseignement primaire et secondaire.
+**SchoolManager** est une solution web complète, moderne et responsive développée avec **Django**. Elle centralise la gestion administrative, pédagogique et financière des établissements d'enseignement du Mali — de la Maternelle au Doctorat.
 
 ---
 
@@ -10,24 +10,28 @@
 2. [Architecture Technique & Modèle Pivot](#-architecture-technique--modèle-pivot)
 3. [Les 5 Applications Django](#-les-5-applications-django)
 4. [Gestion des Rôles & Permissions (RBAC)](#-gestion-des-rôles--permissions-rbac)
-5. [Fonctionnalités Principales](#-fonctionnalités-principales)
-6. [Module de Communication Administrative](#-module-de-communication-administrative)
-7. [Endpoints API JSON](#-endpoints-api-json)
-8. [Installation & Démarrage Rapide](#-installation--démarrage-rapide)
-9. [Comptes de Démonstration](#-comptes-de-démonstration)
-10. [Arborescence du Projet](#-arborescence-du-projet)
+5. [Cycles Pédagogiques Maliens](#-cycles-pédagogiques-maliens)
+6. [Fonctionnalités Principales](#-fonctionnalités-principales)
+7. [Design & Interface Utilisateur](#-design--interface-utilisateur)
+8. [Module de Communication Administrative](#-module-de-communication-administrative)
+9. [Endpoints API JSON](#-endpoints-api-json)
+10. [Installation & Démarrage Rapide](#-installation--démarrage-rapide)
+11. [Configuration de l'Environnement (.env)](#-configuration-de-lenvironnement-env)
+12. [Comptes de Démonstration](#-comptes-de-démonstration)
+13. [Arborescence du Projet](#-arborescence-du-projet)
 
 ---
 
 ## 🎯 Problématique & Objectifs
 
-Les établissements scolaires font face à des pertes d'informations dues à l'éparpillement des données (inscriptions, notes, présences, règlements de frais). 
+Les établissements scolaires font face à des pertes d'informations dues à l'éparpillement des données (inscriptions, notes, présences, règlements de frais).
 
 **SchoolManager résout ce défi en :**
 * **Centralisant** l'ensemble des données scolaires sous une base relationnelle unique.
 * **Sécurisant** les accès via un contrôle strict par rôle (direction, professeurs, comptables, administrateurs).
 * **Automatisant** le calcul des moyennes trimestrielles pondérées et l'édition des bulletins officiels.
 * **Simplifiant** le recouvrement des frais de scolarité grâce à un suivi en temps réel et des relances en 1 clic.
+* **Respectant** les standards pédagogiques officiels du Mali (DEF, BAC, LMD).
 
 ---
 
@@ -73,94 +77,125 @@ SchoolManager implémente un contrôle d'accès granulaire basé sur le modèle 
 | Rôle | Périmètre & Droits d'accès |
 | :--- | :--- |
 | **Administrateur** (`admin`) | Accès complet sans restriction : gestion des utilisateurs, des rôles et console Django Admin. |
-| **Direction** (`direction`) | Gestion de la structure scolaire, création des classes, matières, affectations d'enseignants, validation des inscriptions. |
-| **Enseignant** (`enseignant`) | Accès restreint : ne consulte et ne saisit des notes **que pour les classes et matières où il est affecté**. |
-| **Paiement / Intendance** (`paiement`) | Accès financier : encaissement des paiements, consultation des soldes dus, expédition des relances aux tuteurs. |
+| **Direction** (`direction`) | Gestion de la structure scolaire, création des classes, matières, affectations d'enseignants, validation des inscriptions. Vue tableau de bord global. |
+| **Enseignant** (`enseignant`) | Accès restreint : ne consulte et ne saisit des notes **que pour les classes et matières où il est affecté**. Tableau de bord pédagogique dédié. |
+| **Paiement / Intendance** (`paiement`) | Accès financier uniquement : encaissement des paiements, consultation des soldes dus, expédition des relances aux tuteurs. Tableau de bord caisse dédié. |
+
+> 🔒 Chaque tableau de bord n'affiche **que** les sections liées au métier de l'utilisateur connecté — pas de fuite d'information entre rôles.
+
+---
+
+## 📚 Cycles Pédagogiques Maliens
+
+SchoolManager respecte intégralement les normes pédagogiques officielles du Mali :
+
+| Grande Section | Niveaux / Classes |
+| :--- | :--- |
+| **Maternelle** | Petite Section (PS) · Moyenne Section (MS) · Grande Section (GS) |
+| **Fondamental 1er Cycle** | 1ère · 2ème · 3ème · 4ème · 5ème · 6ème année |
+| **Fondamental 2nd Cycle** | 7ème · 8ème · 9ème année *(Examen : DEF)* |
+| **Lycée** | 10ème · 11ème · Terminale *(Examen : BAC)* |
+| **Licence** | Licence 1 · Licence 2 · Licence 3 |
+| **Master** | Master 1 · Master 2 |
+| **Doctorat** | Doctorat |
+
+> Notes sur 20 · Frais en FCFA · Téléphones au format `+223 XX XX XX XX`
 
 ---
 
 ## ⚡ Fonctionnalités Principales
 
 ### 1. Tableau de bord interactif (`/`)
-* Indicateurs clés en temps réel (total élèves, classes actives, professeurs, inscriptions actives).
-* Vue d'ensemble des dernières opérations financières.
-* Raccourcis rapides d'actions fréquentes.
+* Indicateurs clés en temps réel (total élèves, classes actives, professeurs, taux de recouvrement).
+* Vue d'ensemble personnalisée selon le rôle de l'utilisateur connecté.
+* Horloge dynamique en direct et badge de session sécurisée.
+* Accès rapide aux 4 espaces principaux : Statistiques, Carte Scolaire, Documents, Aide.
 
-### 2. Gestion des Élèves & Tuteurs (`/students/`)
-* Attribution automatique d'un matricule scolaire unique (`AAAA-XXXXXX`).
-* Fiche détaillée par élève : historique de toutes ses inscriptions, coordonnées des parents avec mention du contact principal.
-* Recherche et filtrage multi-critères (nom, prénom, matricule).
+### 2. Gestion des Élèves & Familles
+* Fiche individuelle complète (matricule, photo, niveau, contacts).
+* Liaison multi-parents avec degré de parenté et droit de retrait.
+* Historique complet des inscriptions sur plusieurs années scolaires.
 
-### 3. Pédagogie, Saisie des Notes & Bulletins (`/academics/`)
-* **Affectations strictes** : un enseignant n'intervient que dans son périmètre assigné.
-* **Saisie des notes** : contrôle automatique du barème (0 à 20 par défaut, configurable dans `settings.py`).
-* **Bulletin scolaire officiel** :
-  * Calcul automatique de la moyenne par matière.
-  * Application des coefficients respectifs.
-  * Calcul de la moyenne générale pondérée.
-  * Récapitulatif des absences de la période.
-  * Mise en page optimisée pour l'impression papier (`window.print()`).
+### 3. Vie Pédagogique
+* Saisie des notes avec contrôle strict (0-20) par matière, trimestre et classe affectée.
+* Calcul automatique des moyennes pondérées par coefficient.
+* Génération et impression des bulletins officiels.
+* Registre des absences avec justification et impact statistique.
 
-### 4. Absences & Frais Scolaires (`/attendance/`)
-* Suivi des absences avec distinction (justifiée avec motif / non justifiée).
-* Suivi de solvabilité (`/attendance/paiements/suivi/`) : identification immédiate des élèves à jour ou en retard de paiement.
-* Génération automatique de références de reçu uniques (`PAY-XXXXXXXX`).
+### 4. Gestion Financière
+* Encaissement des frais de scolarité (montant en FCFA).
+* Tableau de suivi des soldes en temps réel par classe.
+* Relances automatiques par e-mail aux tuteurs des élèves en retard.
+* Export des bilans financiers.
 
----
+### 5. Administration
+* Gestion complète des utilisateurs avec attribution de rôles.
+* Création des années scolaires, établissements, classes et matières.
+* Journal d'actions administratives.
+* Console Django Admin accessible aux super-utilisateurs.
 
-## ✉️ Module de Communication Administrative
-
-L'application intègre des gabarits HTML transactionnels soignés et réutilisables (`templates/emails/`) :
-
-1. **Relance d'impayé de scolarité** (`relance_paiement.html`) : Rappel bienveillant ou formel du solde restant et des modalités de versement.
-2. **Convocation de parent / tuteur** (`convocation_parent.html`) : Invitation à un entretien pédagogique ou disciplinaire avec date, heure et interlocuteurs.
-3. **Notification de bulletin** (`bulletin_notification.html`) : Annonce aux familles de la mise à disposition des résultats scolaires avec résumé des performances.
-
-> **Déclenchement en 1 clic** :
-> * Bouton **"Envoyer relance"** sur la liste des soldes impayés.
-> * Bouton **"Notifier le tuteur"** directement sur la page du bulletin.
+### 6. Accessibilité & Responsivité
+* Interface 100% responsive (mobile, tablette, desktop).
+* Navigation au clavier et aria-live pour les lecteurs d'écran.
+* Chargement optimisé pour connexions lentes.
+* Messages flash avec disparition automatique après 3 secondes.
 
 ---
 
-## 🔌 Endpoints API JSON
+## 🎨 Design & Interface Utilisateur
 
-Des services API sont exposés pour automatiser les interactions avec des systèmes tiers ou des scripts d'automatisation :
+### Palette de couleurs
+| Rôle | Valeur | Usage |
+| :--- | :--- | :--- |
+| Charbon exécutif | `#1e2430` | Couleur principale, sidebar |
+| Marron terne | `#6b564a` | Accent secondaire, bordures |
+| Or pompon | `#c8962d` | Accents or, titres actifs |
+| Violet discret | `#6d28d9` | ≤ 15% de la surface totale |
+| Vert succès | `#10b981` | Badges, confirmations |
 
-### 1. Déclencher une relance de frais de scolarité
-* **Route** : `POST /attendance/api/relance/<inscription_id>/`
-* **Corps JSON optionnel** :
-  ```json
-  {
-    "date_echeance": "30 novembre 2024"
-  }
-  ```
-* **Réponse** :
-  ```json
-  {
-    "status": "success",
-    "message": "Notification de relance transmise avec succès à parent@email.com.",
-    "solde_restant": 80000.0
-  }
-  ```
+### Page de connexion
+* **Arrière-plan** : carrousel de 4 images en fondu enchaîné (5 s par image).
+* **Titre rotatif** : 5 phrases animées en cycle toutes les 2 s ("SchoolManager", "Éducation", "Excellence", "Mali 🇲🇱", "Scolaire").
+* **Badge** "Pédagogie & Standards Maliens" avec effet shimmer animé.
+* **3 cartes glassmorphiques** avec icônes 60×60 et badges de statut.
+* **Logo hibou** diplômé officiel (`static/img/logo.jpg`) — format JPG exclusivement.
 
-### 2. Déclencher une convocation de parent
-* **Route** : `POST /attendance/api/convocation/<inscription_id>/`
-* **Corps JSON** :
-  ```json
-  {
-    "date_rdv": "2024-11-25",
-    "heure_rdv": "10h00",
-    "motif": "Entretien de suivi trimestriel",
-    "interlocuteurs": "Direction & Professeur Principal"
-  }
-  ```
+### Tableaux de bord par rôle
+* **Direction** : KPIs globaux, carte scolaire, échanges inter-établissements, statistiques élèves & finances, actualités, calendrier.
+* **Enseignant** : classes assignées, matières, notes récentes, absences — rien de financier.
+* **Comptable** : encaissements, soldes, recouvrement, inscriptions — rien de pédagogique.
+
+---
+
+## 📧 Module de Communication Administrative
+
+Le service `attendance_payments/services.py` automatise :
+* **Relances de paiement** : e-mail personnalisé au tuteur légal dès qu'un solde est impayé au-delà d'un seuil configurable.
+* **Convocations parents** : génération d'un document de convocation officiel.
+* **Bulletins par e-mail** : envoi du bulletin trimestriel directement aux parents.
+
+Les gabarits HTML des e-mails se trouvent dans `templates/emails/`.
+
+---
+
+## 🌐 Endpoints API JSON
+
+| URL | Description |
+| :--- | :--- |
+| `/api/stats/` | Statistiques globales (élèves, classes, notes, paiements) |
+| `/api/eleves/` | Liste et détail des élèves |
+| `/api/notes/` | Notes par inscription, matière ou trimestre |
+| `/api/paiements/` | Suivi des paiements et soldes |
+
+Les endpoints sont fournis par **Django REST Framework** (DRF) et nécessitent une authentification par session.
 
 ---
 
 ## 🚀 Installation & Démarrage Rapide
 
 ### Prérequis
-* Python 3.10 ou supérieur
+* Python 3.10+
+* pip / virtualenv
 * Git
 
 ### Procédure d'installation
@@ -170,27 +205,69 @@ Des services API sont exposés pour automatiser les interactions avec des systè
    cd c:\Users\HP\OneDrive\Desktop\SchoolManager
    ```
 
-2. **Activer l'environnement virtuel :**
+2. **Créer et activer l'environnement virtuel :**
    ```powershell
+   python -m venv env
    .\env\Scripts\activate
    ```
 
-3. **Appliquer les migrations de la base de données :**
+3. **Installer les dépendances :**
+   ```powershell
+   pip install -r requirements.txt
+   ```
+
+4. **Configurer les variables d'environnement :**
+   ```powershell
+   # Copier le fichier exemple et remplir les valeurs
+   copy .env.example .env
+   # Puis éditer .env avec votre éditeur favori
+   ```
+
+5. **Appliquer les migrations de la base de données :**
    ```powershell
    python manage.py migrate
    ```
 
-4. **Charger le jeu de données de test complet :**
+6. **Charger le jeu de données de test complet :**
    ```powershell
    python manage.py seed_demo
    ```
 
-5. **Lancer le serveur de développement :**
+7. **Lancer le serveur de développement :**
    ```powershell
    python manage.py runserver
    ```
 
 L'application est immédiatement accessible sur : **`http://127.0.0.1:8000/`**
+
+---
+
+## ⚙️ Configuration de l'Environnement (.env)
+
+Copiez `.env.example` en `.env` et renseignez les variables :
+
+```ini
+# Sécurité
+SECRET_KEY=votre-clé-secrète-django-ici
+DEBUG=True
+
+# Base de données (par défaut SQLite)
+DATABASE_URL=sqlite:///db.sqlite3
+
+# E-mail (SMTP)
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_HOST_USER=votre@email.com
+EMAIL_HOST_PASSWORD=mot-de-passe-application
+
+# Frais scolaires par défaut (FCFA)
+FRAIS_SCOLARITE_DEFAULT=50000
+
+# Seuil d'alerte recouvrement (%)
+SEUIL_ALERTE_RECOUVREMENT=80
+```
+
+> ⚠️ Ne commitez jamais votre fichier `.env` — il est listé dans `.gitignore`.
 
 ---
 
@@ -215,6 +292,7 @@ La commande `python manage.py seed_demo` pré-remplit la base avec un jeu d'util
 
 ```text
 SchoolManager/
+│
 ├── edumanager/                   # Configuration principale du projet Django
 │   ├── settings.py               # Paramètres, barèmes de notes et apps activées
 │   ├── urls.py                   # Routeur global vers les applications
@@ -250,8 +328,8 @@ SchoolManager/
 │
 ├── templates/                    # Interface utilisateur & Gabarits HTML
 │   ├── base.html                 # Gabarit global responsive avec sidebar défilable
-│   ├── dashboard.html            # Vue d'accueil avec indicateurs
-│   ├── accounts/                 # login.html, user_list.html, user_form.html
+│   ├── dashboard.html            # Vue d'accueil avec indicateurs KPI par rôle
+│   ├── accounts/                 # login.html (carrousel + titre rotatif), user_list.html
 │   ├── school/                   # Listes et formulaires des entités scolaires
 │   ├── students/                 # Listes d'élèves, fiche individuelle, parents
 │   ├── academics/                # Saisie de notes, affichage et impression du bulletin
@@ -259,8 +337,50 @@ SchoolManager/
 │   └── emails/                   # Gabarits d'e-mails professionnels (relance, convocation, bulletin)
 │
 ├── static/                       # Ressources statiques
-│   └── css/schoolmanager.css     # Feuille de style personnalisée & barre latérale
+│   ├── css/schoolmanager.css     # Feuille de style personnalisée & barre latérale
+│   └── img/logo.jpg              # Logo hibou diplômé officiel (JPG uniquement)
 │
+├── media/                        # Fichiers uploadés par les utilisateurs (hors git)
+│   ├── photos/                   # Photos de profil des élèves et enseignants
+│   ├── logos/                    # Logos des établissements
+│   └── documents/                # Documents pédagogiques uploadés
+│
+├── docs/                         # Documentation technique du projet
+│   └── screenshots/              # Captures d'écran de référence
+│
+├── requirements.txt              # Dépendances Python du projet
+├── .env.example                  # Modèle de configuration des variables d'environnement
+├── .gitignore                    # Fichiers et dossiers exclus du contrôle de version
 ├── manage.py                     # Utilitaire de commande Django
-└── README.md                     # Documentation officielle du projet
+└── README.md                     # Cette documentation officielle
 ```
+
+---
+
+## 📦 Dépendances (`requirements.txt`)
+
+```
+Django==6.1.3
+djangorestframework==3.18.3
+Pillow==13.0.0
+asgiref==3.13.0
+sqlparse==0.6.1
+tzdata==2026.6
+```
+
+> Pour la production, ajoutez : `gunicorn`, `whitenoise`, `psycopg2-binary`, `django-environ`.
+
+---
+
+## 🛡️ Sécurité & Bonnes Pratiques
+
+* `SECRET_KEY` stockée en variable d'environnement (jamais en dur dans le code).
+* `DEBUG=False` obligatoire en production.
+* `CSRF_TOKEN` présent sur tous les formulaires POST.
+* Permissions vérifiées à chaque vue via décorateurs RBAC.
+* Mots de passe hashés avec l'algorithme par défaut de Django (PBKDF2).
+* Fichiers `media/` et `db.sqlite3` exclus du dépôt Git via `.gitignore`.
+
+---
+
+*SchoolManager © 2026 — Plateforme d'Excellence & Gestion Scolaire Malienne*
