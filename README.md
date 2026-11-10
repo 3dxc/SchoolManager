@@ -27,6 +27,7 @@
 Les établissements scolaires font face à des pertes d'informations dues à l'éparpillement des données (inscriptions, notes, présences, règlements de frais).
 
 **SchoolManager résout ce défi en :**
+
 * **Centralisant** l'ensemble des données scolaires sous une base relationnelle unique.
 * **Sécurisant** les accès via un contrôle strict par rôle (direction, professeurs, comptables, administrateurs).
 * **Automatisant** le calcul des moyennes trimestrielles pondérées et l'édition des bulletins officiels.
@@ -38,6 +39,7 @@ Les établissements scolaires font face à des pertes d'informations dues à l'�
 ## 🧱 Architecture Technique & Modèle Pivot
 
 Le système repose sur le principe fondamental du **modèle pivot `Inscription`** :
+
 * Un **Élève** est inscrit dans une **Classe** pour une **AnnéeScolaire** spécifique.
 * Toutes les **Notes**, **Absences** et tous les **Paiements** sont formellement rattachés à cette `Inscription`.
 * **Bénéfice immédiat** : Impossibilité absolue de mélanger les notes ou les versements d'années scolaires différentes.
@@ -63,7 +65,7 @@ Le système repose sur le principe fondamental du **modèle pivot `Inscription`*
 | Application | Responsabilités & Modèles |
 | :--- | :--- |
 | **`accounts`** | Gestion des utilisateurs personnalisés (`CustomUser`), rôles RBAC, décorateurs de sécurité (`@admin_required`, `@direction_required`, etc.), formulaires d'authentification. |
-| **`school`** | Établissements, Années scolaires (en cours / archivées), Classes avec niveaux et capacités, Matières et coefficients, Tableau de bord d'accueil (`views_dashboard.py`). |
+| **`school`** | Établissements, Campus & Secrétariat (géolocalisation Leaflet/OSM, contacts cliquables, horaires), Signalements de problèmes, Années scolaires (en cours / archivées), Classes avec niveaux, Matières et coefficients, Tableau de bord d'accueil (`views_dashboard.py`). |
 | **`students`** | Élèves (matricule unique auto-généré), Parents/Tuteurs légaux, ResponsableEleve (relation M2M avec degré de parenté), Inscriptions et suivi des statuts (actif, transféré, exclu). |
 | **`academics`** | Enseignants, Affectations (Enseignant ↔ Matière ↔ Classe ↔ Année), Saisie des notes sécurisée par classe, Calcul automatique de moyenne générale pondérée et génération de bulletins imprimables. |
 | **`attendance_payments`** | Registre des absences (justifiées ou non), suivi des frais de scolarité, encaissements de paiements, tableau de solvabilité des élèves, services et API d'e-mails transactionnels. |
@@ -106,35 +108,41 @@ SchoolManager respecte intégralement les normes pédagogiques officielles du Ma
 ## ⚡ Fonctionnalités Principales
 
 ### 1. Tableau de bord interactif (`/`)
+
 * Indicateurs clés en temps réel (total élèves, classes actives, professeurs, taux de recouvrement).
 * Vue d'ensemble personnalisée selon le rôle de l'utilisateur connecté.
 * Horloge dynamique en direct et badge de session sécurisée.
 * Accès rapide aux 4 espaces principaux : Statistiques, Carte Scolaire, Documents, Aide.
 
 ### 2. Gestion des Élèves & Familles
+
 * Fiche individuelle complète (matricule, photo, niveau, contacts).
 * Liaison multi-parents avec degré de parenté et droit de retrait.
 * Historique complet des inscriptions sur plusieurs années scolaires.
 
 ### 3. Vie Pédagogique
+
 * Saisie des notes avec contrôle strict (0-20) par matière, trimestre et classe affectée.
 * Calcul automatique des moyennes pondérées par coefficient.
 * Génération et impression des bulletins officiels.
 * Registre des absences avec justification et impact statistique.
 
 ### 4. Gestion Financière
+
 * Encaissement des frais de scolarité (montant en FCFA).
 * Tableau de suivi des soldes en temps réel par classe.
 * Relances automatiques par e-mail aux tuteurs des élèves en retard.
 * Export des bilans financiers.
 
 ### 5. Administration
+
 * Gestion complète des utilisateurs avec attribution de rôles.
 * Création des années scolaires, établissements, classes et matières.
 * Journal d'actions administratives.
 * Console Django Admin accessible aux super-utilisateurs.
 
 ### 6. Accessibilité & Responsivité
+
 * Interface 100% responsive (mobile, tablette, desktop).
 * Navigation au clavier et aria-live pour les lecteurs d'écran.
 * Chargement optimisé pour connexions lentes.
@@ -145,6 +153,7 @@ SchoolManager respecte intégralement les normes pédagogiques officielles du Ma
 ## 🎨 Design & Interface Utilisateur
 
 ### Palette de couleurs
+
 | Rôle | Valeur | Usage |
 | :--- | :--- | :--- |
 | Charbon exécutif | `#1e2430` | Couleur principale, sidebar |
@@ -154,6 +163,7 @@ SchoolManager respecte intégralement les normes pédagogiques officielles du Ma
 | Vert succès | `#10b981` | Badges, confirmations |
 
 ### Page de connexion
+
 * **Arrière-plan** : carrousel de 4 images en fondu enchaîné (5 s par image).
 * **Titre rotatif** : 5 phrases animées en cycle toutes les 2 s ("SchoolManager", "Éducation", "Excellence", "Mali 🇲🇱", "Scolaire").
 * **Badge** "Pédagogie & Standards Maliens" avec effet shimmer animé.
@@ -161,6 +171,7 @@ SchoolManager respecte intégralement les normes pédagogiques officielles du Ma
 * **Logo hibou** diplômé officiel (`static/img/logo.jpg`) — format JPG exclusivement.
 
 ### Tableaux de bord par rôle
+
 * **Direction** : KPIs globaux, carte scolaire, échanges inter-établissements, statistiques élèves & finances, actualités, calendrier.
 * **Enseignant** : classes assignées, matières, notes récentes, absences — rien de financier.
 * **Comptable** : encaissements, soldes, recouvrement, inscriptions — rien de pédagogique.
@@ -170,6 +181,7 @@ SchoolManager respecte intégralement les normes pédagogiques officielles du Ma
 ## 📧 Module de Communication Administrative
 
 Le service `attendance_payments/services.py` automatise :
+
 * **Relances de paiement** : e-mail personnalisé au tuteur légal dès qu'un solde est impayé au-delà d'un seuil configurable.
 * **Convocations parents** : génération d'un document de convocation officiel.
 * **Bulletins par e-mail** : envoi du bulletin trimestriel directement aux parents.
@@ -194,6 +206,7 @@ Les endpoints sont fournis par **Django REST Framework** (DRF) et nécessitent u
 ## 🚀 Installation & Démarrage Rapide
 
 ### Prérequis
+
 * Python 3.10+
 * pip / virtualenv
 * Git
@@ -201,22 +214,26 @@ Les endpoints sont fournis par **Django REST Framework** (DRF) et nécessitent u
 ### Procédure d'installation
 
 1. **Cloner le projet & se positionner dans le répertoire :**
+
    ```powershell
    cd c:\Users\HP\OneDrive\Desktop\SchoolManager
    ```
 
 2. **Créer et activer l'environnement virtuel :**
+
    ```powershell
    python -m venv env
    .\env\Scripts\activate
    ```
 
 3. **Installer les dépendances :**
+
    ```powershell
    pip install -r requirements.txt
    ```
 
 4. **Configurer les variables d'environnement :**
+
    ```powershell
    # Copier le fichier exemple et remplir les valeurs
    copy .env.example .env
@@ -224,16 +241,19 @@ Les endpoints sont fournis par **Django REST Framework** (DRF) et nécessitent u
    ```
 
 5. **Appliquer les migrations de la base de données :**
+
    ```powershell
    python manage.py migrate
    ```
 
 6. **Charger le jeu de données de test complet :**
+
    ```powershell
    python manage.py seed_demo
    ```
 
 7. **Lancer le serveur de développement :**
+
    ```powershell
    python manage.py runserver
    ```
@@ -304,8 +324,8 @@ SchoolManager/
 │   ├── views.py / forms.py       # Connexion, déconnexion et gestion des utilisateurs
 │   └── urls.py
 │
-├── school/                       # Établissement, Calendrier & Structure
-│   ├── models.py                 # Etablissement, AnneeScolaire, Classe, Matiere
+├── school/                       # Établissement, Campus & Structure
+│   ├── models.py                 # Etablissement, Campus, SignalementProbleme, AnneeScolaire, Classe, Matiere
 │   ├── views_dashboard.py        # Logique et statistiques du tableau de bord
 │   ├── management/commands/      # Commande `seed_demo` pour générer le jeu d'essai
 │   └── views.py / forms.py / urls.py

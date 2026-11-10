@@ -739,6 +739,27 @@ a.stat-card .stat-label {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* ── Campus & Carte Leaflet Responsive ────────────────────────────────────── */
+#campus-section {
+  transition: all 0.25s ease;
+}
+
+#leafletCampusMap {
+  border-radius: 16px;
+  background-color: #f1f5f9;
+}
+
+@media (max-width: 768px) {
+  #leafletCampusMap {
+    min-height: 250px !important;
+    height: 260px !important;
+  }
+  #campus-section .btn {
+    font-size: 0.82rem;
+    padding: 0.45rem 0.85rem;
+  }
+}
+
 /* ── Responsive ───────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   #sidebar {
@@ -794,4 +815,181 @@ a.stat-card .stat-label {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   CORRECTION MAJEURE : BADGES DE STATUT HAUTE LISIBILITÉ & FORTE VISIBILITÉ
+   Empêche tout texte de se confondre avec la couleur d'arrière-plan (Image 1 & 2)
+   ══════════════════════════════════════════════════════════════════════════════ */
+.bg-opacity-10 { --bs-bg-opacity: 0.1 !important; }
+.bg-opacity-15 { --bs-bg-opacity: 0.15 !important; }
+.bg-opacity-20 { --bs-bg-opacity: 0.2 !important; }
+.bg-opacity-25 { --bs-bg-opacity: 0.25 !important; }
+
+/* Styles universels haute lisibilité pour les badges */
+.badge-status-valide,
+.badge.bg-success,
+.badge-status-actif {
+  background-color: #dcfce7 !important;
+  color: #15803d !important;
+  border: 1px solid #86efac !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.32rem 0.65rem !important;
+  border-radius: 50px !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.2px !important;
+}
+
+.badge-status-attente,
+.badge.bg-secondary,
+.badge-status-terminee {
+  background-color: #f1f5f9 !important;
+  color: #334155 !important;
+  border: 1px solid #cbd5e1 !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.32rem 0.65rem !important;
+  border-radius: 50px !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.2px !important;
+}
+
+.badge-status-en-cours,
+.badge.bg-warning {
+  background-color: #fef3c7 !important;
+  color: #92400e !important;
+  border: 1px solid #fde68a !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.32rem 0.65rem !important;
+  border-radius: 50px !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.2px !important;
+}
+
+.badge-status-a-venir,
+.badge-status-info,
+.badge.bg-info {
+  background-color: #e0f2fe !important;
+  color: #0369a1 !important;
+  border: 1px solid #7dd3fc !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.32rem 0.65rem !important;
+  border-radius: 50px !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.2px !important;
+}
+
+.badge-status-danger,
+.badge-status-exclu,
+.badge.bg-danger {
+  background-color: #fee2e2 !important;
+  color: #991b1b !important;
+  border: 1px solid #fca5a5 !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.32rem 0.65rem !important;
+  border-radius: 50px !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.2px !important;
+}
+
+.badge-status-primary,
+.badge.bg-primary {
+  background-color: #e0e7ff !important;
+  color: #3730a3 !important;
+  border: 1px solid #c7d2fe !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  padding: 0.32rem 0.65rem !important;
+  border-radius: 50px !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.2px !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   BOUTON DÉROULANT ÉTABLISSEMENT DANS LA TOPBAR (Flèche Bleue)
+   ══════════════════════════════════════════════════════════════════════════════ */
+.topbar-etab-selector {
+  display: inline-flex;
+  align-items: center;
+}
+
+.topbar-etab-btn {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #1e293b !important;
+  font-size: 0.82rem !important;
+  font-weight: 600 !important;
+  padding: 0.35rem 0.9rem !important;
+  border-radius: 50px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.45rem !important;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  text-decoration: none !important;
+}
+
+.topbar-etab-btn:hover,
+.topbar-etab-btn:focus,
+.topbar-etab-btn[aria-expanded="true"] {
+  background: #f8fafc !important;
+  border-color: #94a3b8 !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  color: #0f172a !important;
+}
+
+.topbar-etab-menu {
+  border-radius: 14px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid #e2e8f0 !important;
+  min-width: 310px !important;
+  padding: 0.5rem 0 !important;
+  animation: dropdownFade 0.2s ease;
+}
+
+@keyframes dropdownFade {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.topbar-etab-item {
+  padding: 0.6rem 1rem !important;
+  font-size: 0.84rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  color: #334155 !important;
+  transition: all 0.15s ease;
+  text-decoration: none !important;
+}
+
+.topbar-etab-item:hover {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+.topbar-etab-item.active {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.topbar-etab-item.active i {
+  color: #f59e0b !important;
 }

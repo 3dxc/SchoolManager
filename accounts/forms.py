@@ -17,7 +17,7 @@ class LoginForm(AuthenticationForm):
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ('username', 'first_name', 'last_name', 'email', 'role', 'telephone')
+        fields = ('username', 'first_name', 'last_name', 'email', 'role', 'etablissement', 'telephone')
         widgets = {f: forms.TextInput(attrs={'class': 'form-control'}) for f in fields}
 
     def __init__(self, *args, **kwargs):
@@ -31,7 +31,7 @@ class CustomUserChangeForm(UserChangeForm):
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'first_name', 'last_name', 'email', 'role', 'telephone', 'is_active')
+        fields = ('username', 'first_name', 'last_name', 'email', 'role', 'etablissement', 'telephone', 'is_active')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

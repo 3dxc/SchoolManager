@@ -23,6 +23,15 @@ class CustomUser(AbstractUser):
         default=ROLE_DIRECTION,
         verbose_name='Rôle',
     )
+    etablissement = models.ForeignKey(
+        'school.Etablissement',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='utilisateurs',
+        verbose_name='Établissement rattaché',
+        help_text="Établissement unique auquel est affecté ce compte (notamment pour le personnel de direction)."
+    )
     telephone = models.CharField(max_length=20, blank=True, verbose_name='Téléphone')
 
     class Meta:
@@ -34,11 +43,19 @@ class CustomUser(AbstractUser):
 
     # ── Helpers de rôle ───────────────────────────────────────────────────────
     @property
+    def is_super_admin(self):
+        return self.is_superuser or self.role == self.ROLE_ADMIN
+
+    @property
     def is_admin(self):
         return self.role == self.ROLE_ADMIN or self.is_superuser
 
     @property
     def is_direction(self):
+        return self.role == self.ROLE_DIRECTION
+
+    @property
+    def is_direction_ou_admin(self):
         return self.role in (self.ROLE_ADMIN, self.ROLE_DIRECTION) or self.is_superuser
 
     @property

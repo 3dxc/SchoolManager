@@ -8,10 +8,16 @@
   
   <!-- ══ Carrousel d'arrière-plan dynamique en fondu enchaîné ══ -->
   <div class="bg-carousel-container">
-    <div class="bg-slide active" style="background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1920&q=80');"></div>
-    <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1920&q=80');"></div>
-    <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1920&q=80');"></div>
-    <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1920&q=80');"></div>
+    <div class="bg-slide active" style="background-image: url('{% static 'img/img1.jpg' %}');"></div>
+    <div class="bg-slide" style="background-image: url('{% static 'img/img2.jpg' %}');"></div>
+    <div class="bg-slide" style="background-image: url('{% static 'img/img3.jpg' %}');"></div>
+    <div class="bg-slide" style="background-image: url('{% static 'img/img4.jpg' %}');"></div>
+    <div class="bg-slide" style="background-image: url('{% static 'img/img5.jpg' %}');"></div>
+    <div class="bg-slide" style="background-image: url('{% static 'img/img6.jpg' %}');"></div>
+    <div class="bg-slide" style="background-image: url('{% static 'img/img7.jpg' %}');"></div>
+    <div class="bg-slide" style="background-image: url('{% static 'img/img8.jpg' %}');"></div>
+    <div class="bg-slide" style="background-image: url('{% static 'img/img9.jpg' %}');"></div>
+    <div class="bg-slide" style="background-image: url('{% static 'img/img10.jpg' %}');"></div>
     <div class="bg-carousel-overlay"></div>
   </div>
 
@@ -57,7 +63,7 @@
             <!-- Carte 2 : Espaces Cloisonnés -->
             <div class="login-glass-card d-flex align-items-center gap-4">
               <div class="glass-card-icon-wrap flex-shrink-0" style="background: rgba(16,185,129,0.18); border: 1.5px solid rgba(16,185,129,0.3);">
-                <i class="bi bi-shield-check-fill" style="color: #10b981; font-size: 1.75rem;"></i>
+                <i class="bi bi-shield-fill-check" style="color: #10b981; font-size: 1.75rem;"></i>
               </div>
               <div class="flex-grow-1">
                 <div class="d-flex align-items-center justify-content-between mb-1">
@@ -135,7 +141,7 @@
                          id="{{ form.username.id_for_label }}" 
                          value="{{ form.username.value|default:'' }}" 
                          class="form-control {% if form.username.errors %}is-invalid{% endif %}" 
-                         placeholder="Ex: admin, prof_maths, comptable" 
+                         placeholder="Ex: admin, prof_python, comptable" 
                          required 
                          autofocus>
                 </div>
@@ -408,7 +414,7 @@
     100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
   }
 
-  /* ══ Titre rotatif Hero ══ */
+  /* ══ Titre rotatif Hero (Animation Rapide & Fluide) ══ */
   .hero-title-wrapper {
     white-space: nowrap;
     display: block;
@@ -416,12 +422,12 @@
   .hero-title-cycling {
     color: #f59e0b;
     display: inline-block;
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
     min-width: 1px;
   }
   .hero-title-cycling.anim-out {
     opacity: 0;
-    transform: translateY(-18px) scale(0.96);
+    transform: translateY(-8px) scale(0.97);
   }
   .hero-title-cycling.anim-in {
     opacity: 1;
@@ -453,7 +459,7 @@
     width: 50%; height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
     transform: skewX(-18deg);
-    animation: badgeShimmer 3.5s infinite 1.5s;
+    animation: badgeShimmer 3s infinite 1s;
     pointer-events: none;
   }
   @keyframes badgeShimmer {
@@ -503,15 +509,18 @@
       }, 5000);
     }
 
-    // 2. Titre rotatif Hero (5 phrases, 2 s chacune, avec transition)
+    // 2. Titre rotatif Hero (5 messages, temps d'animation réduit et rapide)
     const heroEl = document.getElementById('heroTitleCycle');
     if (heroEl) {
-      const cycleWords = ['Manager', 'Éducation', 'Excellence', 'Mali 🇲🇱', 'Scolaire'];
+      const cycleWords = ['Manager', ' Éducation', ' Excellence', ' Mali 🇲🇱', ' Scolaire'];
       let wordIdx = 0;
       heroEl.classList.add('anim-in');
 
+      const animTransitionMs = 180; // Transition rapide (180ms au lieu de 420ms)
+      const displayDurationMs = 1200; // Temps d'affichage réduit (1.2s au lieu de 2.0s)
+
       setInterval(() => {
-        // Phase sortie
+        // Phase de sortie rapide
         heroEl.classList.remove('anim-in');
         heroEl.classList.add('anim-out');
 
@@ -520,8 +529,8 @@
           heroEl.textContent = cycleWords[wordIdx];
           heroEl.classList.remove('anim-out');
           heroEl.classList.add('anim-in');
-        }, 420);
-      }, 2000);
+        }, animTransitionMs);
+      }, displayDurationMs + animTransitionMs);
     }
 
     // 3. Bascule mot de passe

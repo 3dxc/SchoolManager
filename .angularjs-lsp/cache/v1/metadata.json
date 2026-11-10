@@ -1,0 +1,1406 @@
+{
+  "version": 3,
+  "tool_version": "0.4.2",
+  "files": {
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\formsets\\div.html": {
+      "mtime": 1793822591,
+      "size": 86
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\select.html": {
+      "mtime": 1793822591,
+      "size": 365
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\inline\\list_fieldset.html": {
+      "mtime": 1793868706,
+      "size": 62
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\datetime.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admindocs\\templates\\admin_doc\\template_detail.html": {
+      "mtime": 1793822588,
+      "size": 1062
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\actions.html": {
+      "mtime": 1793822588,
+      "size": 1176
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\nb.js": {
+      "mtime": 1793822588,
+      "size": 778
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\change_list_results.html": {
+      "mtime": 1793822588,
+      "size": 1516
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\lt.js": {
+      "mtime": 1793822588,
+      "size": 944
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\change_form.js": {
+      "mtime": 1793822588,
+      "size": 677
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\table.html": {
+      "mtime": 1793822591,
+      "size": 881
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\inline\\textarea.html": {
+      "mtime": 1793868706,
+      "size": 376
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\uk.js": {
+      "mtime": 1793822588,
+      "size": 1156
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\nav_sidebar.html": {
+      "mtime": 1793822588,
+      "size": 486
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\zh-CN.js": {
+      "mtime": 1793822588,
+      "size": 768
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\attendance_payments\\confirm_delete.html": {
+      "mtime": 1793827427,
+      "size": 845
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\views\\templates\\technical_404.html": {
+      "mtime": 1793822591,
+      "size": 2912
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\submit_line.html": {
+      "mtime": 1793822588,
+      "size": 1121
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\da.js": {
+      "mtime": 1793822588,
+      "size": 828
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\change_form_actions.html": {
+      "mtime": 1793822588,
+      "size": 35
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\inline\\radio.html": {
+      "mtime": 1793868706,
+      "size": 793
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\postgres\\templates\\postgres\\widgets\\split_array.html": {
+      "mtime": 1793822590,
+      "size": 54
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\label.html": {
+      "mtime": 1793822591,
+      "size": 122
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\raw_data_form.html": {
+      "mtime": 1793868706,
+      "size": 335
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\registration\\password_reset_complete.html": {
+      "mtime": 1793822588,
+      "size": 444
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\widgets\\clearable_file_input.html": {
+      "mtime": 1793822588,
+      "size": 666
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\email.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\widgets\\many_to_many_raw_id.html": {
+      "mtime": 1793822588,
+      "size": 54
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\ne.js": {
+      "mtime": 1793822588,
+      "size": 1357
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\date.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\clearable_file_input.html": {
+      "mtime": 1793822591,
+      "size": 559
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\ar.js": {
+      "mtime": 1793822588,
+      "size": 905
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\inline\\checkbox.html": {
+      "mtime": 1793868706,
+      "size": 294
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\he.js": {
+      "mtime": 1793822588,
+      "size": 984
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\sv.js": {
+      "mtime": 1793822588,
+      "size": 786
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\it.js": {
+      "mtime": 1793822588,
+      "size": 897
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\inline\\list_field.html": {
+      "mtime": 1793868706,
+      "size": 221
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\ja.js": {
+      "mtime": 1793822588,
+      "size": 862
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\file.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\url.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\bs.js": {
+      "mtime": 1793822588,
+      "size": 965
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\horizontal\\checkbox_multiple.html": {
+      "mtime": 1793868706,
+      "size": 1184
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\errors\\list\\default.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\gl.js": {
+      "mtime": 1793822588,
+      "size": 924
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\SelectFilter2.js": {
+      "mtime": 1793822588,
+      "size": 19374
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\horizontal\\dict_field.html": {
+      "mtime": 1793868706,
+      "size": 324
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\delete_selected_confirmation.html": {
+      "mtime": 1793822588,
+      "size": 2566
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\formsets\\table.html": {
+      "mtime": 1793822591,
+      "size": 86
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\registration\\password_change_done.html": {
+      "mtime": 1793822588,
+      "size": 772
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\ms.js": {
+      "mtime": 1793822588,
+      "size": 811
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\500.html": {
+      "mtime": 1793822588,
+      "size": 578
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\es.js": {
+      "mtime": 1793822588,
+      "size": 922
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\object_history.html": {
+      "mtime": 1793822588,
+      "size": 2406
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\admin\\detail.html": {
+      "mtime": 1793868706,
+      "size": 306
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\splitdatetime.html": {
+      "mtime": 1793822591,
+      "size": 54
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\hsb.js": {
+      "mtime": 1793822588,
+      "size": 1018
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\vertical\\checkbox.html": {
+      "mtime": 1793868706,
+      "size": 543
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\sr.js": {
+      "mtime": 1793822588,
+      "size": 980
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\vi.js": {
+      "mtime": 1793822588,
+      "size": 796
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admindocs\\templates\\admin_doc\\template_tag_index.html": {
+      "mtime": 1793822588,
+      "size": 1758
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\xregexp\\xregexp.min.js": {
+      "mtime": 1793822588,
+      "size": 163184
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\postgres\\jinja2\\postgres\\widgets\\split_array.html": {
+      "mtime": 1793822590,
+      "size": 54
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\hu.js": {
+      "mtime": 1793822588,
+      "size": 831
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\registration\\logged_out.html": {
+      "mtime": 1793822588,
+      "size": 490
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\academics\\confirm_delete.html": {
+      "mtime": 1793827427,
+      "size": 845
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\ro.js": {
+      "mtime": 1793822588,
+      "size": 938
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\login.html": {
+      "mtime": 1793868706,
+      "size": 122
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\jquery\\jquery.js": {
+      "mtime": 1793822588,
+      "size": 285314
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\accounts\\user_confirm_delete.html": {
+      "mtime": 1793827427,
+      "size": 858
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\academics\\note_list.html": {
+      "mtime": 1793827427,
+      "size": 2205
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\input.html": {
+      "mtime": 1793822591,
+      "size": 172
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\static\\rest_framework\\js\\load-ajax-form.js": {
+      "mtime": 1793868706,
+      "size": 59
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admindocs\\templates\\admin_doc\\bookmarklets.html": {
+      "mtime": 1793822588,
+      "size": 1309
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\academics\\note_form.html": {
+      "mtime": 1794081807,
+      "size": 1864
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\password.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\core.js": {
+      "mtime": 1793822588,
+      "size": 6432
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\attrs.html": {
+      "mtime": 1793822591,
+      "size": 165
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\prepopulate.js": {
+      "mtime": 1793822588,
+      "size": 1575
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\edit_inline\\tabular.html": {
+      "mtime": 1793822588,
+      "size": 4436
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\registration\\password_change_form.html": {
+      "mtime": 1793822588,
+      "size": 2932
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\base_site.html": {
+      "mtime": 1793822588,
+      "size": 450
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\ul.html": {
+      "mtime": 1793822591,
+      "size": 790
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\radio.html": {
+      "mtime": 1793822591,
+      "size": 57
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\checkbox_select.html": {
+      "mtime": 1793822591,
+      "size": 57
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\textarea.html": {
+      "mtime": 1793822591,
+      "size": 145
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\splitdatetime.html": {
+      "mtime": 1793822591,
+      "size": 54
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\attendance_payments\\absence_form.html": {
+      "mtime": 1793827427,
+      "size": 953
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\school\\annee_form.html": {
+      "mtime": 1793827427,
+      "size": 938
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\widgets\\split_datetime.html": {
+      "mtime": 1793822588,
+      "size": 420
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\splithiddendatetime.html": {
+      "mtime": 1793822591,
+      "size": 54
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\academics\\affectation_list.html": {
+      "mtime": 1793827426,
+      "size": 1936
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\school\\annee_list.html": {
+      "mtime": 1793827428,
+      "size": 1649
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\password.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\div.html": {
+      "mtime": 1793822591,
+      "size": 525
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\textarea.html": {
+      "mtime": 1793822591,
+      "size": 145
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\select.html": {
+      "mtime": 1793822591,
+      "size": 384
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\login.html": {
+      "mtime": 1793822588,
+      "size": 2037
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\checkbox_option.html": {
+      "mtime": 1793822591,
+      "size": 55
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\checkbox_option.html": {
+      "mtime": 1793822591,
+      "size": 55
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admindocs\\templates\\admin_doc\\missing_docutils.html": {
+      "mtime": 1793822588,
+      "size": 815
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\el.js": {
+      "mtime": 1793822588,
+      "size": 1182
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\hi.js": {
+      "mtime": 1793822588,
+      "size": 1175
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\field.html": {
+      "mtime": 1793822591,
+      "size": 502
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\views\\templates\\csrf_403.html": {
+      "mtime": 1793822591,
+      "size": 2929
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\static\\rest_framework\\js\\default.js": {
+      "mtime": 1793868706,
+      "size": 1268
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admindocs\\templates\\admin_doc\\template_filter_index.html": {
+      "mtime": 1793822588,
+      "size": 1802
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\date.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\academics\\enseignant_list.html": {
+      "mtime": 1793827427,
+      "size": 2227
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\jquery.init.js": {
+      "mtime": 1793822588,
+      "size": 349
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\fi.js": {
+      "mtime": 1793822588,
+      "size": 803
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\p.html": {
+      "mtime": 1793822591,
+      "size": 751
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\auth\\user\\change_password.html": {
+      "mtime": 1793822588,
+      "size": 4206
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\accounts\\login.html": {
+      "mtime": 1794089232,
+      "size": 22056
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\urlify.js": {
+      "mtime": 1793822588,
+      "size": 9985
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\inline\\select.html": {
+      "mtime": 1793868706,
+      "size": 879
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\registration\\password_reset_confirm.html": {
+      "mtime": 1793822588,
+      "size": 1900
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\base.html": {
+      "mtime": 1794081807,
+      "size": 14192
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\dashboard.html": {
+      "mtime": 1794091572,
+      "size": 67612
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\text.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\mk.js": {
+      "mtime": 1793822588,
+      "size": 1038
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\filters\\base.html": {
+      "mtime": 1793868706,
+      "size": 610
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\lv.js": {
+      "mtime": 1793822588,
+      "size": 900
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\multiple_input.html": {
+      "mtime": 1793822591,
+      "size": 426
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\errors\\dict\\default.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\inline\\select_multiple.html": {
+      "mtime": 1793868706,
+      "size": 917
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\attrs.html": {
+      "mtime": 1793822591,
+      "size": 165
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\includes\\object_delete_summary.html": {
+      "mtime": 1793822588,
+      "size": 192
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\multiwidget.html": {
+      "mtime": 1793822591,
+      "size": 86
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\time.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\popup_response.js": {
+      "mtime": 1793822588,
+      "size": 774
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\checkbox.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\time.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\sk.js": {
+      "mtime": 1793822588,
+      "size": 1306
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\en.js": {
+      "mtime": 1793822588,
+      "size": 844
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\hr.js": {
+      "mtime": 1793822588,
+      "size": 852
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\errors\\list\\ul.html": {
+      "mtime": 1793822591,
+      "size": 186
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\nav_sidebar.js": {
+      "mtime": 1793822588,
+      "size": 3208
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\fr.js": {
+      "mtime": 1793822588,
+      "size": 924
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\fa.js": {
+      "mtime": 1793822588,
+      "size": 1023
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\inline\\fieldset.html": {
+      "mtime": 1793868706,
+      "size": 171
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\zh-TW.js": {
+      "mtime": 1793822588,
+      "size": 707
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\pip\\_vendor\\urllib3\\contrib\\emscripten\\emscripten_fetch_worker.js": {
+      "mtime": 1793819558,
+      "size": 3677
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\ps.js": {
+      "mtime": 1793822588,
+      "size": 1049
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\attrs.html": {
+      "mtime": 1793822591,
+      "size": 172
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\errors\\list\\ul.html": {
+      "mtime": 1793822591,
+      "size": 187
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\ca.js": {
+      "mtime": 1793822588,
+      "size": 900
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\inline\\dict_field.html": {
+      "mtime": 1793868706,
+      "size": 228
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\gis\\templates\\gis\\openlayers.html": {
+      "mtime": 1793822590,
+      "size": 732
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\tel.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\select2.full.js": {
+      "mtime": 1793822588,
+      "size": 173566
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\splithiddendatetime.html": {
+      "mtime": 1793822591,
+      "size": 54
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\formsets\\div.html": {
+      "mtime": 1793822591,
+      "size": 84
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\change_list_object_tools.html": {
+      "mtime": 1793822588,
+      "size": 378
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\auth\\user\\add_form.html": {
+      "mtime": 1793822588,
+      "size": 405
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\input_option.html": {
+      "mtime": 1793822591,
+      "size": 219
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\select_option.html": {
+      "mtime": 1793822591,
+      "size": 127
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\radio.html": {
+      "mtime": 1793822591,
+      "size": 57
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\emails\\bulletin_notification.html": {
+      "mtime": 1793827427,
+      "size": 2462
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admindocs\\templates\\admin_doc\\model_detail.html": {
+      "mtime": 1793822588,
+      "size": 1970
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\bn.js": {
+      "mtime": 1793822588,
+      "size": 1291
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\SelectBox.js": {
+      "mtime": 1793822588,
+      "size": 6942
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\color.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\nl.js": {
+      "mtime": 1793822588,
+      "size": 904
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\school\\matiere_form.html": {
+      "mtime": 1793827428,
+      "size": 940
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\email.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\base.html": {
+      "mtime": 1793868706,
+      "size": 13909
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\popup_response.html": {
+      "mtime": 1793822588,
+      "size": 360
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\workspaces\\enseignant.html": {
+      "mtime": 1793868941,
+      "size": 11478
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\formsets\\p.html": {
+      "mtime": 1793822591,
+      "size": 84
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\inlines.js": {
+      "mtime": 1793822588,
+      "size": 17747
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\horizontal\\input.html": {
+      "mtime": 1793868706,
+      "size": 889
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\delete_confirmation.html": {
+      "mtime": 1793822588,
+      "size": 2929
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\students\\inscription_form.html": {
+      "mtime": 1794010763,
+      "size": 6762
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\eu.js": {
+      "mtime": 1793822588,
+      "size": 868
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\ru.js": {
+      "mtime": 1793822588,
+      "size": 1171
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admindocs\\templates\\admin_doc\\view_index.html": {
+      "mtime": 1793822588,
+      "size": 1761
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\students\\eleve_list.html": {
+      "mtime": 1793827428,
+      "size": 2365
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\errors\\list\\default.html": {
+      "mtime": 1793822591,
+      "size": 49
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\pagination\\previous_and_next.html": {
+      "mtime": 1793868706,
+      "size": 639
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\km.js": {
+      "mtime": 1793822588,
+      "size": 1088
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\widgets\\related_widget_wrapper.html": {
+      "mtime": 1793822588,
+      "size": 2102
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\af.js": {
+      "mtime": 1793822588,
+      "size": 866
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\actions.js": {
+      "mtime": 1793822588,
+      "size": 8999
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\attendance_payments\\absence_list.html": {
+      "mtime": 1793827427,
+      "size": 2530
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\search_form.html": {
+      "mtime": 1793822588,
+      "size": 1559
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\students\\eleve_detail.html": {
+      "mtime": 1793827428,
+      "size": 4507
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\color_theme_toggle.html": {
+      "mtime": 1793822588,
+      "size": 703
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\hy.js": {
+      "mtime": 1793822588,
+      "size": 1028
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\school\\matiere_list.html": {
+      "mtime": 1793827428,
+      "size": 1774
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\pagination\\numbers.html": {
+      "mtime": 1793868706,
+      "size": 1154
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\api.html": {
+      "mtime": 1793868706,
+      "size": 116
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\widgets\\date.html": {
+      "mtime": 1793822588,
+      "size": 71
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\widgets\\foreign_key_raw_id.html": {
+      "mtime": 1793822588,
+      "size": 412
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\hidden.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\school\\etablissement_form.html": {
+      "mtime": 1793827428,
+      "size": 976
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\formsets\\p.html": {
+      "mtime": 1793822591,
+      "size": 82
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\az.js": {
+      "mtime": 1793822588,
+      "size": 721
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\admin\\DateTimeShortcuts.js": {
+      "mtime": 1793822588,
+      "size": 27979
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\horizontal\\select.html": {
+      "mtime": 1793868706,
+      "size": 1222
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\ka.js": {
+      "mtime": 1793822588,
+      "size": 1195
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\index.html": {
+      "mtime": 1793822588,
+      "size": 2170
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\students\\confirm_delete.html": {
+      "mtime": 1793827428,
+      "size": 845
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\filters.js": {
+      "mtime": 1793822588,
+      "size": 1099
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\base.html": {
+      "mtime": 1793822588,
+      "size": 6501
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\vertical\\checkbox_multiple.html": {
+      "mtime": 1793868706,
+      "size": 1157
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\sr-Cyrl.js": {
+      "mtime": 1793822588,
+      "size": 1109
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\radio_option.html": {
+      "mtime": 1793822591,
+      "size": 55
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\accounts\\user_list.html": {
+      "mtime": 1793827427,
+      "size": 2159
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\search.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\ko.js": {
+      "mtime": 1793822588,
+      "size": 855
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\select_date.html": {
+      "mtime": 1793822591,
+      "size": 54
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\admin\\RelatedObjectLookups.js": {
+      "mtime": 1793822588,
+      "size": 11452
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\students\\parent_form.html": {
+      "mtime": 1793827428,
+      "size": 1059
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\workspaces\\direction.html": {
+      "mtime": 1793868941,
+      "size": 7828
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\vertical\\radio.html": {
+      "mtime": 1793868706,
+      "size": 1809
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\vertical\\list_field.html": {
+      "mtime": 1793868706,
+      "size": 245
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\auth\\templates\\auth\\widgets\\read_only_password_hash.html": {
+      "mtime": 1793822589,
+      "size": 234
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\input.html": {
+      "mtime": 1793822591,
+      "size": 189
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\select_option.html": {
+      "mtime": 1793822591,
+      "size": 110
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\table.html": {
+      "mtime": 1793822591,
+      "size": 892
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\static\\rest_framework\\js\\csrf.js": {
+      "mtime": 1793868706,
+      "size": 1793
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\horizontal\\textarea.html": {
+      "mtime": 1793868706,
+      "size": 782
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\tel.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\file.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\pt-BR.js": {
+      "mtime": 1793822588,
+      "size": 876
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\radio_option.html": {
+      "mtime": 1793822591,
+      "size": 55
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\change_list.html": {
+      "mtime": 1793822588,
+      "size": 4442
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\filters\\search.html": {
+      "mtime": 1793868706,
+      "size": 467
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\th.js": {
+      "mtime": 1793822588,
+      "size": 1074
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\vertical\\input.html": {
+      "mtime": 1793868706,
+      "size": 801
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\date_hierarchy.html": {
+      "mtime": 1793822588,
+      "size": 617
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\errors\\dict\\ul.html": {
+      "mtime": 1793822591,
+      "size": 137
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\horizontal\\radio.html": {
+      "mtime": 1793868706,
+      "size": 1796
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\vertical\\dict_field.html": {
+      "mtime": 1793868706,
+      "size": 252
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\widgets\\url.html": {
+      "mtime": 1793822588,
+      "size": 218
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\horizontal\\select_multiple.html": {
+      "mtime": 1793868706,
+      "size": 1191
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\vertical\\select_multiple.html": {
+      "mtime": 1793868706,
+      "size": 1184
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\emails\\relance_paiement.html": {
+      "mtime": 1793827427,
+      "size": 2951
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\inline\\checkbox_multiple.html": {
+      "mtime": 1793868706,
+      "size": 487
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\widgets\\time.html": {
+      "mtime": 1793822588,
+      "size": 71
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\id.js": {
+      "mtime": 1793822588,
+      "size": 768
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\formsets\\table.html": {
+      "mtime": 1793822591,
+      "size": 88
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\datetime.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\et.js": {
+      "mtime": 1793822588,
+      "size": 801
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\vertical\\fieldset.html": {
+      "mtime": 1793868706,
+      "size": 346
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\static\\rest_framework\\js\\jquery-3.7.1.min.js": {
+      "mtime": 1793868706,
+      "size": 87533
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\views\\templates\\technical_500.html": {
+      "mtime": 1793822591,
+      "size": 18191
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\url.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\errors\\dict\\ul.html": {
+      "mtime": 1793822591,
+      "size": 137
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\change_form_object_tools.html": {
+      "mtime": 1793822588,
+      "size": 403
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\students\\eleve_form.html": {
+      "mtime": 1794081807,
+      "size": 2129
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\autocomplete.js": {
+      "mtime": 1793822588,
+      "size": 1066
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\text.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\hidden.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\inline\\input.html": {
+      "mtime": 1793868706,
+      "size": 530
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\gis\\static\\gis\\js\\OLMapWidget.js": {
+      "mtime": 1793822590,
+      "size": 11805
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\pagination.html": {
+      "mtime": 1793822588,
+      "size": 654
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\horizontal\\fieldset.html": {
+      "mtime": 1793868706,
+      "size": 480
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\pl.js": {
+      "mtime": 1793822588,
+      "size": 947
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\tr.js": {
+      "mtime": 1793822588,
+      "size": 775
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\horizontal\\form.html": {
+      "mtime": 1793868706,
+      "size": 149
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\vertical\\form.html": {
+      "mtime": 1793868706,
+      "size": 149
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\color.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\vertical\\select.html": {
+      "mtime": 1793868706,
+      "size": 1162
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\registration\\password_reset_form.html": {
+      "mtime": 1793822588,
+      "size": 1214
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\attendance_payments\\paiement_list.html": {
+      "mtime": 1793827427,
+      "size": 3319
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\admin\\list_value.html": {
+      "mtime": 1793868706,
+      "size": 241
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\static\\rest_framework\\js\\bootstrap.min.js": {
+      "mtime": 1793868706,
+      "size": 39680
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\number.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\sq.js": {
+      "mtime": 1793822588,
+      "size": 903
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\filter.html": {
+      "mtime": 1793822588,
+      "size": 395
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\horizontal\\checkbox.html": {
+      "mtime": 1793868706,
+      "size": 658
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\login_base.html": {
+      "mtime": 1793868706,
+      "size": 2857
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\school\\classe_list.html": {
+      "mtime": 1794010763,
+      "size": 3882
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\vertical\\textarea.html": {
+      "mtime": 1793868706,
+      "size": 694
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\app_index.html": {
+      "mtime": 1793822588,
+      "size": 519
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\students\\parent_list.html": {
+      "mtime": 1793827428,
+      "size": 1751
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\includes\\fieldset.html": {
+      "mtime": 1793822588,
+      "size": 3044
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\prepopulate_init.js": {
+      "mtime": 1793822588,
+      "size": 726
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\ul.html": {
+      "mtime": 1793822591,
+      "size": 779
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\cancel.js": {
+      "mtime": 1793822588,
+      "size": 886
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\static\\rest_framework\\js\\prettify-min.js": {
+      "mtime": 1793868706,
+      "size": 13632
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\widgets\\radio.html": {
+      "mtime": 1793822588,
+      "size": 57
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\emails\\convocation_parent.html": {
+      "mtime": 1793827427,
+      "size": 2729
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\school\\etablissement_list.html": {
+      "mtime": 1793827428,
+      "size": 1880
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\calendar.js": {
+      "mtime": 1793822588,
+      "size": 12223
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\vertical\\list_fieldset.html": {
+      "mtime": 1793868706,
+      "size": 222
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\div.html": {
+      "mtime": 1793822591,
+      "size": 514
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\p.html": {
+      "mtime": 1793822591,
+      "size": 740
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\select_date.html": {
+      "mtime": 1793822591,
+      "size": 54
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\checkbox.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\filters\\ordering.html": {
+      "mtime": 1793868706,
+      "size": 556
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\school\\confirm_delete.html": {
+      "mtime": 1793827428,
+      "size": 845
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\xregexp\\xregexp.js": {
+      "mtime": 1793822588,
+      "size": 325171
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\is.js": {
+      "mtime": 1793822588,
+      "size": 807
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\input_option.html": {
+      "mtime": 1793822591,
+      "size": 219
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\views\\templates\\i18n_catalog.js": {
+      "mtime": 1793822591,
+      "size": 2785
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\multiple_hidden.html": {
+      "mtime": 1793822591,
+      "size": 54
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\students\\inscription_list.html": {
+      "mtime": 1793827428,
+      "size": 3442
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\attendance_payments\\paiement_form.html": {
+      "mtime": 1794081807,
+      "size": 2121
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\school\\classe_form.html": {
+      "mtime": 1794081807,
+      "size": 1953
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\admin\\list.html": {
+      "mtime": 1793868706,
+      "size": 819
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\academics\\enseignant_form.html": {
+      "mtime": 1793827427,
+      "size": 1009
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\views\\templates\\directory_index.html": {
+      "mtime": 1793822591,
+      "size": 707
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\academics\\bulletin.html": {
+      "mtime": 1793827116,
+      "size": 4963
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admindocs\\templates\\admin_doc\\view_detail.html": {
+      "mtime": 1793822588,
+      "size": 931
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\pt.js": {
+      "mtime": 1793822588,
+      "size": 878
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\app_list.html": {
+      "mtime": 1793822588,
+      "size": 2233
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\static\\rest_framework\\js\\ajax-form.js": {
+      "mtime": 1793868706,
+      "size": 3796
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\multiple_input.html": {
+      "mtime": 1793822591,
+      "size": 395
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\formsets\\ul.html": {
+      "mtime": 1793822591,
+      "size": 85
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\sl.js": {
+      "mtime": 1793822588,
+      "size": 925
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\change_form.html": {
+      "mtime": 1793822588,
+      "size": 3746
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\edit_inline\\stacked.html": {
+      "mtime": 1793822588,
+      "size": 3108
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\theme.js": {
+      "mtime": 1793822588,
+      "size": 1708
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\accounts\\user_form.html": {
+      "mtime": 1793827427,
+      "size": 1035
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\de.js": {
+      "mtime": 1793822588,
+      "size": 866
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\horizontal\\list_field.html": {
+      "mtime": 1793868706,
+      "size": 317
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admindocs\\templates\\admin_doc\\index.html": {
+      "mtime": 1793822588,
+      "size": 1396
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\views\\templates\\default_urlconf.html": {
+      "mtime": 1793822591,
+      "size": 12602
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admindocs\\templates\\admin_doc\\model_index.html": {
+      "mtime": 1793822588,
+      "size": 1385
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\search.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\academics\\affectation_form.html": {
+      "mtime": 1793827426,
+      "size": 947
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\registration\\password_reset_email.html": {
+      "mtime": 1793822588,
+      "size": 606
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\multiple_hidden.html": {
+      "mtime": 1793822591,
+      "size": 54
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\formsets\\ul.html": {
+      "mtime": 1793822591,
+      "size": 83
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\admin.html": {
+      "mtime": 1793868706,
+      "size": 10902
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\admin\\dict_value.html": {
+      "mtime": 1793868706,
+      "size": 242
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\number.html": {
+      "mtime": 1793822591,
+      "size": 48
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\prepopulated_fields_js.html": {
+      "mtime": 1793822588,
+      "size": 238
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\horizontal\\list_fieldset.html": {
+      "mtime": 1793868706,
+      "size": 384
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\field.html": {
+      "mtime": 1793822591,
+      "size": 507
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\tk.js": {
+      "mtime": 1793822588,
+      "size": 771
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\attrs.html": {
+      "mtime": 1793822591,
+      "size": 172
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\invalid_setup.html": {
+      "mtime": 1793822588,
+      "size": 474
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\multiwidget.html": {
+      "mtime": 1793822591,
+      "size": 117
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\inline\\form.html": {
+      "mtime": 1793868706,
+      "size": 149
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\errors\\dict\\default.html": {
+      "mtime": 1793822591,
+      "size": 49
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\jquery\\jquery.min.js": {
+      "mtime": 1793822588,
+      "size": 87533
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\cs.js": {
+      "mtime": 1793822588,
+      "size": 1292
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\rest_framework\\templates\\rest_framework\\admin\\simple_list_value.html": {
+      "mtime": 1793868706,
+      "size": 121
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\dsb.js": {
+      "mtime": 1793822588,
+      "size": 1017
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\templates\\django\\forms\\widgets\\checkbox_select.html": {
+      "mtime": 1793822591,
+      "size": 57
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\i18n\\bg.js": {
+      "mtime": 1793822588,
+      "size": 968
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\admin\\404.html": {
+      "mtime": 1793822588,
+      "size": 282
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\static\\admin\\js\\vendor\\select2\\select2.full.min.js": {
+      "mtime": 1793822588,
+      "size": 79212
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\templates\\attendance_payments\\suivi_paiements.html": {
+      "mtime": 1793827427,
+      "size": 3138
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\contrib\\admin\\templates\\registration\\password_reset_done.html": {
+      "mtime": 1793822588,
+      "size": 615
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\label.html": {
+      "mtime": 1793822591,
+      "size": 147
+    },
+    "c:\\Users\\HP\\OneDrive\\Desktop\\SchoolManager\\env\\Lib\\site-packages\\django\\forms\\jinja2\\django\\forms\\widgets\\clearable_file_input.html": {
+      "mtime": 1793822591,
+      "size": 559
+    }
+  }
+}

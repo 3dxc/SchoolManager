@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils import timezone
+from django.conf import settings
 
 
 class Etablissement(models.Model):
@@ -182,3 +183,147 @@ class Classe(models.Model):
     @property
     def nb_eleves(self):
         return self.inscriptions.filter(statut='actif').count()
+
+
+class Campus(models.Model):
+    """
+    Modèle Campus & Secrétariat : permet à l'administration de modifier l'adresse,
+    le téléphone, les coordonnées GPS pour la carte Leaflet, les horaires et les consignes
+    sans devoir modifier le code source.
+    """
+    nom = models.CharField(max_length=200, default="Campus & Secrétariat", verbose_name="Nom du campus")
+    etablissement = models.ForeignKey(
+        Etablissement, on_delete=models.CASCADE,
+        related_name="campus_set", null=True, blank=True,
+        verbose_name="Établissement rattaché"
+    )
+    adresse = models.TextField(
+        default="Place de la Liberté - BP 71, Bamako - Mali",
+        verbose_name="Adresse complète"
+    )
+    telephone = models.CharField(
+        max_length=50, default="+223 20 23 10 35",
+        verbose_name="Téléphone d'accueil / Standard"
+    )
+    telephone_mobile = models.CharField(
+        max_length=50, default="+223 76 00 00 00", blank=True,
+        verbose_name="Téléphone direct / Urgences"
+    )
+    email = models.EmailField(
+        default="contact@schoolmanager.ml",
+        verbose_name="Courriel officiel"
+    )
+    latitude = models.DecimalField(
+        max_digits=9, decimal_places=6, default=12.639200,
+        verbose_name="Latitude GPS"
+    )
+    longitude = models.DecimalField(
+        max_digits=9, decimal_places=6, default=-7.998200,
+        verbose_name="Longitude GPS"
+    )
+    zoom_carte = models.PositiveSmallIntegerField(
+        default=15, verbose_name="Niveau de zoom de la carte (1 à 19)"
+    )
+    lien_inscription = models.CharField(
+        max_length=255, blank=True, default="",
+        verbose_name="Lien externe d'inscription (optionnel)",
+        help_text="Laissez vide pour utiliser le formulaire d'inscription standard du système."
+    )
+    horaires = models.TextField(
+        default="Du Lundi au Vendredi : 07h30 - 16h30\nSamedi : 08h00 - 12h00\nDimanche : Fermé",
+        verbose_name="Horaires d'ouverture"
+    )
+    consignes_acces = models.TextField(
+        default="Entrée principale située Place de la Liberté. Présentation obligatoire d'un badge ou d'une pièce d'identité à l'accueil pour tout visiteur.",
+        verbose_name="Consignes d'accès et sécurité"
+    )
+    actif = models.BooleanField(default=True, verbose_name="Campus principal affiché sur le tableau de bord")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Campus & Secrétariat"
+        verbose_name_plural = "Campus & Secrétariats"
+
+    def __str__(self):
+        return f"{self.nom} — {self.adresse[:40]}"
+
+    @property
+    def telephone_digits(self):
+        """Format nettoyé pour les liens href='tel:...' sur mobile."""
+        return "".join(c for c in self.telephone if c.isdigit() or c == '+')
+
+    @property
+    def mobile_digits(self):
+        """Format nettoyé pour le mobile."""
+        return "".join(c for c in self.telephone_mobile if c.isdigit() or c == '+')
+
+    @property
+    def itineraire_url(self):
+        """Lien direct vers l'application de navigation GPS (Google Maps / Apple Maps / OSM)."""
+        return f"https://www.google.com/maps/dir/?api=1&destination={self.latitude},{self.longitude}"
+
+
+class SignalementProbleme(models.Model):
+    """
+    Modèle de signalement : remplace le simple texte statique par un véritable
+    système d'enregistrement et de suivi des demandes et problèmes par l'administration.
+    """
+    TYPE_TECHNIQUE = 'technique'
+    TYPE_ACCES = 'acces'
+    TYPE_CAMPUS = 'campus'
+    TYPE_PEDAGOGIQUE = 'pedagogique'
+    TYPE_AUTRE = 'autre'
+    TYPE_CHOICES = [
+        (TYPE_TECHNIQUE, 'Problème technique / Affichage de la carte'),
+        (TYPE_ACCES, 'Accès / Connexion au portail'),
+        (TYPE_CAMPUS, 'Locaux / Campus / Stationnement / Accès'),
+        (TYPE_PEDAGOGIQUE, 'Question administrative / Inscription'),
+        (TYPE_AUTRE, 'Autre signalement ou réclamation'),
+    ]
+
+    STATUT_NOUVEAU = 'nouveau'
+    STATUT_EN_COURS = 'en_cours'
+    STATUT_RESOLU = 'resolu'
+    STATUT_REJETE = 'rejete'
+    STATUT_CHOICES = [
+        (STATUT_NOUVEAU, 'Nouveau / En attente'),
+        (STATUT_EN_COURS, 'En cours de traitement'),
+        (STATUT_RESOLU, 'Traité & Résolu'),
+        (STATUT_REJETE, 'Classé sans suite'),
+    ]
+
+    campus = models.ForeignKey(
+        Campus, on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='signalements', verbose_name="Campus concerné"
+    )
+    type_probleme = models.CharField(
+        max_length=20, choices=TYPE_CHOICES, default=TYPE_TECHNIQUE,
+        verbose_name="Type de problème"
+    )
+    nom = models.CharField(max_length=150, verbose_name="Nom complet / Auteur")
+    email = models.EmailField(blank=True, verbose_name="Adresse courriel")
+    telephone = models.CharField(max_length=30, blank=True, verbose_name="Téléphone de contact")
+    message = models.TextField(verbose_name="Description détaillée du problème")
+    statut = models.CharField(
+        max_length=20, choices=STATUT_CHOICES, default=STATUT_NOUVEAU,
+        verbose_name="Statut du traitement"
+    )
+    notes_admin = models.TextField(
+        blank=True, verbose_name="Notes administratives de suivi / Traitement"
+    )
+    traite_par = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True,
+        related_name='signalements_traites', verbose_name="Traité par"
+    )
+    date_signalement = models.DateTimeField(auto_now_add=True, verbose_name="Date de signalement")
+    date_resolution = models.DateTimeField(null=True, blank=True, verbose_name="Date de clôture / résolution")
+
+    class Meta:
+        verbose_name = "Signalement de problème"
+        verbose_name_plural = "Signalements de problèmes"
+        ordering = ['-date_signalement']
+
+    def __str__(self):
+        return f"[{self.get_statut_display()}] {self.get_type_probleme_display()} — {self.nom} ({self.date_signalement.strftime('%d/%m/%Y')})"
+

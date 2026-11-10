@@ -4,13 +4,106 @@
 {% block title %}
   {% if user.is_enseignant %}Espace Enseignant &amp; Pédagogie — SchoolManager
   {% elif user.is_paiement %}Espace Caisse &amp; Recouvrement — SchoolManager
-  {% else %}Tableau de bord Direction — SchoolManager{% endif %}
+  {% elif user.is_super_admin %}
+    {% if selected_etablissement %}Supervision {{ selected_etablissement.nom }} — Super Admin{% else %}Tableau de bord Général (Super Admin) — SchoolManager{% endif %}
+  {% else %}
+    Tableau de bord Direction ({{ direction_etablissement.nom|default:'Établissement' }}) — SchoolManager
+  {% endif %}
 {% endblock %}
 
 {% block page_title %}
   {% if user.is_enseignant %}Espace Pédagogique Enseignant
   {% elif user.is_paiement %}Espace Caisse &amp; Comptabilité
-  {% else %}Tableau de bord Général{% endif %}
+  {% elif user.is_super_admin %}
+    {% if selected_etablissement %}Supervision &bull; {{ selected_etablissement.nom }}{% else %}Tableau de bord Général{% endif %}
+  {% else %}
+    Tableau de bord Direction
+  {% endif %}
+{% endblock %}
+
+{% block topbar_selector %}
+{% if user.is_super_admin %}
+<div class="dropdown d-inline-block">
+  <button class="topbar-etab-btn dropdown-toggle" type="button" id="dropdownEtabSuperAdmin" data-bs-toggle="dropdown" aria-expanded="false" title="Filtrer la supervision par établissement">
+    <i class="bi bi-buildings text-primary"></i>
+    <span class="text-secondary fw-normal d-none d-lg-inline">Établissement :</span>
+    <span class="text-dark fw-bold">{% if selected_etablissement %}{{ selected_etablissement.nom }}{% else %}Tous les établissements{% endif %}</span>
+  </button>
+  <ul class="dropdown-menu topbar-etab-menu" aria-labelledby="dropdownEtabSuperAdmin">
+    <li>
+      <div class="px-3 py-1 text-uppercase text-muted fw-bold" style="font-size:0.68rem;letter-spacing:0.5px;">
+        <i class="bi bi-funnel-fill text-primary me-1"></i>Supervision Multi-Établissements
+      </div>
+    </li>
+    <li>
+      <a class="dropdown-item topbar-etab-item {% if not selected_etablissement %}active{% endif %}" href="?etablissement=tous">
+        <span class="d-inline-flex align-items-center gap-2">
+          <i class="bi bi-globe2 text-primary"></i>
+          <span>Tous les établissements (Vue consolidée)</span>
+        </span>
+        {% if not selected_etablissement %}<i class="bi bi-check2-circle text-warning fs-6"></i>{% endif %}
+      </a>
+    </li>
+    <li><hr class="dropdown-divider my-1"></li>
+    <li>
+      <div class="px-3 py-1 text-muted small fw-semibold" style="font-size:0.72rem;">
+        Sélectionner un établissement :
+      </div>
+    </li>
+    {% for etab in tous_etablissements %}
+    <li>
+      <a class="dropdown-item topbar-etab-item {% if selected_etablissement and selected_etablissement.id == etab.id %}active{% endif %}" href="?etablissement={{ etab.id }}">
+        <span class="d-inline-flex align-items-center gap-2">
+          <i class="bi bi-building text-secondary"></i>
+          <span>{{ etab.nom }}</span>
+        </span>
+        {% if selected_etablissement and selected_etablissement.id == etab.id %}<i class="bi bi-check2-circle text-warning fs-6"></i>{% endif %}
+      </a>
+    </li>
+    {% endfor %}
+    <li><hr class="dropdown-divider my-1"></li>
+    <li>
+      <a class="dropdown-item topbar-etab-item py-1 text-secondary small" href="{% url 'school:etablissement_list' %}">
+        <span class="d-inline-flex align-items-center gap-2">
+          <i class="bi bi-gear-fill text-muted"></i>
+          <span>Gérer les établissements...</span>
+        </span>
+      </a>
+    </li>
+  </ul>
+</div>
+{% elif user.is_direction %}
+<div class="dropdown d-inline-block">
+  <button class="topbar-etab-btn dropdown-toggle" type="button" id="dropdownEtabDirection" data-bs-toggle="dropdown" aria-expanded="false" title="Établissement unique affecté à la direction">
+    <i class="bi bi-building-check text-success"></i>
+    <span class="text-secondary fw-normal d-none d-lg-inline">Établissement :</span>
+    <span class="text-dark fw-bold">{{ direction_etablissement.nom }}</span>
+    <span class="badge badge-status-valide ms-1" style="font-size:0.65rem;padding:0.15rem 0.45rem;">Unique</span>
+  </button>
+  <ul class="dropdown-menu topbar-etab-menu" aria-labelledby="dropdownEtabDirection">
+    <li>
+      <div class="px-3 py-1 text-uppercase text-muted fw-bold" style="font-size:0.68rem;letter-spacing:0.5px;">
+        <i class="bi bi-shield-check text-success me-1"></i>Rattachement Institutionnel Direction
+      </div>
+    </li>
+    <li>
+      <div class="dropdown-item topbar-etab-item active" style="cursor:default;">
+        <span class="d-inline-flex align-items-center gap-2">
+          <i class="bi bi-building-fill text-warning"></i>
+          <span>{{ direction_etablissement.nom }}</span>
+        </span>
+        <i class="bi bi-check-circle-fill text-success fs-6"></i>
+      </div>
+    </li>
+    <li>
+      <div class="px-3 py-2 text-muted small border-top mt-1" style="font-size:0.75rem;line-height:1.45;background:#f8fafc;">
+        <i class="bi bi-lock-fill text-secondary me-1"></i>
+        <strong>Établissement unique :</strong> En tant que Direction, vos attributions et vos indicateurs sont strictement circonscrits à cet établissement de référence.
+      </div>
+    </li>
+  </ul>
+</div>
+{% endif %}
 {% endblock %}
 
 {% block topbar_actions %}
@@ -20,7 +113,7 @@
     <span class="live-dot-pulse" title="Système opérationnel"></span>
     <span class="small fw-bold text-dark font-monospace" id="topbarLiveClock">--:--:--</span>
     <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 rounded-pill px-2 py-1 d-none d-sm-inline-flex align-items-center" style="font-size:0.72rem;">
-      <i class="bi bi-shield-check me-1"></i>En ligne &bull; {{ user.get_role_display }}
+      <i class="bi bi-shield-check me-1"></i>En ligne &bull; {% if user.is_super_admin %}Super Admin{% elif user.is_direction %}Direction ({{ direction_etablissement.nom|default:'Établissement' }}){% else %}{{ user.get_role_display }}{% endif %}
     </span>
   </div>
 
@@ -193,9 +286,9 @@
               <td><span class="badge bg-light text-dark border">{{ n.get_periode_display|default:n.periode }}</span></td>
               <td>
                 {% if n.valeur >= 10 %}
-                  <span class="badge bg-success bg-opacity-15 text-success border border-success border-opacity-25">{{ n.valeur }}/20</span>
+                  <span class="badge badge-status-valide">{{ n.valeur }}/20</span>
                 {% else %}
-                  <span class="badge bg-danger bg-opacity-15 text-danger border border-danger border-opacity-25">{{ n.valeur }}/20</span>
+                  <span class="badge badge-status-danger">{{ n.valeur }}/20</span>
                 {% endif %}
               </td>
             </tr>
@@ -235,9 +328,9 @@
               <td class="fw-semibold text-dark">{{ abs.inscription.eleve.nom_complet }}</td>
               <td>
                 {% if abs.motif == 'justifie' %}
-                  <span class="badge bg-info bg-opacity-15 text-info border">Justifiée</span>
+                  <span class="badge badge-status-a-venir">Justifiée</span>
                 {% else %}
-                  <span class="badge bg-danger bg-opacity-15 text-danger border">Non justifiée</span>
+                  <span class="badge badge-status-danger">Non justifiée</span>
                 {% endif %}
               </td>
             </tr>
@@ -462,7 +555,7 @@
     </div>
   </div>
 
-  <div class="collapse mt-3" id="collapseEchanges">
+  <div class="collapse show mt-3" id="collapseEchanges">
     <div class="row g-2 pt-2 border-top">
       {% for ech in echanges_etablissements %}
       <div class="col-md-4">
@@ -476,11 +569,11 @@
           </div>
           <div class="text-end">
             {% if ech.statut == 'valide' %}
-              <span class="badge bg-success bg-opacity-15 text-success border">Validé</span>
+              <span class="badge badge-status-valide"><i class="bi bi-check-circle-fill me-1" style="font-size:0.65rem;"></i>Validé</span>
             {% elif ech.statut == 'en_cours' %}
-              <span class="badge bg-warning bg-opacity-15 text-dark border">En cours</span>
+              <span class="badge badge-status-en-cours"><i class="bi bi-clock-fill me-1" style="font-size:0.65rem;"></i>En cours</span>
             {% else %}
-              <span class="badge bg-secondary bg-opacity-15 text-secondary border">En attente</span>
+              <span class="badge badge-status-attente"><i class="bi bi-hourglass-split me-1" style="font-size:0.65rem;"></i>En attente</span>
             {% endif %}
             <div class="text-muted mt-1" style="font-size: 0.65rem;">{{ ech.date }}</div>
           </div>
@@ -534,26 +627,38 @@
   </div>
 </div>
 
-<!-- Hero Direction -->
+<!-- Hero Super Admin vs Direction -->
+{% if user.is_super_admin %}
 <div class="dashboard-hero mb-4">
   <div class="row align-items-center g-3">
     <div class="col-lg-8">
       <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 border border-white border-opacity-15 small mb-2">
-        <i class="bi bi-building text-warning"></i>
-        <span>Direction Générale &amp; Supervision</span>
+        <i class="bi bi-shield-lock text-warning"></i>
+        <span>Supervision Globale &bull; Super Administrateur</span>
       </div>
       <h2 class="dashboard-hero-title mb-2">
-        SchoolManager — Direction des Études
+        {% if selected_etablissement %}
+          Supervision : {{ selected_etablissement.nom }}
+        {% else %}
+          SchoolManager — Console Super Admin Multi-Établissements
+        {% endif %}
       </h2>
       <p class="dashboard-hero-subtitle mb-3">
-        Pilotage global de l'établissement : gestion académique, admissions, enseignants et indicateurs de performance.
+        {% if selected_etablissement %}
+          Vue consolidée et filtrée pour l'établissement <strong>{{ selected_etablissement.nom }}</strong>. Vous pouvez à tout moment commuter vers un autre établissement ou afficher l'ensemble du réseau via le bouton déroulant ci-dessus.
+        {% else %}
+          Supervision globale et pilotage consolidé de l'ensemble des établissements du réseau : gestion multi-écoles, admissions générales, effectifs et indicateurs financiers.
+        {% endif %}
       </p>
       <div class="d-flex flex-wrap gap-2">
         <a href="{% url 'students:inscription_create' %}" class="btn btn-light btn-sm fw-bold rounded-pill px-3 py-2 text-dark shadow-sm">
           <i class="bi bi-file-earmark-plus me-1 text-primary"></i>Nouvelle inscription
         </a>
-        <a href="#section-stats-detaillees" class="btn btn-hero-secondary">
-          <i class="bi bi-bar-chart-line me-1"></i>Bilan Élèves &amp; Finances
+        <a href="{% url 'school:etablissement_list' %}" class="btn btn-hero-secondary">
+          <i class="bi bi-buildings me-1"></i>Gérer les Établissements
+        </a>
+        <a href="{% url 'accounts:user_list' %}" class="btn btn-hero-secondary">
+          <i class="bi bi-people me-1"></i>Comptes &amp; Rôles
         </a>
         <a href="{% url 'export_stats_csv' %}" class="btn btn-hero-secondary">
           <i class="bi bi-file-earmark-arrow-down me-1"></i>Export Fichier (CSV)
@@ -567,6 +672,58 @@
     </div>
   </div>
 </div>
+{% else %}
+<!-- Hero Direction (Établissement Unique Exclusif) -->
+<div class="dashboard-hero mb-4" style="background: linear-gradient(135deg, #132738 0%, #1c3d5a 60%, #2b394a 100%);">
+  <div class="row align-items-center g-3">
+    <div class="col-lg-8">
+      <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white bg-opacity-10 border border-white border-opacity-15 small mb-2">
+        <i class="bi bi-building-check text-success"></i>
+        <span>Direction des Études &bull; Établissement Unique</span>
+      </div>
+      <h2 class="dashboard-hero-title mb-2">
+        {{ direction_etablissement.nom }} — Direction des Études
+      </h2>
+      <p class="dashboard-hero-subtitle mb-3">
+        Pilotage exclusif de votre établissement : gestion académique des classes, suivi des élèves inscrits, affectation des enseignants et bilan financier propre à {{ direction_etablissement.nom }}.
+      </p>
+      <div class="d-flex flex-wrap gap-2">
+        <a href="{% url 'students:inscription_create' %}" class="btn btn-light btn-sm fw-bold rounded-pill px-3 py-2 text-dark shadow-sm">
+          <i class="bi bi-file-earmark-plus me-1 text-primary"></i>Nouvelle inscription
+        </a>
+        <a href="{% url 'school:classe_list' %}" class="btn btn-hero-secondary">
+          <i class="bi bi-people me-1"></i>Classes
+        </a>
+        <a href="{% url 'academics:enseignant_list' %}" class="btn btn-hero-secondary">
+          <i class="bi bi-person-workspace me-1"></i>Enseignants
+        </a>
+        <a href="{% url 'export_stats_csv' %}" class="btn btn-hero-secondary">
+          <i class="bi bi-file-earmark-arrow-down me-1"></i>Export Fichier (CSV)
+        </a>
+      </div>
+    </div>
+    <div class="col-lg-4 text-center d-none d-lg-block">
+      <div class="p-2 bg-white bg-opacity-15 rounded-circle d-inline-block shadow">
+        <img src="{% static 'img/logo.jpg' %}" alt="Logo Hibou" style="width: 120px; height: 120px; object-fit: contain;">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bandeau d'information de rattachement unique Direction -->
+<div class="alert alert-light border shadow-xs d-flex align-items-center justify-content-between p-3 mb-4 rounded-3" style="background:#f8fafc; border-color:#e2e8f0;">
+  <div class="d-flex align-items-center gap-2.5">
+    <i class="bi bi-info-circle-fill text-primary fs-5"></i>
+    <div>
+      <div class="fw-bold text-dark small">Périmètre de supervision : {{ direction_etablissement.nom }}</div>
+      <div class="text-muted" style="font-size:0.75rem;">Conformément à la politique d'accès, une Direction ne peut être rattachée qu'à un seul établissement. Les effectifs et indicateurs ci-dessous concernent uniquement votre structure.</div>
+    </div>
+  </div>
+  <span class="badge badge-status-valide d-none d-md-inline-flex">
+    <i class="bi bi-shield-check me-1"></i>Accès Direction Unique Conforme
+  </span>
+</div>
+{% endif %}
 
 <!-- 4 Cartouches d'accès direct (Statistiques, Carte Scolaire, Documents, Aide & Directions) -->
 <div class="row g-3 mb-4">
@@ -1033,7 +1190,15 @@
             <tr>
               <td class="fw-semibold text-dark">{{ annee.libelle }}</td>
               <td class="text-muted small">{{ annee.etablissement.nom }}</td>
-              <td><span class="badge bg-success bg-opacity-15 text-success border">En cours</span></td>
+              <td>
+                {% if annee.statut == 'en_cours' %}
+                  <span class="badge badge-status-en-cours"><i class="bi bi-play-circle-fill me-1" style="font-size:0.65rem;"></i>En cours</span>
+                {% elif annee.statut == 'terminee' %}
+                  <span class="badge badge-status-terminee"><i class="bi bi-check-circle-fill me-1" style="font-size:0.65rem;"></i>Terminée</span>
+                {% else %}
+                  <span class="badge badge-status-a-venir"><i class="bi bi-calendar2-event-fill me-1" style="font-size:0.65rem;"></i>À venir</span>
+                {% endif %}
+              </td>
             </tr>
             {% empty %}
             <tr><td colspan="3" class="text-center text-muted py-3">Aucune année enregistrée.</td></tr>
@@ -1084,23 +1249,385 @@
   {% endfor %}
 </div>
 
-<!-- Contact & Campus -->
-<div class="bg-white border rounded-4 p-4 mb-4 shadow-xs">
-  <div class="row g-3 align-items-center">
-    <div class="col-lg-6">
-      <h5 class="fw-bold text-dark mb-2"><i class="bi bi-geo-alt-fill text-danger me-2"></i>Campus &amp; Secrétariat</h5>
-      <p class="text-muted small mb-3">Place de la Liberté - BP 71, Bamako - Mali | Tél: +223 20 23 10 35</p>
-      <a href="{% url 'students:inscription_create' %}" class="btn btn-sm btn-dark rounded-pill px-3 py-1">
-        <i class="bi bi-file-earmark-plus me-1"></i>Nouvelle inscription
-      </a>
-    </div>
-    <div class="col-lg-6">
-      <div class="rounded-3 overflow-hidden border" style="height: 180px;">
-        <iframe title="Carte Bamako" src="https://www.openstreetmap.org/export/embed.html?bbox=-8.030%2C12.620%2C-7.960%2C12.665&amp;layer=mapnik&amp;marker=12.6392%2C-7.9982" width="100%" height="100%" style="border:0;" loading="lazy"></iframe>
+<!-- ══ Section Interactive Campus & Secrétariat (Modèle dynamique & Leaflet) ══ -->
+<div class="bg-white border rounded-4 p-4 mb-4 shadow-sm" id="campus-section">
+  <div class="row g-4 align-items-stretch">
+    
+    <!-- Colonne Gauche : Coordonnées, Contacts & Consignes d'Accès -->
+    <div class="col-lg-6 d-flex flex-column justify-content-between">
+      <div>
+        <!-- En-tête avec badges d'état et bouton Admin -->
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <div class="d-inline-flex align-items-center gap-2">
+            <span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25 rounded-pill px-2 py-1 small fw-bold">
+              <i class="bi bi-geo-alt-fill me-1"></i>Campus Officiel
+            </span>
+            <span class="text-muted small d-inline-flex align-items-center gap-1">
+              <span class="live-dot-pulse" style="width:7px; height:7px;"></span>
+              Mise à jour en temps réel
+            </span>
+          </div>
+          {% if user.is_admin %}
+          <a href="{% url 'admin:school_campus_change' campus.id %}" target="_blank" class="btn btn-sm btn-outline-secondary rounded-pill py-1 px-3 shadow-2xs" style="font-size:0.75rem; font-weight:600;" title="Modifier les coordonnées dans l'administration Django">
+            <i class="bi bi-gear-fill me-1"></i>Modifier les infos (Admin)
+          </a>
+          {% endif %}
+        </div>
+
+        <!-- Titre du Campus -->
+        <h4 class="fw-bold text-dark mb-1 d-flex align-items-center gap-2">
+          <i class="bi bi-buildings-fill text-danger"></i>
+          {{ campus.nom }}
+        </h4>
+
+        <!-- Adresse -->
+        <p class="text-muted small mb-3">
+          <i class="bi bi-pin-map-fill text-danger me-1"></i><strong>Adresse :</strong> {{ campus.adresse }}
+        </p>
+
+        <!-- Coordonnées Cliquables (Appel & Email directs) -->
+        <div class="row g-2 mb-3">
+          <!-- Téléphone -->
+          <div class="col-sm-6">
+            <a href="tel:{{ campus.telephone_digits }}" class="campus-contact-card text-decoration-none d-flex align-items-center gap-2 p-2 rounded-3 border bg-light h-100" title="Cliquer pour appeler le {{ campus.telephone }}">
+              <div class="contact-icon-box bg-success bg-opacity-10 text-success rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center">
+                <i class="bi bi-telephone-fill"></i>
+              </div>
+              <div class="overflow-hidden">
+                <div class="text-muted text-uppercase" style="font-size:0.65rem; font-weight:700; letter-spacing:0.5px;">STANDARD TÉL.</div>
+                <div class="fw-bold text-dark text-truncate small">{{ campus.telephone }}</div>
+              </div>
+              <i class="bi bi-chevron-right text-muted ms-auto me-1 small"></i>
+            </a>
+          </div>
+
+          <!-- Courriel -->
+          <div class="col-sm-6">
+            <a href="mailto:{{ campus.email }}" class="campus-contact-card text-decoration-none d-flex align-items-center gap-2 p-2 rounded-3 border bg-light h-100" title="Cliquer pour envoyer un courriel à {{ campus.email }}">
+              <div class="contact-icon-box bg-primary bg-opacity-10 text-primary rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center">
+                <i class="bi bi-envelope-at-fill"></i>
+              </div>
+              <div class="overflow-hidden">
+                <div class="text-muted text-uppercase" style="font-size:0.65rem; font-weight:700; letter-spacing:0.5px;">COURRIEL OFFICIEL</div>
+                <div class="fw-bold text-dark text-truncate small">{{ campus.email }}</div>
+              </div>
+              <i class="bi bi-chevron-right text-muted ms-auto me-1 small"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Horaires & Consignes d'Accès : Affichage Direct avec Contenu Complet (Aucune section vide) -->
+        <div class="bg-light rounded-3 border p-3 mb-3">
+          <!-- Horaires -->
+          <div class="d-flex align-items-start gap-2 mb-2 pb-2 border-bottom">
+            <div class="bg-warning bg-opacity-15 text-warning rounded-2 p-1 flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 28px; height: 28px;">
+              <i class="bi bi-clock-fill" style="font-size: 0.85rem;"></i>
+            </div>
+            <div>
+              <div class="fw-bold text-dark small">Horaires d'ouverture &amp; Accueil :</div>
+              <div class="text-muted small" style="white-space: pre-line; line-height: 1.45;">{{ campus.horaires }}</div>
+            </div>
+          </div>
+
+          <!-- Consignes -->
+          <div class="d-flex align-items-start gap-2">
+            <div class="bg-secondary bg-opacity-15 text-secondary rounded-2 p-1 flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 28px; height: 28px;">
+              <i class="bi bi-shield-lock-fill" style="font-size: 0.85rem;"></i>
+            </div>
+            <div>
+              <div class="fw-bold text-dark small">Consignes d'accès &amp; Sécurité :</div>
+              <div class="text-muted small" style="white-space: pre-line; line-height: 1.45;">{{ campus.consignes_acces }}</div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <!-- Barre d'Actions Utiles & Interactives -->
+      <div class="d-flex flex-wrap align-items-center gap-2 pt-3 border-top mt-2">
+        {% if campus.lien_inscription %}
+          <a href="{{ campus.lien_inscription }}" class="btn btn-sm btn-dark rounded-pill px-3 py-2 fw-semibold d-inline-flex align-items-center gap-2 shadow-sm">
+            <i class="bi bi-file-earmark-plus-fill text-warning"></i>
+            <span>Nouvelle inscription</span>
+          </a>
+        {% else %}
+          <a href="{% url 'students:inscription_create' %}" class="btn btn-sm btn-dark rounded-pill px-3 py-2 fw-semibold d-inline-flex align-items-center gap-2 shadow-sm">
+            <i class="bi bi-file-earmark-plus-fill text-warning"></i>
+            <span>Nouvelle inscription</span>
+          </a>
+        {% endif %}
+
+        <a href="{{ campus.itineraire_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-2 fw-semibold d-inline-flex align-items-center gap-1" title="Calculer l'itinéraire vers le campus dans votre application GPS">
+          <i class="bi bi-arrow-up-right-circle-fill"></i>
+          <span>Itinéraire</span>
+        </a>
+
+        <!-- Bouton Signaler un problème -->
+        <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-2 fw-semibold ms-auto d-inline-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#modalSignalement">
+          <i class="bi bi-flag-fill"></i>
+          <span>Signaler un problème</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Colonne Droite : Carte Interactive Leaflet Sans Erreur 403 (CartoDB Voyager) -->
+    <div class="col-lg-6">
+      <div class="position-relative rounded-4 overflow-hidden border shadow-xs h-100" style="min-height: 340px;">
+        <!-- Conteneur Carte Leaflet -->
+        <div id="leafletCampusMap" style="width: 100%; height: 100%; min-height: 340px; z-index: 1;"></div>
+
+        <!-- Commandes Flottantes en Haut à Droite (Évite le chevauchement avec l'attribution) -->
+        <div class="position-absolute top-0 end-0 m-3 d-flex align-items-center gap-2" style="z-index: 1000;">
+          <button type="button" class="btn btn-sm btn-light border shadow-sm rounded-pill px-3 py-1 fw-semibold d-inline-flex align-items-center gap-1 text-dark" id="btnRecenterMap" title="Recentrer sur le campus">
+            <i class="bi bi-crosshair text-danger"></i> Recentrer
+          </button>
+          <a href="{{ campus.itineraire_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary shadow-sm border-0 rounded-pill px-3 py-1 fw-semibold d-inline-flex align-items-center gap-1" title="Lancer le guidage GPS">
+            <i class="bi bi-compass-fill"></i> Itinéraire GPS
+          </a>
+        </div>
+
+        <!-- Petit bandeau d'indication en bas à gauche -->
+        <div class="position-absolute bottom-0 start-0 m-2 px-2 py-1 bg-white bg-opacity-90 rounded-pill shadow-xs border small d-none d-sm-inline-flex align-items-center gap-1 text-muted" style="z-index: 1000; font-size: 0.7rem;">
+          <i class="bi bi-info-circle-fill text-primary"></i> Cliquez sur le repère pour les détails
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ Modal Django : Signaler un problème (Traitement administratif) ══ -->
+<div class="modal fade" id="modalSignalement" tabindex="-1" aria-labelledby="modalSignalementLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg rounded-4">
+      <div class="modal-header bg-danger bg-opacity-10 border-0 py-3">
+        <h5 class="modal-title fw-bold text-danger d-flex align-items-center gap-2" id="modalSignalementLabel">
+          <i class="bi bi-exclamation-octagon-fill"></i>
+          Signaler un problème
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <form method="post" action="{% url 'school:signalement_create' %}">
+        {% csrf_token %}
+        <div class="modal-body p-4">
+          <p class="text-muted small mb-3">
+            Votre signalement sera directement enregistré dans la base de données et transmis aux administrateurs de <strong>{{ campus.nom }}</strong> pour prise en charge.
+          </p>
+          <div class="mb-3">
+            <label class="form-label small fw-bold text-dark">Type de problème <span class="text-danger">*</span></label>
+            {{ signalement_form.type_probleme }}
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-sm-6">
+              <label class="form-label small fw-bold text-dark">Votre nom complet <span class="text-danger">*</span></label>
+              {{ signalement_form.nom }}
+            </div>
+            <div class="col-sm-6">
+              <label class="form-label small fw-bold text-dark">Téléphone de contact</label>
+              {{ signalement_form.telephone }}
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-bold text-dark">Adresse courriel</label>
+            {{ signalement_form.email }}
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-bold text-dark">Description détaillée du problème <span class="text-danger">*</span></label>
+            {{ signalement_form.message }}
+          </div>
+          {{ signalement_form.campus }}
+        </div>
+        <div class="modal-footer bg-light border-0 py-3">
+          <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3" data-bs-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn btn-sm btn-danger rounded-pill px-4 fw-bold">
+            <i class="bi bi-send-fill me-1"></i>Transmettre le signalement
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 {% endif %}
 
+{% endblock %}
+
+{% block extra_css %}
+<!-- Feuille de style officielle Leaflet pour la carte interactive -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<style>
+  #leafletCampusMap {
+    background-color: #f8fafc;
+  }
+  
+  /* Cartes de contact */
+  .campus-contact-card {
+    transition: all 0.2s ease;
+    border-color: #e2e8f0 !important;
+  }
+  .campus-contact-card:hover {
+    background-color: #ffffff !important;
+    border-color: var(--primary-light) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  .contact-icon-box {
+    width: 38px;
+    height: 38px;
+  }
+
+  /* Marqueur animé moderne haute couture */
+  .campus-pin-container {
+    position: relative;
+    width: 36px;
+    height: 36px;
+  }
+  .campus-pin-badge {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 60%, #991b1b 100%);
+    border: 2.5px solid #ffffff;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    box-shadow: 0 4px 14px rgba(220, 38, 38, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .campus-pin-badge i {
+    transform: rotate(45deg);
+    font-size: 1.05rem;
+  }
+  .campus-pin-container:hover .campus-pin-badge {
+    transform: rotate(-45deg) scale(1.15);
+    box-shadow: 0 6px 18px rgba(220, 38, 38, 0.6);
+  }
+  .campus-pin-pulse {
+    position: absolute;
+    width: 22px;
+    height: 10px;
+    background: rgba(239, 68, 68, 0.4);
+    border-radius: 50%;
+    bottom: -4px;
+    left: 7px;
+    animation: pinPulse 2s infinite ease-out;
+  }
+  @keyframes pinPulse {
+    0% { transform: scale(0.6); opacity: 1; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+
+  /* Popups Leaflet Stylées */
+  .leaflet-popup-content-wrapper {
+    border-radius: 16px !important;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.2) !important;
+    border: 1px solid rgba(0,0,0,0.06);
+    padding: 2px;
+  }
+  .leaflet-popup-content {
+    margin: 12px 14px !important;
+    line-height: 1.4 !important;
+  }
+  .leaflet-popup-tip {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+  }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Bibliothèque JavaScript officielle Leaflet -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const mapContainer = document.getElementById('leafletCampusMap');
+    if (mapContainer && typeof L !== 'undefined') {
+      const lat = parseFloat("{{ campus.latitude|stringformat:'.6f' }}") || 12.639200;
+      const lng = parseFloat("{{ campus.longitude|stringformat:'.6f' }}") || -7.998200;
+      const zoom = parseInt("{{ campus.zoom_carte }}") || 15;
+      const campusNom = "{{ campus.nom|escapejs }}";
+      const campusAdresse = "{{ campus.adresse|escapejs }}";
+      const campusTel = "{{ campus.telephone|escapejs }}";
+      const itineraireUrl = "{{ campus.itineraire_url|escapejs }}";
+
+      // 1. Initialisation de la carte Leaflet
+      const map = L.map('leafletCampusMap', {
+        center: [lat, lng],
+        zoom: zoom,
+        zoomControl: true,
+        scrollWheelZoom: false
+      });
+
+      // 2. Tuiles OpenStreetMap France & Esri WorldStreetMap (100% Libres, SANS clé API, aucun filigrane)
+      const primaryTileLayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+        subdomains: 'abc',
+        maxZoom: 20,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributeurs &bull; Rendu OSM France'
+      });
+      primaryTileLayer.addTo(map);
+
+      // En cas de latence ou coupure réseau, bascule automatique instantanée vers Esri WorldStreetMap
+      primaryTileLayer.on('tileerror', function() {
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+          maxZoom: 19,
+          attribution: 'Tiles &copy; Esri &mdash; OpenStreetMap contributors'
+        }).addTo(map);
+      });
+
+      // 3. Marqueur Haute Couture personnalisé (Plein, animé, sans image externe)
+      const campusPinIcon = L.divIcon({
+        className: 'custom-campus-marker',
+        html: `
+          <div class="campus-pin-container">
+            <div class="campus-pin-pulse"></div>
+            <div class="campus-pin-badge" title="${campusNom}">
+              <i class="bi bi-geo-alt-fill"></i>
+            </div>
+          </div>
+        `,
+        iconSize: [36, 36],
+        iconAnchor: [18, 36],
+        popupAnchor: [0, -36]
+      });
+
+      const marker = L.marker([lat, lng], { icon: campusPinIcon }).addTo(map);
+
+      // 4. Popup interactive (s'ouvre au clic pour ne pas masquer la carte au chargement)
+      const popupHtml = `
+        <div style="font-family: inherit; min-width: 210px;">
+          <div style="font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">
+            <span style="color: #ef4444;">📍</span> ${campusNom}
+          </div>
+          <p style="font-size: 0.8rem; color: #64748b; margin: 0 0 8px 0; line-height: 1.35;">
+            ${campusAdresse}
+          </p>
+          <div style="font-size: 0.8rem; margin-bottom: 10px; padding: 4px 8px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <a href="tel:${campusTel.replace(/[^0-9+]/g, '')}" style="color: #10b981; font-weight: 700; text-decoration: none;">
+              📞 ${campusTel}
+            </a>
+          </div>
+          <a href="${itineraireUrl}" target="_blank" rel="noopener noreferrer" style="display: block; text-align: center; background: #1e2430; color: #ffffff; padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; text-decoration: none; font-weight: 600;">
+            🧭 Ouvrir l'itinéraire GPS
+          </a>
+        </div>
+      `;
+      marker.bindPopup(popupHtml);
+
+      // 5. Bouton Recentrer
+      const btnRecenter = document.getElementById('btnRecenterMap');
+      if (btnRecenter) {
+        btnRecenter.addEventListener('click', function(e) {
+          e.preventDefault();
+          map.setView([lat, lng], zoom, { animate: true, duration: 0.8 });
+          marker.openPopup();
+        });
+      }
+
+      // 6. Recalibrage de la taille de carte
+      setTimeout(function() {
+        map.invalidateSize();
+      }, 300);
+    }
+  });
+</script>
 {% endblock %}

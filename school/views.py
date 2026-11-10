@@ -1,8 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Etablissement, AnneeScolaire, Classe, Matiere
-from .forms import EtablissementForm, AnneeScolaireForm, ClasseForm, MatiereForm
+from .models import Etablissement, AnneeScolaire, Classe, Matiere, Campus, SignalementProbleme
+from .forms import EtablissementForm, AnneeScolaireForm, ClasseForm, MatiereForm, SignalementForm
 from accounts.decorators import direction_required
 
 
@@ -180,3 +180,35 @@ def matiere_delete(request, pk):
         messages.success(request, 'Matière supprimée.')
         return redirect('school:matiere_list')
     return render(request, 'school/confirm_delete.html', {'object': obj, 'title': 'Supprimer la matière'})
+
+
+# ── Signalement de Problème ───────────────────────────────────────────────────
+def signalement_create(request):
+    """
+    Enregistre un signalement ou une demande d'assistance (problème d'accès,
+    carte, locaux, inscription, etc.) et le rend disponible pour l'administration.
+    """
+    if request.method == 'POST':
+        form = SignalementForm(request.POST)
+        if form.is_valid():
+            signalement = form.save(commit=False)
+            if request.user.is_authenticated:
+                if not signalement.nom and (request.user.first_name or request.user.last_name):
+                    signalement.nom = request.user.get_full_name()
+                elif not signalement.nom:
+                    signalement.nom = request.user.username
+                if not signalement.email and request.user.email:
+                    signalement.email = request.user.email
+            signalement.save()
+            messages.success(
+                request,
+                f"Votre signalement #{signalement.id} ({signalement.get_type_probleme_display()}) "
+                f"a bien été transmis à l'administration. Merci de votre contribution !"
+            )
+        else:
+            messages.error(
+                request,
+                "Impossible d'enregistrer le signalement. Veuillez vérifier les champs obligatoires."
+            )
+    return redirect('dashboard')
+

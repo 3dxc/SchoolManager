@@ -94,12 +94,11 @@
       <i class="bi bi-people-fill"></i> Classes
     </a>
 
-    {% else %}
-    <!-- ══ VUE DIRECTION & ADMINISTRATEURS (Accès Global) ══ -->
-    <!-- École -->
-    <div class="nav-section-title">École</div>
+    {% elif user.is_super_admin %}
+    <!-- ══ VUE SUPER ADMINISTRATEUR (Accès Multi-Établissements & Réseau) ══ -->
+    <div class="nav-section-title">Réseau &amp; Écoles</div>
     <a href="{% url 'school:etablissement_list' %}" class="nav-link {% if 'etablissement' in request.path %}active{% endif %}">
-      <i class="bi bi-building"></i> Établissements
+      <i class="bi bi-buildings"></i> Établissements
     </a>
     <a href="{% url 'school:annee_list' %}" class="nav-link {% if 'annees' in request.path %}active{% endif %}">
       <i class="bi bi-calendar3"></i> Années scolaires
@@ -112,9 +111,9 @@
     </a>
 
     <!-- Élèves -->
-    <div class="nav-section-title">Élèves</div>
+    <div class="nav-section-title">Élèves &amp; Inscriptions</div>
     <a href="{% url 'students:eleve_list' %}" class="nav-link {% if '/students/' in request.path and 'parents' not in request.path and 'inscriptions' not in request.path %}active{% endif %}">
-      <i class="bi bi-person-badge-fill"></i> Élèves
+      <i class="bi bi-person-badge-fill"></i> Répertoire Élèves
     </a>
     <a href="{% url 'students:parent_list' %}" class="nav-link {% if 'parents' in request.path %}active{% endif %}">
       <i class="bi bi-people"></i> Parents / Tuteurs
@@ -124,7 +123,7 @@
     </a>
 
     <!-- Académique -->
-    <div class="nav-section-title">Académique</div>
+    <div class="nav-section-title">Corps Professoral</div>
     <a href="{% url 'academics:enseignant_list' %}" class="nav-link {% if 'enseignants' in request.path %}active{% endif %}">
       <i class="bi bi-person-workspace"></i> Enseignants
     </a>
@@ -132,11 +131,11 @@
       <i class="bi bi-diagram-3-fill"></i> Affectations
     </a>
     <a href="{% url 'academics:note_list' %}" class="nav-link {% if 'notes' in request.path %}active{% endif %}">
-      <i class="bi bi-pencil-square"></i> Notes
+      <i class="bi bi-pencil-square"></i> Relevés &amp; Notes
     </a>
 
     <!-- Suivi -->
-    <div class="nav-section-title">Suivi</div>
+    <div class="nav-section-title">Suivi &amp; Comptabilité</div>
     <a href="{% url 'attendance_payments:absence_list' %}" class="nav-link {% if 'absences' in request.path %}active{% endif %}">
       <i class="bi bi-calendar-x-fill"></i> Absences
     </a>
@@ -148,15 +147,64 @@
     </a>
 
     <!-- Admin -->
-    {% if user.is_admin %}
-    <div class="nav-section-title">Administration</div>
+    <div class="nav-section-title">Administration Système</div>
     <a href="{% url 'accounts:user_list' %}" class="nav-link {% if 'utilisateurs' in request.path %}active{% endif %}">
-      <i class="bi bi-shield-lock-fill"></i> Utilisateurs
+      <i class="bi bi-shield-lock-fill"></i> Comptes &amp; Rôles
     </a>
     <a href="{% url 'admin:index' %}" class="nav-link" target="_blank">
       <i class="bi bi-gear-fill"></i> Admin Django
     </a>
-    {% endif %}
+
+    {% else %}
+    <!-- ══ VUE DIRECTION (Établissement Unique Exclusif) ══ -->
+    <div class="nav-section-title">Mon Établissement</div>
+    <div class="px-3 py-2 text-white small rounded bg-white bg-opacity-10 mb-2 mx-2">
+      <i class="bi bi-building-check text-success me-1"></i>
+      <strong>{{ user.etablissement.nom|default:'Établissement rattaché' }}</strong>
+      <div class="text-white-50 mt-1" style="font-size:0.68rem;"><i class="bi bi-lock-fill me-1"></i>Direction exclusive</div>
+    </div>
+    <a href="{% url 'school:annee_list' %}" class="nav-link {% if 'annees' in request.path %}active{% endif %}">
+      <i class="bi bi-calendar3"></i> Années scolaires
+    </a>
+    <a href="{% url 'school:classe_list' %}" class="nav-link {% if 'classes' in request.path %}active{% endif %}">
+      <i class="bi bi-people-fill"></i> Classes
+    </a>
+    <a href="{% url 'school:matiere_list' %}" class="nav-link {% if 'matieres' in request.path %}active{% endif %}">
+      <i class="bi bi-book-fill"></i> Matières
+    </a>
+
+    <div class="nav-section-title">Élèves &amp; Inscriptions</div>
+    <a href="{% url 'students:eleve_list' %}" class="nav-link {% if '/students/' in request.path and 'parents' not in request.path and 'inscriptions' not in request.path %}active{% endif %}">
+      <i class="bi bi-person-badge-fill"></i> Répertoire Élèves
+    </a>
+    <a href="{% url 'students:parent_list' %}" class="nav-link {% if 'parents' in request.path %}active{% endif %}">
+      <i class="bi bi-people"></i> Parents / Tuteurs
+    </a>
+    <a href="{% url 'students:inscription_list' %}" class="nav-link {% if 'inscriptions' in request.path %}active{% endif %}">
+      <i class="bi bi-clipboard-check-fill"></i> Inscriptions
+    </a>
+
+    <div class="nav-section-title">Académique &amp; Pédagogie</div>
+    <a href="{% url 'academics:enseignant_list' %}" class="nav-link {% if 'enseignants' in request.path %}active{% endif %}">
+      <i class="bi bi-person-workspace"></i> Enseignants
+    </a>
+    <a href="{% url 'academics:affectation_list' %}" class="nav-link {% if 'affectations' in request.path %}active{% endif %}">
+      <i class="bi bi-diagram-3-fill"></i> Affectations
+    </a>
+    <a href="{% url 'academics:note_list' %}" class="nav-link {% if 'notes' in request.path %}active{% endif %}">
+      <i class="bi bi-pencil-square"></i> Notes
+    </a>
+
+    <div class="nav-section-title">Suivi Quotidien</div>
+    <a href="{% url 'attendance_payments:absence_list' %}" class="nav-link {% if 'absences' in request.path %}active{% endif %}">
+      <i class="bi bi-calendar-x-fill"></i> Absences
+    </a>
+    <a href="{% url 'attendance_payments:paiement_list' %}" class="nav-link {% if 'paiements' in request.path and 'suivi' not in request.path %}active{% endif %}">
+      <i class="bi bi-cash-stack"></i> Paiements
+    </a>
+    <a href="{% url 'attendance_payments:suivi_paiements' %}" class="nav-link {% if 'suivi' in request.path %}active{% endif %}">
+      <i class="bi bi-graph-up-arrow"></i> Suivi des frais
+    </a>
     {% endif %}
   </div>
 
@@ -166,7 +214,11 @@
       <div class="avatar-initiales">{{ user.first_name|first|upper }}{{ user.last_name|first|upper }}</div>
       <div class="overflow-hidden">
         <div class="text-truncate text-white" style="font-size:0.8rem;font-weight:600;">{{ user.get_full_name|default:user.username }}</div>
-        <div style="color:var(--secondary);font-size:0.7rem;">{{ user.get_role_display }}</div>
+        <div style="color:var(--secondary);font-size:0.7rem;">
+          {% if user.is_super_admin %}Super Admin
+          {% elif user.is_direction %}Direction &bull; {{ user.etablissement.nom|default:'Établissement' }}
+          {% else %}{{ user.get_role_display }}{% endif %}
+        </div>
       </div>
     </div>
     <form method="post" action="{% url 'accounts:logout' %}">
@@ -189,6 +241,9 @@
         <i class="bi bi-list fs-4" style="color:var(--primary)"></i>
       </button>
       <h1 class="page-title">{% block page_title %}{% endblock %}</h1>
+      <div class="topbar-etab-selector ms-sm-2">
+        {% block topbar_selector %}{% endblock %}
+      </div>
     </div>
     <div class="topbar-right">
       {% block topbar_actions %}{% endblock %}

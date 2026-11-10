@@ -38,21 +38,21 @@
           <td class="fw-bold text-dark">{{ c.nom }}</td>
           <td>
             {% if c.grande_section == 'maternelle' %}
-              <span class="badge bg-warning bg-opacity-20 text-dark border border-warning border-opacity-50">Maternelle (Préscolaire)</span>
+              <span class="badge badge-status-en-cours">Maternelle (Préscolaire)</span>
             {% elif c.grande_section == 'fondamental_1' %}
-              <span class="badge bg-info bg-opacity-15 text-info border border-info border-opacity-25">1er Cycle Fondamental (1-6)</span>
+              <span class="badge badge-status-a-venir">1er Cycle Fondamental (1-6)</span>
             {% elif c.grande_section == 'fondamental_2' %}
-              <span class="badge bg-primary bg-opacity-15 text-primary border border-primary border-opacity-25">2nd Cycle Fondamental (7-9 DEF)</span>
+              <span class="badge badge-status-primary">2nd Cycle Fondamental (7-9 DEF)</span>
             {% elif c.grande_section == 'lycee' %}
-              <span class="badge bg-dark bg-opacity-10 text-dark border">Lycée (10e - BAC)</span>
+              <span class="badge bg-light text-dark border">Lycée (10e - BAC)</span>
             {% elif c.grande_section == 'licence' %}
-              <span class="badge bg-success bg-opacity-15 text-success border border-success border-opacity-25">Licence (L1-L3)</span>
+              <span class="badge badge-status-valide">Licence (L1-L3)</span>
             {% elif c.grande_section == 'master' %}
-              <span class="badge bg-success bg-opacity-15 text-success border border-success border-opacity-25">Master (M1-M2)</span>
+              <span class="badge badge-status-valide">Master (M1-M2)</span>
             {% elif c.grande_section == 'doctorat' %}
-              <span class="badge bg-danger bg-opacity-15 text-danger border border-danger border-opacity-25">Doctorat</span>
+              <span class="badge badge-status-danger">Doctorat</span>
             {% else %}
-              <span class="badge bg-secondary bg-opacity-15 text-secondary border">{{ c.get_grande_section_display|default:'Cycle Général' }}</span>
+              <span class="badge badge-status-attente">{{ c.get_grande_section_display|default:'Cycle Général' }}</span>
             {% endif %}
           </td>
           <td class="small fw-semibold text-dark">{{ c.get_niveau_display }}</td>

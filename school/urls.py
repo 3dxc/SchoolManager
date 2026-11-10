@@ -24,4 +24,6 @@ urlpatterns = [
     path('matieres/creer/', views.matiere_create, name='matiere_create'),
     path('matieres/<int:pk>/modifier/', views.matiere_edit, name='matiere_edit'),
     path('matieres/<int:pk>/supprimer/', views.matiere_delete, name='matiere_delete'),
+    # Signalements
+    path('signalement/', views.signalement_create, name='signalement_create'),
 ]

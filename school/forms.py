@@ -1,5 +1,5 @@
 from django import forms
-from .models import Etablissement, AnneeScolaire, Classe, Matiere
+from .models import Etablissement, AnneeScolaire, Classe, Matiere, Campus, SignalementProbleme
 
 
 class EtablissementForm(forms.ModelForm):
@@ -49,4 +49,18 @@ class MatiereForm(forms.ModelForm):
             'nom': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: Mathématiques, Physique-Chimie, Français'}),
             'coefficient': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Ex: 4'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Objectifs d\'apprentissage et programme du cours...'}),
+        }
+
+
+class SignalementForm(forms.ModelForm):
+    class Meta:
+        model = SignalementProbleme
+        fields = ['type_probleme', 'nom', 'email', 'telephone', 'message', 'campus']
+        widgets = {
+            'type_probleme': forms.Select(attrs={'class': 'form-select'}),
+            'nom': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: Mamadou Traoré'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Ex: m.traore@email.ml'}),
+            'telephone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: +223 76 12 34 56'}),
+            'message': forms.Textarea(attrs={'class': 'form-control', 'rows': 4, 'placeholder': 'Décrivez précisément le problème rencontré (accès, affichage de la carte, inscription, locaux...)'}),
+            'campus': forms.HiddenInput(),
         }
